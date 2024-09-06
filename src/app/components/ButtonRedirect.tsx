@@ -10,6 +10,6 @@ export const ButtonRedirect = () => {
       router.push('/login');
     }    
   return (
-    <button onClick={handleClick}>Go To Login Page</button>
+    <button onClick={handleClick} className='mt-5 text-green-800 font-bold hover:underline'>Go To Login Page</button>
   )
 }

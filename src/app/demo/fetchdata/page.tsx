@@ -1,4 +1,4 @@
-import { Posts } from "@/app/components/Posts";
+import { List } from "@/app/components/Posts";
 
 export default function fetchdata(){
 
@@ -7,7 +7,7 @@ export default function fetchdata(){
   // const posts = data.posts;
 
   return (
-    <Posts/>
+    <List/>
     // <ul>
     //   {posts.map((post) => (
     //     <li key={post.id}>{post.title}</li>
