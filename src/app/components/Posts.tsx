@@ -1,14 +1,13 @@
 'use client'
 
 import Link from "next/link";
-import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 
 const List = () => {
     const [posts, setPosts] = useState([]);
     const [isLoading, setIsLoading] = useState(false);
-    const router = useRouter();
+    // const router = useRouter();
 
     useEffect(() => {
         async function fetchPosts() {                
@@ -24,13 +23,9 @@ const List = () => {
     }, []);
 
 
-  const handleClick = (id) => {
-    router.push('/post/detail?id='+id);
-    // router.push({
-    //   pathname: '/post/detail/[postid]',
-    //   query: { postid: id }
-    // });
-  }
+  // const handleClick = (id) => {
+  //   router.push('/post/detail?id='+id);
+  // }
 
   if(isLoading){
     return(<p>Loading...</p>);
@@ -39,10 +34,13 @@ const List = () => {
   return (
     <>
         <Link href={'/'} className="text-gray-500 font-bold">&lt; Home</Link>
-
-        <ul className="my-5">
+        <ul className="my-5 w-1/3">
             {posts.map((post, i) => (
-                <li onClick={() => handleClick(post.id)} key={i} className="cursor-pointer px-5 hover:bg-gray-300">{i+1}. {post.title}</li>
+                <li key={i} className="cursor-pointer px-5 hover:bg-gray-200">
+                  <Link href={'/posts/'+post.id}>
+                    {i+1}. {post.title}
+                  </Link>
+                </li>
             ))}
         </ul>        
     </>
@@ -52,16 +50,19 @@ const List = () => {
 export interface PostItem{
   id: 0, 
   title: '', 
-  body: ''
+  body: '',
+  tags: [],
+  reactions: { likes: 0, dislikes: 0 },
+  views: 0,
+  userId: 0
 }
 
-const Detail = () => {
-  const [post, setPost] = useState({id: 0, title: '', body: ''}); //{id: 0, title: '', body: ''}
+const Detail = ({id}) => {
+  const [post, setPost] = useState<PostItem | undefined>(undefined); 
   const [isLoading, setIsLoading] = useState(false);
 
-  const searchParams = useSearchParams();
- 
-  const id = searchParams.get('id');  
+  // const searchParams = useSearchParams();
+  // const id = searchParams.get('id');  
 
   useEffect(() => {
       async function fetchPosts() {                
@@ -83,12 +84,24 @@ const Detail = () => {
   return (
     <div className="py-5">
       <div className="mb-5">
-        <Link href={'/post/list'} className="text-gray-500 font-bold">&lt; Back</Link>
+        <Link href={'/posts'} className="text-gray-500 font-bold">&lt; Back</Link>
       </div>        
  
-        <p>{post.id}</p>
-        <p>{post.title}</p>
-        <p>{post.body}</p>
+      {!post || !post.id || post.id<=0 ? 
+        <>
+          <div className="text-center text-xl my-5 font-bold">
+            NOT FOUND
+          </div>        
+        </>
+        :
+        <>
+          <p>{post.id}</p>
+          <p className="font-bold">{post.title}</p>
+          <p>{post.body}</p>        
+        </>
+       }
+
+
     </div>
   )
 }

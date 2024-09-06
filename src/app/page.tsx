@@ -12,13 +12,13 @@ export default function Home() {
     <main className="my-5">
       <ul>
         <li>
-          <Link href={'/login'}>Login</Link>
+          <Link className="hover:underline" href={'/login'}>Login</Link>
         </li>
         <li>
-          <Link href={'/register'}>Register</Link>
+          <Link className="hover:underline" href={'/register'}>Register</Link>
         </li>
         <li>
-          <Link href={'/post/list'}>Post List</Link>
+          <Link className="hover:underline" href={'/posts'}>Posts</Link>
         </li>         
       </ul>
       <ButtonRedirect/>
