@@ -1,14 +1,18 @@
+import { Posts } from "@/app/components/Posts";
 
-export default async function fetchdata(){
+export default function fetchdata(){
 
-  const data = await fetch('https://api.vercel.app/blog')
-  const posts = await data.json()
+  // const res = await fetch('https://dummyjson.com/posts');
+  // const data = await res.json();
+  // const posts = data.posts;
+
   return (
-    <ul>
-      {posts.map((post) => (
-        <li key={post.id}>{post.title}</li>
-      ))}
-    </ul>
+    <Posts/>
+    // <ul>
+    //   {posts.map((post) => (
+    //     <li key={post.id}>{post.title}</li>
+    //   ))}
+    // </ul>
   )
 
 }
