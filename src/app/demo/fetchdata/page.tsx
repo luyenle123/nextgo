@@ -1,17 +1,16 @@
-// import { Blog } from "@/app/components/Blog"
 
 export default async function fetchdata(){
 
-    // let data = await fetch('https://api.vercel.app/blog')
-    // let posts = await data.json()    
+    const data = await fetch('https://api.vercel.app/blog')
+    const posts = await data.json()    
 
   return (
     <>
-        {/* <ul>
-        {posts.map((x) => (
+        <ul>
+        {posts.map((x:any) => (
             <li key={x.id}>{x.title}</li>
         ))}
-        </ul>     */}
+        </ul>    
     </>
   )
 
