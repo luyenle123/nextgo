@@ -1,14 +1,10 @@
 import { Detail } from "@/app/components/Posts";
-// import { useSearchParams } from "next/navigation";
-// import { useRouter } from "next/router";
-
-// export interface PostDetailProp {}
-//props: PostDetailProp
+import { Suspense } from "react";
 
 export default function PostDetail(){
   return (
-    <>
+    <Suspense>
       <Detail/>
-    </>
+    </Suspense>        
   )
 }

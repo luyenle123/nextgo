@@ -74,9 +74,9 @@ const Detail = () => {
 
       setIsLoading(true);
       fetchPosts();
-  }, []);
+  }, [id]);
 
-  if(isLoading){
+  if(isLoading){  
     return(<p>Loading...</p>);
   }
 
