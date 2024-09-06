@@ -7,8 +7,8 @@ export default async function fetchdata(){
   return (
     <>
         <ul>
-        {posts.map((x:any) => (
-            <li key={x.id}>{x.title}</li>
+        {posts.map((post) => (
+            <li key={post.id}>{post.title}</li>
         ))}
         </ul>    
     </>
