@@ -15,9 +15,10 @@ export default function Login(){
         LoaderToggle(true);
         localStorage.removeItem(constants.AUTH_NAME);
         setTimeout(() => {
-          route.push('/' + constants.NAV_LOGIN); 
-    
+          //route.push('/' + constants.NAV_LOGIN); 
           LoaderToggle(false);
+          //redirect('/' + constants.NAV_LOGIN);
+          route.push('/' + constants.NAV_LOGIN); 
         }, 1000);
       }catch (error) {
         route.push('/');

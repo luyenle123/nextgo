@@ -3,16 +3,12 @@
 
 import '@/app/styles/home.css';
 
-
 export default function Home() {
 
-  console.log('>> Home');
+  //console.log('>> Home');
 
   return (
-
     <>
-    <div >
-      
     <div className='home-main'>
         <div className='home-container'>          
          <div className='gogo'>
@@ -21,9 +17,7 @@ export default function Home() {
             </div>
             </div>
         </div>
-      </div>
-      
-    </div>    
+      </div> 
     </>
   );
 }
