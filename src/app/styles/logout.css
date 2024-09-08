@@ -1,0 +1,25 @@
+.logout-main{
+    height: 100%;
+    margin: 0;
+    position: absolute;
+    width: 100%;    
+
+    .logout-container{
+        position: fixed;
+        inset: 0px;
+        width: 50%;
+        height: 100px;
+        margin: auto;    
+    
+        border: solid 1px #9e9191;
+        border-radius: 10px;
+        color: #800202;
+        background-color: #cecece33;
+
+        p{
+            line-height: 100px;
+            text-align: center;
+            font-size: 20px; 
+        }
+    }
+}

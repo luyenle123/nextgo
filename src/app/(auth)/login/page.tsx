@@ -1,11 +1,9 @@
-import Link from "next/link";
+import LoginForm from "@/app/components/auth/loginform";
 
 export default function Login(){
   return (
     <>
-      <div className="text-blue-500">login page</div>
-
-      <Link href={'/'} className="text-orange-600">Home</Link>    
+      <LoginForm/>
     </>
   )
 }

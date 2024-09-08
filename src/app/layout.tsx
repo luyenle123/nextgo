@@ -1,17 +1,11 @@
 import type { Metadata } from "next";
-//import localFont from "next/font/local";
 import "./globals.css";
+import 'react-toastify/dist/ReactToastify.css';
 
-// const geistSans = localFont({
-//   src: "./fonts/GeistVF.woff",
-//   variable: "--font-geist-sans",
-//   weight: "100 900",
-// });
-// const geistMono = localFont({
-//   src: "./fonts/GeistMonoVF.woff",
-//   variable: "--font-geist-mono",
-//   weight: "100 900",
-// });
+import TopNav from "@/app/components/navigations/topnav";
+import { Loader } from "@/app/components/loader/loader";
+import { ToastContainer } from "react-toastify";
+
 
 export const metadata: Metadata = {
   title: "GO GO NEXT",
@@ -23,16 +17,20 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
   return (
     <html lang="en">
-      <body className="m-5">
-        <header className="p-5 text-center border-gray-300 border-solid border rounded">Header</header>
-        {children}
-        <footer className="p-5 text-center border-gray-300 border-solid border rounded">Footer</footer>
-        </body>      
-      {/* <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        {children}
-      </body> */}
+      <body>
+        <ToastContainer autoClose={1000}/>        
+          <TopNav/>
+          <div id="main-container" className='pt-10'>
+            <Loader isActive={false}/>
+            {children}
+          </div>
+          <footer className="text-center min-h-40 bg-gray-200">
+            <p className="leading-10">Footer</p>
+          </footer>     
+      </body>
     </html>
   );
 }

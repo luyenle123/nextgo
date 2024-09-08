@@ -1,4 +1,4 @@
-import { List } from "@/app/components/Posts";
+import { List } from "@/app/components/posts/postList";
 
 export default function fetchdata(){
 

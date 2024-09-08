@@ -1,4 +1,4 @@
-import { Detail } from "@/app/components/Posts";
+import { Detail } from "@/app/components/posts/postDetail";
 import { Suspense } from "react";
 
 export default function Page({ params }: { params: { postid: string } }) {

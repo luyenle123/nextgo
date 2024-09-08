@@ -1,0 +1,89 @@
+.search-page-container
+{
+    padding: 10px 10px 0px 10px;
+
+    .search-page-header{
+        p{
+            text-align: center;
+            font-size: 60px;
+        }
+    }
+
+    .search-page-box
+    {
+        margin-top: 50px;
+        width: 700px;
+        margin: 0 auto;
+        border-radius: 5px;
+        border: solid 1px #ccc;
+        background-color: #f3f3f3;
+
+        .search-page-form{
+            padding: 30px 100px;
+            justify-content: center;
+
+            .form-control{
+                height: 40px;
+            }
+
+            .search-textbox{
+                float: left;
+                margin-right: 8px;
+
+                input{
+                    width: 370px;
+                    height: 40px;
+                    border-radius: 5px;
+                    border: solid 1px #9797976c;
+                    padding-left: 5px;
+                    font-size: 20px;
+                }
+
+                input:focus{
+                    border: solid 1px #dadada;
+                    outline: none;
+                }
+            }
+
+            .search-button{
+                margin-left: 10px;
+
+                button{
+                    width: 120px;
+                    height: 40px;
+                    border: solid 1px #ccc;
+                    border-radius: 5px;
+                    font-size: 16px;
+                    font-weight: 600;
+                    background-color: #e0e0e0;
+                    cursor: pointer;
+                }
+                button:hover {
+                    border-color: #868686;
+                    background-color: rgb(223, 223, 223)0e0;
+                }                
+                button:focus {
+                    outline: none;
+                    border-color: #868686;
+                }              
+            }
+        }
+    }
+
+    .search-page-result{
+        margin-top: 5px;
+        min-height: 500px;
+
+        .search-page-no-result{
+            width: 500px;
+            margin: 0 auto;
+            text-align: center;
+            padding-top: 50px;
+        }
+
+        .search-page-result-info{
+            margin-left: 40px;
+        }
+    }
+
+}
