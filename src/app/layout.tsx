@@ -5,7 +5,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import TopNav from "@/app/components/navigations/topnav";
 import { Loader } from "@/app/components/loader/loader";
 import { ToastContainer } from "react-toastify";
-import { IsLogin } from '@/app/services/userService';
+// import { IsLogin } from '@/app/services/userService';
 
 
 export const metadata: Metadata = {
@@ -19,14 +19,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
 
-  const cl = IsLogin() ? 'pt-10' : '';
-
   return (
     <html lang="en">
       <body>
         <ToastContainer autoClose={1000}/>        
           <TopNav/>
-          <div id="main-container" className={cl}>
+          <div id="main-container" className='pt-10'>
             <Loader isActive={false}/>
             {children}
           </div>

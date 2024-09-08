@@ -41,7 +41,7 @@ const Cart = () => {
   const [cart, setCart] = useState({totalQuantity:0, total:0, totalProducts:0});
   const route = useRouter();
 
-  console.log('Cart Info');
+  //console.log('Cart Info');
 
   let res = null;
   const doGetCartDetail = async() => {

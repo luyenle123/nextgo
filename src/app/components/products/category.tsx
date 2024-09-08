@@ -9,7 +9,7 @@ const Category = ({handleClick}) => {
     const [categorySelected, setCategorySelected] = useState();  
       
     const doFetchCategory = async () => {
-        console.log('>> fetch category via api');        
+        //console.log('>> fetch category via api');        
         const res = await GetCategoryList() as IResponseServiceModel;
         if(res.isSuccess)
         {

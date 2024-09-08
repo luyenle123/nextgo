@@ -22,7 +22,7 @@ const List = () => {
     const [isLoading, setIsLoading] = useState(false);
     let fetchProduct = false;
 
-    console.log('List: ' + categorySelected);
+    //console.log('List: ' + categorySelected);
 
     const FetchProduct = async (page:number) => {
       if(categorySelected && !fetchProduct){
