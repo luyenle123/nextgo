@@ -9,7 +9,7 @@ export default function Home() {
 
   return (
     <>
-    <div className='home-main'>
+      <div className='home-main'>
         {/* <div className='home-container'>          
          <div className='gogo'>
             <div className='text'>

@@ -1,5 +1,6 @@
 import * as constants from '@/app/constants'
 import { FetchData } from '@/app/services/queryServiceBase';
+import { useRouter } from 'next/navigation';
 
 const GetUserList = async (page, pageSize) => {
     const skip = (page - 1) * pageSize;        
@@ -52,7 +53,14 @@ const IsLogin = () =>{
             return true;
         }
     } catch (error) { return false;}
-
 }
 
-export { GetUserList, LoginAPI, IsLogin};
+const ValidateLogin = () =>{
+    if(!IsLogin())
+    {
+        const route = useRouter();
+        route.push('/' + constants.NAV_LOGIN);
+    }
+}
+
+export { GetUserList, LoginAPI, IsLogin, ValidateLogin};
