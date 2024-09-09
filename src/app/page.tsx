@@ -10,13 +10,13 @@ export default function Home() {
   return (
     <>
     <div className='home-main'>
-        <div className='home-container'>          
+        {/* <div className='home-container'>          
          <div className='gogo'>
             <div className='text'>
                 GO GO NEXT
             </div>
             </div>
-        </div>
+        </div> */}
       </div> 
     </>
   );
