@@ -1,8 +1,7 @@
-import { LayoutProps } from '@/app/models/index'
 import React from 'react'
-import Navbar from '../components/navigations/navbar'
+import Navbar from '@/app/components/navigations/navbar'
 
-export function MainLayout({children}: LayoutProps){
+export default function CommonPageLayout({children}){
   return (
     <>
       <Navbar/>

@@ -4,7 +4,7 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { Loader } from "@/app/components/loader/loader";
 import { ToastContainer } from "react-toastify";
-import Navbar from "@/app/components/navigations/navbar";
+//import Navbar from "@/app/components/navigations/navbar";
 // import { IsLogin } from "@/app/services/userService";
 
 export const metadata: Metadata = {
@@ -24,18 +24,10 @@ export default function RootLayout({
     <html lang="en">
       <body suppressHydrationWarning={true}>
         <ToastContainer autoClose={1000}/>        
-          
-          <Navbar/>
+        <Loader isActive={false}/>
 
-          <div id="main">
-            <div id="main-container" className='pt-10'>
-              <Loader isActive={false}/>
-              {children}
-            </div>
-          </div>
-          <footer className="text-center min-h-40 bg-gray-200">
-            <p className="leading-10">Footer</p>
-          </footer>     
+        {children}
+
       </body>
     </html>
   );
