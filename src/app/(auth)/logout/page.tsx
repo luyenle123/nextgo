@@ -1,22 +1,22 @@
 'use client'
 
-import * as constants from '@/app/constants';
 import { useEffect } from 'react';
 import { LoaderToggle } from "@/app/components/loader/loader";
 import { useRouter } from 'next/navigation';
 
 import '@/app/styles/logout.css'
+import { DeleteUserCookie, ValidateUser } from '@/app/services/userService';
 
-export default function Login(){
+export default function LogoutPage(){
     const route = useRouter();
 
     useEffect(() => {
       try{
         LoaderToggle(true);
-        localStorage.removeItem(constants.AUTH_NAME);
+        DeleteUserCookie();
         setTimeout(() => {
           LoaderToggle(false);
-          route.push('/' + constants.NAV_LOGIN); 
+          ValidateUser(route);
         }, 1000);
       }catch (error) {
         route.push('/');

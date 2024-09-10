@@ -4,7 +4,8 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import { Loader } from "@/app/components/loader/loader";
 import { ToastContainer } from "react-toastify";
-import Navbar from "./components/navigations/navbar";
+import Navbar from "@/app/components/navigations/navbar";
+// import { IsLogin } from "@/app/services/userService";
 
 export const metadata: Metadata = {
   title: "GO GO NEXT",
@@ -17,17 +18,20 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
 
+  // console.log('>> LAYOUT> Login: ' + IsLogin());
 
   return (
     <html lang="en">
       <body>
         <ToastContainer autoClose={1000}/>        
-                
-          <Navbar/>    
+          
+          <Navbar/>
 
-          <div id="main-container" className='pt-10'>
-            <Loader isActive={false}/>
-            {children}
+          <div id="main">
+            <div id="main-container" className='pt-10'>
+              <Loader isActive={false}/>
+              {children}
+            </div>
           </div>
           <footer className="text-center min-h-40 bg-gray-200">
             <p className="leading-10">Footer</p>

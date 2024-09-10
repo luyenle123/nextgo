@@ -5,7 +5,7 @@ import React, { useEffect } from 'react'
 import { toast } from 'react-toastify';
 import { LoaderToggle } from "@/app/components/loader/loader";
 import { useState} from 'react'
-import { LoginAPI } from '@/app/services/userService';
+import { IsLogin, LoginAPI, SaveUser } from '@/app/services/userService';
 import * as constants from '@/app/constants'
 import { IResponseServiceModel } from "@/app/models/responseModel";
 
@@ -19,7 +19,7 @@ const LoginForm = () => {
     const inputRef = React.useRef();
 
     useEffect(() => {
-      if(localStorage.getItem(constants.AUTH_NAME)){
+      if(IsLogin()){
           route.push('/')
       }
     });
@@ -51,7 +51,11 @@ const LoginForm = () => {
         if(res.isSuccess)
         {
           if(res.data.token !== undefined){
-            localStorage.setItem(constants.AUTH_NAME, res.data.token);
+            SaveUser(res.data.token);
+            //localStorage.setItem(constants.AUTH_NAME, res.data.token);
+
+            console.log('>> LOGIN FORM > Login: ' + IsLogin());
+
             toast('Login successful.');
             route.push('/');
           }
