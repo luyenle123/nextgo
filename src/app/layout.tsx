@@ -22,7 +22,7 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body>
+      <body suppressHydrationWarning={true}>
         <ToastContainer autoClose={1000}/>        
           
           <Navbar/>
