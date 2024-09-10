@@ -1,11 +1,8 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import 'react-toastify/dist/ReactToastify.css';
-
 import { Loader } from "@/app/components/loader/loader";
 import { ToastContainer } from "react-toastify";
-//import Navbar from "@/app/components/navigations/navbar";
-// import { IsLogin } from "@/app/services/userService";
 
 export const metadata: Metadata = {
   title: "GO GO NEXT",

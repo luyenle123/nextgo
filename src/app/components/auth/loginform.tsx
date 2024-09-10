@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 import { LoaderToggle } from "@/app/components/loader/loader";
 import { useState} from 'react'
 import { IsLogin, LoginAPI, SaveUser } from '@/app/services/userService';
-import * as constants from '@/app/constants'
 import { IResponseServiceModel } from "@/app/models/responseModel";
 
 import '@/app/styles/login.css'
@@ -52,16 +51,12 @@ const LoginForm = () => {
         {
           if(res.data.token !== undefined){
             SaveUser(res.data.token);
-            //localStorage.setItem(constants.AUTH_NAME, res.data.token);
 
-            console.log('>> LOGIN FORM > Login: ' + IsLogin());
-
-            toast('Login successful.');
             route.push('/');
           }
         }
         else{
-          toast('Error: ' + res.data);
+          toast.error('Error: ' + res.data);
         }
 
         LoaderToggle(false);

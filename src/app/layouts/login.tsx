@@ -1,6 +1,6 @@
 import { LayoutProps } from '@/app/models/index'
 
-export function MainLayout({children}: LayoutProps){
+export function LoginLayout({children}: LayoutProps){
   return (
     <>
       <div id="main-container">

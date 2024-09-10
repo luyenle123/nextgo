@@ -1,6 +1,3 @@
-// import { ButtonRedirect } from "@/app/components/ButtonRedirect";
-// import Link from "next/link";
-
 import '@/app/styles/home.css';
 import { MainLayout } from './layouts/main';
 
