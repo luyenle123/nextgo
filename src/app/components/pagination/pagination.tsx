@@ -17,6 +17,7 @@ export const GetConfig = (isLoading, hasData, pageInfo) => {
         hideDisplayOption: false,
         hideDisplayPageInfo: false,
         hidePageDropDownInfo: false,
+        hideTotalItem: false,
         handlePaginationNumberClick: handlePaginationNumberClick,
         handleBackClick:handleBackClick,
         handleNextClick:handleNextClick,
@@ -35,6 +36,7 @@ export const CloneConfig = (config) => {
         hideDisplayOption: config.hideDisplayOption,
         hideDisplayPageInfo: config.hideDisplayPageInfo,
         hidePageDropDownInfo: config.hidePageDropDownInfo,
+        hideTotalItem: config.hideTotalItem,
         handlePaginationNumberClick: config.handlePaginationNumberClick,
         handleBackClick:config.handleBackClick,
         handleNextClick:config.handleNextClick,
@@ -66,6 +68,8 @@ export const Pagination = ({config}) => {
                     ))}
                 </select>            
             }
+
+            { config.hideTotalItem ? <></> : <span>{config.pageInfo.total} entries</span> }
 
             <DisplayPageInfo config={config}/>
 
