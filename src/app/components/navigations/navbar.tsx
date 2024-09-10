@@ -1,13 +1,11 @@
 'use client'
 
-import iconmenu from '@/app/images/icon-menu.png';
 import Link from 'next/link';
 import * as constants from '@/app/constants'
 import { Cart } from '@/app/components/cart/cart';
 import { useEffect, useState } from 'react';
 import { useRouter, usePathname } from 'next/navigation';
 import { IsLogin } from '@/app/services/userService';
-import Image from 'next/image';
 
 export default function Navbar(){
     const [isActive, setIsActive] = useState(false);
