@@ -58,15 +58,11 @@ const handleKeyDown = (event) => {
 
 
   return (
-    <div className='search-page-container'>
-        <div className='search-page-box'>
-            <div className='search-page-form'>
-              <div className="search-textbox">
-                <input ref={inputRef} onChange={(e) => setKey(e.target.value)} onKeyDown={handleKeyDown}></input>
-              </div>
-              <div className='search-button'>
-                <button onClick={handleSearchClick} onKeyDown={handleKeyDown}>Search</button>
-              </div>
+    <div className='p-2'>
+        <div className='w-full md:w-2/5 mt-0 mx-auto bg-gray-200 rounded border-gray-400'>
+            <div className='p-8 flex'>
+                <input className='h-9 w-full rounded-l rounded-b text-xl pl-1 outline-none' maxLength={50} ref={inputRef} onChange={(e) => setKey(e.target.value)} onKeyDown={handleKeyDown}></input>
+                <button className='h-9 w-24 bg-gray-300 rounded-r rounded-b font-bold hover:bg-gray-400 active:bg-gray-300' onClick={handleSearchClick} onKeyDown={handleKeyDown}>Search</button>
             </div>
         </div>
 

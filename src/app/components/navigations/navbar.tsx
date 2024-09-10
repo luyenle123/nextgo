@@ -1,11 +1,13 @@
 'use client'
 
+import iconmenu from '@/app/images/icon-menu.png';
 import Link from 'next/link';
 import * as constants from '@/app/constants'
 import { Cart } from '@/app/components/cart/cart';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { IsLogin } from '@/app/services/userService';
+import Image from 'next/image';
 
 export default function Navbar(){
     const [isActive, setIsActive] = useState(false);
@@ -13,11 +15,19 @@ export default function Navbar(){
 
     const route = useRouter();
     let isLogin = IsLogin();
+    const pathname = usePathname();
 
     useEffect(() => {
         if(!isLogin){
             route.push('/' + constants.NAV_LOGIN);
         }
+
+        const segments = pathname.split('/');
+        if(segments && segments.length > 1)
+        {
+            const page = segments[1];
+            setmenuSelected(page);
+        }        
     }, []);
 
     if(!isLogin){
@@ -51,7 +61,7 @@ export default function Navbar(){
         setmenuSelected(n.text);
         setIsActive(false);
         route.push(n.url);
-    }    
+    }
 
   return (
     <> 
@@ -66,20 +76,29 @@ export default function Navbar(){
 
 
             <div className='nline-block sm:inline-block md:hidden'>
-                <button onClick={handleClick} className='p-2 border-solid border-gray-300'>
-                    {menuSelected}
-                </button>
+
+                <div className='w-full'>
+                    <div className='w-8 h-9 pl-1 cursor-pointer float-left' onClick={handleClick}>
+                        <hr className='h-1 bg-gray-500 mt-3'/>
+                        <hr className='h-1 bg-gray-500 mt-1'/>
+                        <hr className='h-1 bg-gray-500 mt-1'/>
+                    </div>
+
+                    <div className='pl-3 mt-3 float-left'>
+                        {menuSelected}
+                    </div>
+                </div>
                 
                 {isActive ? 
-                    <div className='-mt-2'>
+                    <>
                         <ul className="h-full w-full float-left my-1  bg-sky-600">
                             {navs.map((n, i) => (
                                 <li key={i} className="float-left py-1 w-full border-sky-600 hover:bg-sky-700 active:bg-sky-900">
-                                    <p className='px-1 cursor-pointer' onClick={() => handleMenuClick(n)}>{n.text}</p>
+                                    <p className='pl-2 cursor-pointer' onClick={() => handleMenuClick(n)}>{n.text}</p>
                                 </li>
                             ))}
                         </ul>
-                    </div>
+                    </>
                  : <></>}                    
             </div>
 
