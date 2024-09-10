@@ -3,7 +3,7 @@ import { MainLayout } from './layouts/main';
 
 export default function Home() {
 
-  //console.log('>> Home');
+  //console.log('>> Home'); 
 
   return (
     <MainLayout>
