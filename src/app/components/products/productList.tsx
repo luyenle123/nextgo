@@ -140,21 +140,22 @@ const categoryHandleClick = (category) => {
   config.handleItemDisplayChanged = handleItemDisplayChanged;
   config.handleSortingChanged = handleSortingChanged;
   config.hideSortOption = true;
+  config.hideSortOption = true;
+  config.hideDisplayPageInfo = true;
+  config.hideDisplayOption = true;
+  config.hidePageDropDownInfo = true;
 
   const config1 = CloneConfig(config);
-  config1.hideSortOption = true;
-  config1.hideDisplayPageInfo = true;
-  config1.hideDisplayOption = true;
 
   return (
     <>
-    <div className="clear-both flex min-h-svh">
+    <div className="lg:flex clear-both min-h-svh">
 
-      <div className="float-left h-auto min-w-80 bg-gray-100">
+      <div className="float-left sm:float-none md:float-none w-full lg:w-80 h-auto min-w-80 bg-gray-100">
         <Category handleClick={categoryHandleClick}/>
       </div>
       
-      <div className="float-left">
+      <div className="float-left sm:float-none md:float-none">
         {products && products.length > 0 ? 
         <>
           <div className="m-1">
@@ -185,7 +186,7 @@ const categoryHandleClick = (category) => {
 export function ProductItem({product, handleAddToCartClick}){
   return(
     <>
-      <div className="w-full sm:w-full md:w-full lg:w-1/2 xl:w-1/3 2xl:w-1/4 relative">
+      <div className="w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/3 2xl:w-1/4 relative">
         <div className="productcard-min-h-460 border-gray-300 border-solid border rounded m-1 p-2">
 
           <div className="w-60 mx-auto my-0 mt-5">

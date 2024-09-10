@@ -16,6 +16,7 @@ export const GetConfig = (isLoading, hasData, pageInfo) => {
         hideSortOption: false,
         hideDisplayOption: false,
         hideDisplayPageInfo: false,
+        hidePageDropDownInfo: false,
         handlePaginationNumberClick: handlePaginationNumberClick,
         handleBackClick:handleBackClick,
         handleNextClick:handleNextClick,
@@ -30,9 +31,10 @@ export const CloneConfig = (config) => {
         isLoading: config.isLoading,
         pageInfo: config.pageInfo,
         hasData: config.hasData,
-        hideSortOption: false,
-        hideDisplayOption: false,
-        hideDisplayPageInfo: false,
+        hideSortOption: config.hideSortOption,
+        hideDisplayOption: config.hideDisplayOption,
+        hideDisplayPageInfo: config.hideDisplayPageInfo,
+        hidePageDropDownInfo: config.hidePageDropDownInfo,
         handlePaginationNumberClick: config.handlePaginationNumberClick,
         handleBackClick:config.handleBackClick,
         handleNextClick:config.handleNextClick,
@@ -57,11 +59,13 @@ export const Pagination = ({config}) => {
             ))}
             <button onClick={config.handleNextClick} className="pagination-number">&gt;&gt;</button>
 
-            <select onChange={config.handlePaginationNumberClick} value={config.pageInfo.page}>
-                {config.pageInfo.allPaginationNumbers.map((p) => (
-                    <option key={p} value={p}>{p}</option>
-                ))}
-            </select>
+            {config.hidePageDropDownInfo ? <></> : 
+                <select onChange={config.handlePaginationNumberClick} value={config.pageInfo.page}>
+                    {config.pageInfo.allPaginationNumbers.map((p) => (
+                        <option key={p} value={p}>{p}</option>
+                    ))}
+                </select>            
+            }
 
             <DisplayPageInfo config={config}/>
 
