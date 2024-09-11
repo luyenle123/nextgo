@@ -4,40 +4,38 @@ import Link from 'next/link';
 import * as constants from '@/app/constants'
 import { Cart } from '@/app/components/cart/cart';
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import { IsLogin } from '@/app/services/userService';
 
 export default function Navbar(){
     const [isActive, setIsActive] = useState(false);
-    const [menuSelected, setmenuSelected] = useState('Home');
+    //const [menuSelected, setmenuSelected] = useState('Home');
 
     const route = useRouter();
+    const pathname = usePathname();
+    let currentPageName = 'Home Page';
+
     let isLogin = IsLogin();
     
-
     useEffect(() => {
         if(!isLogin){
             route.push('/' + constants.NAV_LOGIN);
         }
-
-        //const pathname = usePathname();
-        // const segments = pathname.split('/');
-        // if(segments && segments.length > 1)
-        // {
-        //     let page = segments[1];
-        //     if(page.length === 0)
-        //         page = 'Home Page';
-        //     setmenuSelected(page);
-        // }else{
-        //     setmenuSelected('Home Page');
-        // }
     }, []);
 
     if(!isLogin){
         isLogin = IsLogin();
-    }    
+    }
+    
+    const segments = pathname.split('/');
+    if(segments && segments.length > 1)
+    {
+        currentPageName = segments[1];
+        if(currentPageName.length === 0)
+            currentPageName = 'Home Page';
+    }   
 
-    // console.log('>> TOPNAV> Login: ' + isLogin + ' / ' + IsLogin());
+    //console.log('>> Navbar');
 
     const navs = [
         {url:'/' + constants.NAV_LOGOUT, text:'Logout'},
@@ -48,7 +46,6 @@ export default function Navbar(){
         {url:'/' + constants.NAV_CART_DETAIL, text:'Cart Detail'},
         {url:'/' + constants.NAV_POST_LIST, text:'Posts'},
     ];
-
    
     const handleClick = () => {
         if(!isActive)
@@ -61,7 +58,6 @@ export default function Navbar(){
     }
 
     const handleMenuClick = (n, b) => {
-        setmenuSelected(n.text);
         setIsActive(false);
         if(b){
             route.push(n.url);
@@ -72,7 +68,7 @@ export default function Navbar(){
     <> 
         <div className="w-full h-10 bg-sky-800 fixed top-0 text-white z-50">
             <div className="hidden h-9 float-left my-1 px-1 w-full sm:hidden md:inline-block">
-                <NavbarList navs={navs} handleMenuClick={handleMenuClick}/>
+                <NavbarList navs={navs} handleMenuClick={handleMenuClick} push={false}/>
             </div>
 
             <div className='w-full line-block sm:inline-block md:hidden'>
@@ -84,13 +80,13 @@ export default function Navbar(){
                     </div>
 
                     <div className='pl-3 mt-3 float-left'>
-                        {menuSelected}
+                        {currentPageName}
                     </div>
                 </div>
 
                 {isActive ? 
                     <div className='h-full w-full float-left bg-sky-800 py-2'>
-                        <NavbarList navs={navs} handleMenuClick={handleClick}/>
+                        <NavbarList navs={navs} handleMenuClick={handleMenuClick} push={true}/>
                     </div>
                 : <></>}
             </div>
@@ -101,11 +97,11 @@ export default function Navbar(){
   )
 }
 
-export function NavbarList({navs, handleMenuClick}){
+export function NavbarList({navs, handleMenuClick, push}){
     return(
         <ul className="h-full w-full list-none">
             {navs.map((n, i) => (
-                <li key={i} onClick={() => handleMenuClick(n, false)} className="float-left py-1 px-3 w-full md:w-auto sm:flex-nowrap sm:rounded border-sky-600 hover:bg-sky-700 active:bg-sky-900">
+                <li key={i} onClick={() => handleMenuClick(n, push)} className="float-left py-1 px-3 w-full cursor-pointer md:w-auto sm:flex-nowrap sm:rounded border-sky-600 hover:bg-sky-700 active:bg-sky-900">
                     <Link href={n.url}>{n.text}</Link>
                 </li>
             ))}

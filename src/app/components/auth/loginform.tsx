@@ -78,7 +78,7 @@ const LoginForm = () => {
 
               <div className='item-block-2'>
                 <label className="form-control">
-                  <input type="checkbox" name="checkbox" />
+                  <input type="checkbox" name="checkbox" autoFocus/>
                   <span className='form-control-label'>Remember</span>
                 </label>
               </div>

@@ -19,10 +19,9 @@ const List = () => {
     const [pageinfo, setPageInfo] = useState({page:1, pageSize:12, sorting:1, totalPage:1});
     const [categorySelected, setCategorySelected] = useState();
 
-    const [isLoading, setIsLoading] = useState(false);
     let fetchProduct = false;
 
-    //console.log('List: ' + categorySelected);
+    //console.log('>> product list> ' + 'pageinfo: ' + pageinfo.totalPage + ' / product:' + products?.length);
 
     const FetchProduct = async (page:number) => {
       if(categorySelected && !fetchProduct){
@@ -35,7 +34,6 @@ const List = () => {
 
       setPageInfo(GetPageInfo(res.data.total, res.data.products.length, page, pageinfo.pageSize, pageinfo.sorting));            
       setProducts(res.data.products);
-      setIsLoading(false);
       LoaderToggle(false);
     }
 
@@ -54,17 +52,17 @@ const List = () => {
       else{
           toast.error('Error: ' + res.data);
       }
+      
       LoaderToggle(false);
   }
 
-    useEffect(() => {
-        setIsLoading(true);
-        LoaderToggle(true);
-        FetchProduct(1);
-    }, []);
+  useEffect(() => {
+    LoaderToggle(true);
+    FetchProduct(1);
+  }, []);
 
 
-  if(isLoading || !products){
+  if(!products){
     return(<p>Loading...</p>);
   }
 
