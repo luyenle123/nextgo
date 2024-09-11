@@ -104,15 +104,15 @@ const Cart = () => {
 }
 
 const CartDropdown = ({ cart, toggleHidden, continueShoppingClick, viewCartClick }) => (
-  <div className='w-full h-full fixed left-0 top-0'>
+  <div className='w-full h-full fixed left-0 top-10'>
     <div className='bg-gray-700 w-full h-full opacity-40' onClick={toggleHidden}></div>
-    <div className="absolute w-96 min-h-96 top-11 right-0 mr-2 bg-white z-50 border-4 border-solid rounded-md border-gray-500">
+    <div className="absolute w-96 h-500 top-1 right-0 mr-2 bg-white z-50 border-4 border-solid rounded-lg border-gray-500">
       <div className='h-10 mt-1 border-t border-b border-solid pl-2 text-sm text-black'>
         <p className='font-bold text-center mt-2'>
           {cart.totalQuantity} Items, {cart.totalProducts} products, {cart.total.toFixed(2)} $
         </p>
       </div>      
-      <div className="h-full text-sm mt-2 overflow-y-auto">
+      <div className="cart-drop-down-list-height text-sm mt-2 overflow-y-auto">
         {(cart && cart.products && cart.products.length) ? (
           cart.products.map(item => <ProductItem key={item.id} product = {item} />)
         ) : (

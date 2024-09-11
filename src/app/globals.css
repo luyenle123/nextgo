@@ -40,6 +40,15 @@ body {
   height: 460px;
 }
 
+.min-h-400{
+  min-height: 400px;
+}
+.min-h-500{
+  min-height: 500px;
+}
+.min-h-600{
+  min-height: 600px;
+}
 .min-h-700{
   min-height: 700px;
 }
@@ -50,6 +59,15 @@ body {
   min-height: 900px;
 }
 
+.h-500{
+  min-height: 500px;
+}
+.h-600{
+  min-height: 600px;
+}
+.cart-drop-down-list-height{
+  height: 400px;
+}
 .search-form-width{
   width: 600px;
 }

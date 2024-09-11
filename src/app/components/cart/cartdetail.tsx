@@ -7,6 +7,7 @@ import { GetCartDetail } from "@/app/services/cartService";
 import { IResponseServiceModel } from "@/app/models/responseModel";
 import { toast } from 'react-toastify';
 
+import deletIcon from '@/app/images/icon-delete.svg'
 import '../../styles/cart.css';
 import Image from 'next/image';
 
@@ -59,7 +60,7 @@ export default function CartPageDetail(){
     const handleRemoveCartItemClick = (e) => {
         LoaderToggle(true);
         setTimeout(() => {
-            toast('Remove item: ' + e.target.value);
+            toast('Remove item: ' + e.id);
             LoaderToggle(false);
         }, 1000);         
     };
@@ -107,7 +108,7 @@ export function CartSummary(props){
     }
 
     return(
-        <div className='w-full md:w-96 float-left bg-gray-100 border border-solid border-gray-300 rounded p-2'>
+        <div className='w-full md:w-96 float-left bg-gray-100 border border-solid border-gray-300 rounded-md p-2'>
             <div className='cart-summary'>
                 <div className='text-xl pb-2 border-b border-solid border-gray-300'>Summary</div>                
 
@@ -152,7 +153,7 @@ export function CartSummary(props){
 
 export function ProductItem(props){
     return(
-        <div className="h-24 border border-solid border-gray-300 mb-2 p-2">
+        <div className="h-24 border border-solid border-gray-300 rounded-md mb-2 p-2">
             <div className="h-full w-20 relative float-left">
                 <Image src={props.product.thumbnail} alt={props.product.title} width={75} height={75}/>  
             </div>
@@ -164,15 +165,16 @@ export function ProductItem(props){
                 </div>
                 <div className="w-2/12">
                     <div className='flex float-right'>
-                        <button className='w-6 h-6 text-center mx-0 border-t border-l border-b border-solid border-gray-200 rounded-l' onClick={props.eventhandle.handleQuantityDownClick}>-</button>
-                        <div className='w-12 h-6 text-center mx-0 border-t border-b border-solid bg-gray-100 border-gray-200'>{props.product.quantity}</div>
-                        <button className='w-6 h-6 text-center border-r border-t border-b border-solid border-gray-200 rounded-r' onClick={props.eventhandle.handleQuantityUpClick}>+</button>
+                        <button className='w-6 h-8 text-center mx-0 border-t border-l border-b border-solid border-gray-200 rounded-l' onClick={props.eventhandle.handleQuantityDownClick}>-</button>
+                        <div className='w-8 h-8 text-center mx-0 pt-1 border-t border-b border-solid bg-gray-100 border-gray-200'>{props.product.quantity}</div>
+                        <button className='w-6 h-8 text-center border-r border-t border-b border-solid border-gray-200 rounded-r' onClick={props.eventhandle.handleQuantityUpClick}>+</button>
                     </div>
                 </div>
-                <div className="w-1/12 font-bold text-right">{props.product.price} $</div>
-                <div className="w-1/12 font-bold text-right">{props.product.total.toFixed(2)} $</div>
+                <div className="w-1/12 font-bold text-right mt-1">{props.product.price} $</div>
+                <div className="w-1/12 font-bold text-right mt-1">{props.product.total.toFixed(2)} $</div>
                 <div className="w-1/12">
-                    <button className='w-6 h-6 float-right text-red-500 font-bold cursor-pointer border rounded border-solid border-gray-200' onClick={props.eventhandle.handleRemoveCartItemClick} title='Delete' value={props.product.id}>X</button>
+                    <Image src={deletIcon} width={20} height={20} alt='Remove' className='float-right cursor-pointer' onClick={() => props.eventhandle.handleRemoveCartItemClick(props.product)}></Image>
+                    {/* <button className='w-8 h-8 float-right text-red-500 font-bold cursor-pointer border rounded border-solid border-gray-200' onClick={props.eventhandle.handleRemoveCartItemClick} title='Delete' value={props.product.id}>X</button> */}
                 </div>
             </div>
         </div>
