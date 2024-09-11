@@ -13,19 +13,24 @@ export default function Navbar(){
 
     const route = useRouter();
     let isLogin = IsLogin();
-    const pathname = usePathname();
+    
 
     useEffect(() => {
         if(!isLogin){
             route.push('/' + constants.NAV_LOGIN);
         }
 
-        const segments = pathname.split('/');
-        if(segments && segments.length > 1)
-        {
-            const page = segments[1];
-            setmenuSelected(page);
-        }        
+        //const pathname = usePathname();
+        // const segments = pathname.split('/');
+        // if(segments && segments.length > 1)
+        // {
+        //     let page = segments[1];
+        //     if(page.length === 0)
+        //         page = 'Home Page';
+        //     setmenuSelected(page);
+        // }else{
+        //     setmenuSelected('Home Page');
+        // }
     }, []);
 
     if(!isLogin){
@@ -55,29 +60,25 @@ export default function Navbar(){
         }
     }
 
-    const handleMenuClick = (n) => {
+    const handleMenuClick = (n, b) => {
         setmenuSelected(n.text);
         setIsActive(false);
-        route.push(n.url);
+        if(b){
+            route.push(n.url);
+        }        
     }
 
   return (
     <> 
         <div className="w-full h-10 bg-sky-800 fixed top-0 text-white z-50">
-            <ul className="hidden list-none h-9 float-left my-1 px-1 sm:hidden md:inline-block">
-                {navs.map((n, i) => (
-                    <li key={i} className="float-left py-1 px-3 flex-nowrap rounded border-solid border-sky-600 hover:bg-sky-700 active:bg-sky-900">
-                        <Link href={n.url}>{n.text}</Link>
-                    </li>
-                ))}
-            </ul>
+            <div className="hidden h-9 float-left my-1 px-1 w-full sm:hidden md:inline-block">
+                <NavbarList navs={navs} handleMenuClick={handleMenuClick}/>
+            </div>
 
-
-            <div className='nline-block sm:inline-block md:hidden'>
-
+            <div className='w-full line-block sm:inline-block md:hidden'>
                 <div className='w-full'>
-                    <div className='w-8 h-9 pl-1 cursor-pointer float-left' onClick={handleClick}>
-                        <hr className='h-1 bg-gray-500 mt-3'/>
+                    <div className='w-8 h-8 p-1 cursor-pointer float-left m-1 border rounded border-sky-600 border-solid' onClick={handleClick}>
+                        <hr className='h-1 bg-gray-500 mt-0.5'/>
                         <hr className='h-1 bg-gray-500 mt-1'/>
                         <hr className='h-1 bg-gray-500 mt-1'/>
                     </div>
@@ -86,22 +87,28 @@ export default function Navbar(){
                         {menuSelected}
                     </div>
                 </div>
-                
+
                 {isActive ? 
-                    <>
-                        <ul className="h-full w-full float-left my-1  bg-sky-600">
-                            {navs.map((n, i) => (
-                                <li key={i} className="float-left py-1 w-full border-sky-600 hover:bg-sky-700 active:bg-sky-900">
-                                    <p className='pl-2 cursor-pointer' onClick={() => handleMenuClick(n)}>{n.text}</p>
-                                </li>
-                            ))}
-                        </ul>
-                    </>
-                 : <></>}                    
+                    <div className='h-full w-full float-left bg-sky-800 py-2'>
+                        <NavbarList navs={navs} handleMenuClick={handleClick}/>
+                    </div>
+                : <></>}
             </div>
 
             <Cart/>            
         </div>        
     </>
   )
+}
+
+export function NavbarList({navs, handleMenuClick}){
+    return(
+        <ul className="h-full w-full list-none">
+            {navs.map((n, i) => (
+                <li key={i} onClick={() => handleMenuClick(n, false)} className="float-left py-1 px-3 w-full md:w-auto sm:flex-nowrap sm:rounded border-sky-600 hover:bg-sky-700 active:bg-sky-900">
+                    <Link href={n.url}>{n.text}</Link>
+                </li>
+            ))}
+        </ul>
+    );
 }
