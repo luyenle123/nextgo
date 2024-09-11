@@ -202,10 +202,10 @@ export function ProductItem({product, handleAddToCartClick}){
           <p>{product .category}</p>
 
           <p className="text-right">Instock({product .stock})</p>
-          <p className="text-right font-bold">{product .price} $</p>
+          <p className="text-right font-bold text-lg">{product .price} $</p>
 
           <div className="absolute bottom-0 mb-3">
-            <button onClick={() => handleAddToCartClick(product )} className="py-1 px-4 bg-gray-100 hover:bg-gray-200 active:bg-gray-100 border-gray-300 border-solid border rounded">Add To Cart</button>
+            <button onClick={() => handleAddToCartClick(product )} className="py-1 px-4 text-gray-500 bg-slate-200 hover:bg-slate-300 active:bg-slate-200 border-slate-300 border-solid border rounded">Add To Cart</button>
           </div>
         </div>
       </div>    

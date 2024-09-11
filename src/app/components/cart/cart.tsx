@@ -92,10 +92,10 @@ const Cart = () => {
 
   return (
     <>
-      <div className='cart-info'>
-        <div className='cart-icon'>
-          <Image src={cartIcon} alt='cart' onClick={handleCartClick} width={40} height={40}/>
-          <div id='cart-item-number' className='cart-item-number'>{cart.totalQuantity}</div>
+      <div className='fixed top-0 left-full -ml-16 text-white'>
+        <div className='inline-block'>
+          <Image className='w-10 float-left cursor-pointer' src={cartIcon} alt='cart' onClick={handleCartClick} width={40} height={40}/>
+          <div id='cart-item-number' className='font-normal text-xs my-0.5 mx-8 py-px px-1 absolute border rounded-lg min-w-5 h-5'>{cart.totalQuantity}</div>
         </div>
         {showMiniCart && <CartDropdown cart={cart} toggleHidden = { HideMiniCart} continueShoppingClick = {handleContinueClick} viewCartClick={handleViewCartClick}/> }
       </div>    
@@ -104,24 +104,24 @@ const Cart = () => {
 }
 
 const CartDropdown = ({ cart, toggleHidden, continueShoppingClick, viewCartClick }) => (
-  <div className='cart-dropdown-container'>
-    <div className='cart-dropdown-bg' onClick={toggleHidden}></div>
-    <div className="cart-dropdown">
-      <div className='cart-dropdown-header'>
-        <p>
+  <div className='w-full h-full fixed left-0 top-0'>
+    <div className='bg-gray-700 w-full h-full opacity-40' onClick={toggleHidden}></div>
+    <div className="absolute w-96 min-h-96 top-11 right-0 mr-2 bg-white z-50 border-4 border-solid rounded-md border-gray-500">
+      <div className='h-10 mt-1 border-t border-b border-solid pl-2 text-sm text-black'>
+        <p className='font-bold text-center mt-2'>
           {cart.totalQuantity} Items, {cart.totalProducts} products, {cart.total.toFixed(2)} $
         </p>
       </div>      
-      <div className="cart-items">
+      <div className="h-full text-sm mt-2 overflow-y-auto">
         {(cart && cart.products && cart.products.length) ? (
           cart.products.map(item => <ProductItem key={item.id} product = {item} />)
         ) : (
-          <div className="empty-message"> Your cart is empty </div>
+          <div className="text-lg h-96 text-center"> Your cart is empty </div>
         )}
       </div>
-      <div className='cart-dropdown-buttons'>
-        <button className={'base-button continue-button'} onClick={continueShoppingClick}>Continue Shopping</button>
-        <button className={'base-button viewcart-button'} onClick={viewCartClick}>View Cart</button>
+      <div className='p-1 h-12'>
+        <button className='float-left bg-blue-400 p-2 rounded-md font-normal' onClick={continueShoppingClick}>Continue Shopping</button>
+        <button className='float-right bg-gray-400 p-2 rounded-md font-normal' onClick={viewCartClick}>View Cart</button>
       </div>
     </div>
   </div>
@@ -129,22 +129,22 @@ const CartDropdown = ({ cart, toggleHidden, continueShoppingClick, viewCartClick
 
 export function ProductItem({product}){
   return(
-    <div className='cart-items-row'>
-      <div className='cart-items-img-container'>
+    <div className='flex mb-2 border-b border-gray-300 border-solid'>
+      <div className='w-12 h-12 mr-2 cursor-pointer'>
         <Link href={'/products/' + product.id}>
           <Image src={product.thumbnail} alt={product.title} width={45} height={45}/>
         </Link>
       </div>
       
-      <div className='cart-items-row-detail'>
-        <div className="cart-items-title">
-          <Link href={'/products/' + product.id}>
+      <div className='w-full'>
+        <div className='float-left w-60'>
+          <Link href={'/products/' + product.id} className='text-black font-normal'>
             {product.title}
           </Link>          
           </div>
-          <div className='cart-items-r-value'>
-            <div className='cart-items-quantity number-box'>{product.quantity}</div>
-            <div className='cart-items-price number-box'>{product.price} $</div>
+          <div className='w-20 float-right text-right mr-1'>
+            <div className='text-gray-500 px-0.5 py-0.5 font-bold'>{product.quantity}</div>
+            <div className='text-gray-500 px-0.5 py-0.5 font-bold'>{product.price} $</div>
           </div>
       </div>
     </div>
