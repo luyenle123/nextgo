@@ -6,6 +6,7 @@
     margin: 0px 5px 0px 0px;
     padding: 3px 5px;
     min-width: 30px;
+    height: 30px;
   }
   
   .pagination-number{
@@ -15,6 +16,7 @@
     margin: 0px 5px 0px 0px;
     padding: 3px 5px;
     min-width: 30px;
+    height: 30px;
     cursor: pointer;
   }
 
@@ -31,8 +33,9 @@
     border: solid 1px #e6e6e6;
     border-radius: 3px;
     margin: 0px 5px 0px 0px;
-    padding: 5px;
+    padding: 3px 5px;
     min-width: 30px;
+    height: 30px;
   }
   
   .page-number{

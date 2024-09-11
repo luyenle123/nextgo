@@ -60,10 +60,10 @@ const handleKeyDown = (event) => {
 
   return (
     <div className='p-2'>
-        <div className='w-full sm:w-2/3 md:search-form-width lg:search-form-width xl:search-form-width 2xl:search-form-width max-w-2xl mt-0 mx-auto bg-gray-200 rounded border-gray-400'>
+        <div className='w-full sm:w-3/4 md:search-form-width lg:search-form-width xl:search-form-width 2xl:search-form-width max-w-2xl mt-0 mx-auto bg-gray-200 rounded border-gray-400'>
             <div className='p-8 flex'>
                 <input className='h-9 w-full rounded-l text-xl pl-1 outline-none' maxLength={50} ref={inputRef} autoFocus onChange={(e) => setKey(e.target.value)} onKeyDown={handleKeyDown}></input>
-                <button className='h-9 w-24 bg-gray-300 rounded-r font-bold hover:bg-gray-400 active:bg-gray-300' onClick={handleSearchClick} onKeyDown={handleKeyDown}>Search</button>
+                <button className='h-9 w-32 bg-gray-300 rounded-r font-bold hover:bg-gray-400 active:bg-gray-300' onClick={handleSearchClick} onKeyDown={handleKeyDown}>Search</button>
             </div>
         </div>
 
@@ -93,7 +93,7 @@ const handleKeyDown = (event) => {
 export function ProductItem({product, handleAddToCartClick}){
   return(
     <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 2xl:w-1/6 relative">
-    <div className="productcard-min-h-460 border-gray-300 border-solid border rounded m-1 p-2">
+    <div className="productcard-min-h-460 border-gray-300 border-solid border rounded my-1 mx-0 sm:mx-1 md:mx-1 p-2">
 
       <div className="w-60 mx-auto my-0 mt-5">
         <Link href={'/products/'+product .id} className="font-bold">
