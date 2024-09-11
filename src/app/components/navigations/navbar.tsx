@@ -4,7 +4,7 @@ import Link from 'next/link';
 import * as constants from '@/app/constants'
 import { Cart } from '@/app/components/cart/cart';
 import { useEffect, useState } from 'react';
-import { useRouter, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { IsLogin } from '@/app/services/userService';
 
 export default function Navbar(){
