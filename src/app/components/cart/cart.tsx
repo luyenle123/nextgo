@@ -97,21 +97,22 @@ const Cart = () => {
           <Image className='w-10 float-left cursor-pointer' src={cartIcon} alt='cart' onClick={handleCartClick} width={40} height={40}/>
           <div id='cart-item-number' className='font-normal text-xs my-0.5 mx-8 py-px px-1 absolute border rounded-lg min-w-5 h-5'>{cart.totalQuantity}</div>
         </div>
-        {showMiniCart && <CartDropdown cart={cart} toggleHidden = { HideMiniCart} continueShoppingClick = {handleContinueClick} viewCartClick={handleViewCartClick}/> }
+        {showMiniCart && <CartDropdown cart={cart} toggleHidden = { HideMiniCart} continueShoppingClick = {handleContinueClick} viewCartClick={handleViewCartClick} HideMiniCart = {HideMiniCart}/>}
       </div>    
     </>
   )
 }
 
-const CartDropdown = ({ cart, toggleHidden, continueShoppingClick, viewCartClick }) => (
+const CartDropdown = ({ cart, toggleHidden, continueShoppingClick, viewCartClick, HideMiniCart }) => (
   <div className='w-full h-full fixed left-0 top-10'>
     <div className='bg-gray-700 w-full h-full opacity-40' onClick={toggleHidden}></div>
-    <div className="absolute w-96 h-500 top-1 right-0 mr-2 bg-white z-50 border-4 border-solid rounded-lg border-gray-500">
+    <div className="absolute w-full sm:w-96 md:w-96 h-500 top-1 my-0 sm:mx-2 sm:right-0 bg-white z-50 border-4 border-solid rounded-lg border-gray-500">
       <div className='h-10 mt-1 border-t border-b border-solid pl-2 text-sm text-black'>
-        <p className='font-bold text-center mt-2'>
+        <div className='font-bold text-left mt-2 w-2/3 float-left'>
           {cart.totalQuantity} Items, {cart.totalProducts} products, {cart.total.toFixed(2)} $
-        </p>
-      </div>      
+        </div>
+        <button className='float-right w-8 h-8 text-red-600 text-lg' onClick={HideMiniCart}>X</button>
+      </div>
       <div className="cart-drop-down-list-height text-sm mt-2 overflow-y-auto">
         {(cart && cart.products && cart.products.length) ? (
           cart.products.map(item => <ProductItem key={item.id} product = {item} />)
