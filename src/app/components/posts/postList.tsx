@@ -25,7 +25,7 @@ const List = () => {
     }, []);
 
   if(isLoading){
-    return(<p>Loading...</p>);
+    return(<></>);
   }
 
   return (

@@ -91,7 +91,7 @@ const Cart = () => {
   }, []);
   
   if(!cart){
-    return(<>Loading...</>);
+    return(<></>);
   }
 
   return (

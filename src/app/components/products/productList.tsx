@@ -63,7 +63,7 @@ const List = () => {
 
 
   if(!products){
-    return(<p>Loading...</p>);
+    return(<></>);
   }
 
   const handleSortingChanged = (e) => {

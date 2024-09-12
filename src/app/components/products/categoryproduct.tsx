@@ -10,7 +10,7 @@ export default function CategoryProduct(){
 
   const handleClick = (category) => {
     setCategorySelected(category);
-    console.log('>> ' + categorySelected);
+    //console.log('>> ' + categorySelected);
   }
   return (
     <div className="clear-both flex min-h-svh">

@@ -26,7 +26,7 @@ const Detail = ({id}) => {
   }, [id]);
 
   if(isLoading){  
-    return(<p>Loading...</p>);
+    return(<></>);
   }
 
   return (

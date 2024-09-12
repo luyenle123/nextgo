@@ -23,7 +23,7 @@ const List = () => {
     }, []);
 
   if(!users){
-    return(<p>Loading...</p>);
+    return(<></>);
   }
 
   return (
