@@ -8,7 +8,6 @@ import { LoaderToggle } from "@/app/components/loader/loader";
 import { DoAddToCart, UpdateCartInfo } from "@/app/components/cart/cart";
 import { IResponseServiceModel } from "@/app/models/responseModel";
 
-import '@/app/styles/search.css';
 import Image from 'next/image.js';
 import Link from 'next/link';
 
@@ -92,31 +91,30 @@ const handleKeyDown = (event) => {
 
 export function ProductItem({product, handleAddToCartClick}){
   return(
-    <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/4 xl:w-1/5 2xl:w-1/6 relative">
-    <div className="productcard-min-h-460 border-gray-300 border-solid border rounded my-1 mx-0 sm:mx-1 md:mx-1 p-2">
+    <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/4 2xl:w-1/5 relative">
+      <div className="productcard-min-h bg-slate-200 m-1 p-2">
+        <div className="w-60 mx-auto my-0 mt-5">
+          <Link href={'/products/'+product .id} className="font-bold">
+            <Image src={product .thumbnail} alt={product .title} width={200} height={200}/>  
+          </Link>                        
+        </div>
 
-      <div className="w-60 mx-auto my-0 mt-5">
-        <Link href={'/products/'+product .id} className="font-bold">
-          <Image src={product .thumbnail} alt={product .title} width={200} height={200}/>  
-        </Link>                        
+        <Link href={'/products/'+ product .id} className="font-bold">
+          {product .sku}
+        </Link>
+
+        <p>{product .title}</p>
+        <p>{product .description}</p>
+        <p>{product .category}</p>
+
+        <p className="text-right">Instock({product .stock})</p>
+        <p className="text-right font-bold">{product .price} $</p>
+
+        <div className="absolute bottom-0 mb-3">
+        <button onClick={() => handleAddToCartClick(product )} className="py-2 px-4 text-emerald-800 font-bold bg-slate-300 hover:bg-slate-400 active:bg-slate-300">Add To Cart</button>
+        </div>
       </div>
-
-      <Link href={'/products/'+ product .id} className="font-bold">
-        {product .sku}
-      </Link>
-
-      <p>{product .title}</p>
-      <p>{product .description}</p>
-      <p>{product .category}</p>
-
-      <p className="text-right">Instock({product .stock})</p>
-      <p className="text-right font-bold">{product .price} $</p>
-
-      <div className="absolute bottom-0 mb-3">
-        <button onClick={() => handleAddToCartClick(product )} className="py-1 px-4 bg-gray-100 hover:bg-gray-200 active:bg-gray-100 border-gray-300 border-solid border rounded">Add To Cart</button>
-      </div>
-    </div>
-  </div>   
+    </div>   
   );
 }
 

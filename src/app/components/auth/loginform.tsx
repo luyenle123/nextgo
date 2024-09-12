@@ -8,7 +8,6 @@ import { useState} from 'react'
 import { IsLogin, LoginAPI, SaveUser } from '@/app/services/userService';
 import { IResponseServiceModel } from "@/app/models/responseModel";
 
-import '@/app/styles/login.css'
 import { useRouter } from 'next/navigation';
 
 const LoginForm = () => {
@@ -62,29 +61,28 @@ const LoginForm = () => {
         LoaderToggle(false);
     };
   return (
-    <div className='login-main'>
-        <div className='login-container'>
-          
-            <div className='login-header'>Login</div>
-            <div className='login-form'>
+    <div className='bg-slate-300 m-0 top-0 w-full h-full absolute'>
+        <div className='fixed inset-0 w-500 h-300 m-auto border-solid rounded-lg border-4 border-gray-500 bg-slate-500 bg-opacity-10'>
+            <div className='text-center w-full mt-5 text-xl text-gray-500 uppercase'>Login</div>
+            <div className='p-5'>
 
-              <div className='item-block'>
-                <input ref={inputRef} className='item-block-textbox' type='text' id='email' placeholder='user name' maxLength={100} onChange={emailChangeHandle}/>
+              <div className='p-1'>
+                <input ref={inputRef} className='w-full h-8 rounded-3xl p-5 bg-gray-100 bg-opacity-10 border-solid border-2 border-gray-200 focus:border-gray-400 focus:outline-none' type='text' id='email' placeholder='user name' maxLength={100} onChange={emailChangeHandle}/>
               </div>
 
-              <div className='item-block'>
-                <input className='item-block-textbox' type='password' id='password' placeholder='password' maxLength={100} onChange={passwordChangeHandle}/>
+              <div className='p-1'>
+                <input className='w-full h-8 rounded-3xl p-5 bg-gray-100 bg-opacity-10 border-solid border-2 border-gray-200 focus:border-gray-400 focus:outline-none' type='password' id='password' placeholder='password' maxLength={100} onChange={passwordChangeHandle}/>
               </div>
 
-              <div className='item-block-2'>
-                <label className="form-control">
-                  <input type="checkbox" name="checkbox" autoFocus/>
-                  <span className='form-control-label'>Remember</span>
+              <div className='p-3'>
+                <label className='flex'>
+                  <input type="checkbox" name="checkbox" autoFocus className='outline-none w-5 h-5'/>
+                  <span className='ml-2'>Remember</span>
                 </label>
               </div>
 
-              <div className='item-block'>
-                <button className='login-button' onClick={handleloginClick}>Login</button>
+              <div className='p-1'>
+                <button className='w-full p-3 bg-gray-400 rounded-3xl text-white' onClick={handleloginClick}>Login</button>
               </div>              
                 
             </div>

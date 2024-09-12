@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
-import '@/app/styles/cart.css';
 import cartIcon from '@/app/images/cart.png';
 
 import { useEffect, useState } from 'react'
@@ -13,6 +12,7 @@ import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { toast } from 'react-toastify';
 import Link from 'next/link';
+import { ICartModel } from '@/app/models/cartModel';
 
 const UpdateCartInfo = async(res, qty) => {
   
@@ -38,7 +38,7 @@ const UpdateCartInfo = async(res, qty) => {
 
 const Cart = () => {
   const [showMiniCart, setShowMiniCart] = useState(false);
-  const [cart, setCart] = useState({totalQuantity:0, total:0, totalProducts:0});
+  const [cart, setCart] = useState<ICartModel | undefined>(undefined);
   const route = useRouter();
 
   //console.log('Cart Info');
@@ -65,7 +65,7 @@ const Cart = () => {
         setCart(res.data);
       }
       else{
-        setCart({totalQuantity:0, total:0, totalProducts:0});
+        setCart(undefined);
       }
       setShowMiniCart(true);
       LoaderToggle(false);
@@ -88,7 +88,11 @@ const Cart = () => {
 
   useEffect(() => {
     doGetCartDetail();
-  }, []);  
+  }, []);
+  
+  if(!cart){
+    return(<>Loading...</>);
+  }
 
   return (
     <>
@@ -121,8 +125,8 @@ const CartDropdown = ({ cart, toggleHidden, continueShoppingClick, viewCartClick
         )}
       </div>
       <div className='p-1 h-12'>
-        <button className='float-left bg-blue-400 p-2 rounded-md font-normal' onClick={continueShoppingClick}>Continue Shopping</button>
-        <button className='float-right bg-gray-400 p-2 rounded-md font-normal' onClick={viewCartClick}>View Cart</button>
+        <button className='float-left bg-blue-400 p-2 font-normal' onClick={continueShoppingClick}>Continue Shopping</button>
+        <button className='float-right bg-gray-400 p-2 font-normal' onClick={viewCartClick}>View Cart</button>
       </div>
     </div>
   </div>

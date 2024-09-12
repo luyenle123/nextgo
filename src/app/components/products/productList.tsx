@@ -185,8 +185,7 @@ export function ProductItem({product, handleAddToCartClick}){
   return(
     <>
       <div className="w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/3 2xl:w-1/4 relative">
-        <div className="productcard-min-h-460 border-gray-300 border-solid border rounded m-1 p-2">
-
+        <div className="productcard-min-h bg-slate-200 m-1 p-2">
           <div className="w-60 mx-auto my-0 mt-5">
             <Link href={'/products/'+product .id} className="font-bold">
               <Image src={product .thumbnail} alt={product .title} width={200} height={200}/>  
@@ -205,7 +204,7 @@ export function ProductItem({product, handleAddToCartClick}){
           <p className="text-right font-bold text-lg">{product .price} $</p>
 
           <div className="absolute bottom-0 mb-3">
-            <button onClick={() => handleAddToCartClick(product )} className="py-1 px-4 text-gray-500 bg-slate-200 hover:bg-slate-300 active:bg-slate-200 border-slate-300 border-solid border rounded">Add To Cart</button>
+            <button onClick={() => handleAddToCartClick(product )} className="py-2 px-4 text-emerald-800 font-bold bg-slate-300 hover:bg-slate-400 active:bg-slate-300">Add To Cart</button>
           </div>
         </div>
       </div>    

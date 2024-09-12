@@ -8,10 +8,9 @@ import { IResponseServiceModel } from "@/app/models/responseModel";
 import { toast } from 'react-toastify';
 
 import deletIcon from '@/app/images/icon-delete.svg'
-import '../../styles/cart.css';
 import Image from 'next/image';
 
-export default function CartPageDetail(){
+export default function CartDetail(){
 
     const [cart, setCart] = useState({id:0, products:[],totalProducts:0, totalQuantity:0, total:0}); 
     
@@ -72,12 +71,12 @@ export default function CartPageDetail(){
         handleGoToCheckoutClick: handleGoToCheckoutClick
     };
 
-    const hasData = cart && cart.id;
+    const hasData = cart && cart.id > 0;
 
   return (
     <>    
-        <div className='inline-block w-full py-2 px-1 m:px-40'>
-            <div className='text-center my-5 mx-0 text-2xl'>
+        <div className='inline-block w-full py-2 px-1 m:px-40 mb-5 min-h-700'>
+            <div className='text-center my-3 mx-0 text-2xl'>
                 <div className='font-bold'>Your Cart</div> <div className='text-sm'>({cart.totalProducts} items - {cart.totalQuantity} )</div>
                 <hr className='w-60 mt-2 mx-auto'/>
                 <hr className='w-28 mt-2 mx-auto'/>
@@ -85,12 +84,12 @@ export default function CartPageDetail(){
             </div>
 
             <div className="w-full lg:w-4/5 2xl:w-3/5 md:pr-2 justify-center mt-10 mx-auto">
-                <TableHeader/>
+                {cart.products && cart.products.length > 0 && <TableHeader/> }
                 {cart.products.map((p) => {
                     return <ProductItem key = {p.id} product = {p} eventhandle={data}/>
                 })}
 
-                {hasData && <CartSummary cart={cart} eventhandle={data}/> }                    
+                {hasData && <CartSummary cart={cart} eventhandle={data}/> }
             </div>
         </div>
     </>
@@ -118,13 +117,13 @@ export function CartSummary(props){
                 <SummaryItem text = {'Total discount'} value = {props.cart.discountedTotal}/>
             </div>
 
-            <div className='text-right font-bold'>
+            <div className='text-right font-bold mr-1'>
                 <p className='text-lg'>Total: {props.cart.total} $</p>
                 <p>Shipping: FREE</p>
             </div>
 
-            <div className='bottom-0 w-full'>
-                <button className='w-1/2 p-2 float-right text-white bg-blue-500 border rounded-md border-solid mt-12' onClick={props.eventhandle.handleGoToCheckoutClick}>Checkout</button>
+            <div className='bottom-0 w-full mt-10'>
+                <button className='w-1/2 p-2 float-right text-white bg-blue-500 border rounded-md border-solid' onClick={props.eventhandle.handleGoToCheckoutClick}>Checkout</button>
             </div>
         </div>
     );

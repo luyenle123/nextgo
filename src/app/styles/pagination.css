@@ -1,8 +1,7 @@
 .pagination{
   .pagination-number-active{
     background-color: #ccc;
-    border: solid 1px #ccc;
-    border-radius: 3px;
+    border: solid 1px #dddddd;
     margin: 0px 5px 0px 0px;
     padding: 3px 5px;
     min-width: 30px;
@@ -11,8 +10,7 @@
   
   .pagination-number{
     background-color: rgb(255, 255, 255);
-    border: solid 1px #ccc;
-    border-radius: 3px;
+    border: solid 1px #dddddd;
     margin: 0px 5px 0px 0px;
     padding: 3px 5px;
     min-width: 30px;
@@ -30,8 +28,7 @@
 
   .pagination-number-empty{
     background-color: rgb(241, 241, 241);
-    border: solid 1px #e6e6e6;
-    border-radius: 3px;
+    border: solid 1px #dddddd;
     margin: 0px 5px 0px 0px;
     padding: 3px 5px;
     min-width: 30px;
@@ -51,10 +48,6 @@
   }
 }
 
- 
-
-
-
-  .other-text{  
-    font-size: 12px;
-  }   
+.other-text{  
+  font-size: 12px;
+}   

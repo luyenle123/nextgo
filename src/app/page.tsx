@@ -1,4 +1,3 @@
-import '@/app/styles/home.css';
 import { MainLayout } from './layouts/main';
 
 export default function Home() {
@@ -7,14 +6,7 @@ export default function Home() {
 
   return (
     <MainLayout>
-      <div className='home-main'>
-        {/* <div className='home-container'>          
-         <div className='gogo'>
-            <div className='text'>
-                GO GO NEXT
-            </div>
-            </div>
-        </div> */}
+      <div className='min-h-700 bg-gray-100'>
       </div> 
     </MainLayout>
   );
