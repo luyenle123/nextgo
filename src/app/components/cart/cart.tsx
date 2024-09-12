@@ -168,4 +168,40 @@ const DoAddToCart = async (productId, productCode, updateStatus) => {
     updateStatus(true);
 }
 
-export { Cart, UpdateCartInfo, DoAddToCart }
+const AddToCartPopup = ({product}) => {
+
+  const sku = product?.sku;
+  const title = product?.title;
+
+  return(
+    <>
+      <div id='add-to-cart-popup-result' className='bg-gray-400 bg-opacity-30 w-full h-full fixed left-0 top-10'>
+          <div className='fixed inset-0 w-500 h-300 m-auto border-solid rounded-lg border-4 border-gray-500 bg-white'>
+              {/* <div className='text-center w-full mt-5 text-xl text-gray-500 uppercase'>Login</div> */}
+              <div className='w-full h-300'>
+                <div className='text-center mb-2 text-lg p-5'>
+                  <p>Add to cart successful</p>
+                </div>
+
+                <div className='text-center mb-2 pt-5 font-bold text-2xl'>
+                  {sku} ABCDEFA
+                </div>
+
+                <div className='text-center mb-2 pt-1'>
+                  {title} asdfllasjdf aldas df lasjdlf aljdlf aasdflasdj jfsl
+                </div>                
+
+                <div className='bottom-0 absolute mb-10 w-full'>
+                  <div className='flex justify-center'>
+                    <button className='w-40 p-3 bg-blue-400 rounded-3xl text-white floa'>Continue Shopping</button>
+                    <button className='w-40 p-3 bg-gray-400 rounded-3xl text-white ml-2'>View Cart</button>                 
+                  </div>   
+                </div>
+              </div>
+          </div>
+      </div>    
+    </>
+  );
+}
+
+export { Cart, UpdateCartInfo, DoAddToCart, AddToCartPopup }

@@ -147,8 +147,7 @@ const categoryHandleClick = (category) => {
 
   return (
     <>
-    <div className="lg:flex clear-both min-h-svh">
-
+    <div className="lg:flex clear-both min-h-svh">    
       <div className="float-left sm:float-none md:float-none w-full lg:w-80 h-auto min-w-80 bg-gray-100">
         <Category handleClick={categoryHandleClick}/>
       </div>
@@ -174,16 +173,15 @@ const categoryHandleClick = (category) => {
           </div>
         </> : <></>}
       </div>
-      
     </div> 
-
+    {/* <AddToCartPopup product={undefined}/> */}
     </>
   )
 }
 
 export function ProductItem({product, handleAddToCartClick}){
   return(
-    <>
+    <>      
       <div className="w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/3 2xl:w-1/4 relative">
         <div className="productcard-min-h bg-slate-200 m-1 p-2">
           <div className="w-60 mx-auto my-0 mt-5">
