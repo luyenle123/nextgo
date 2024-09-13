@@ -226,7 +226,7 @@ const AddToCartPopup = ({product, handleCallback}) => {
 
                 <div className='px-2 text-sm'>
                   <Image className='float-left' src={product.thumbnail} alt={product.title} width={100} height={100}></Image>
-                  <div className='w-9/12 float-left ml-2'>
+                  <div className='ml-2'>
                     <p className='font-bold'>{product?.sku}</p>
                     <p className='font-bold'>{product?.title}</p>
                     <p>{product?.description}</p>
