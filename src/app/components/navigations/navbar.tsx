@@ -91,7 +91,7 @@ export default function Navbar(){
                 : <></>}
             </div>
 
-            <Cart/>            
+            <Cart/>
         </div>        
     </>
   )

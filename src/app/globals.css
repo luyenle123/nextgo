@@ -51,7 +51,9 @@ body {
 .h-700{
   min-height: 700px;
 }
-
+.min-h-400{
+  min-height: 400px;
+}
 .min-h-400{
   min-height: 400px;
 }
@@ -72,13 +74,17 @@ body {
 }
 
 .h-500{
-  min-height: 500px;
+  height: 500px;
 }
 .h-600{
   min-height: 600px;
 }
+/*Cart drop down*/
+.cart-dropdown-h-450{
+  height: 460px;
+}
 .cart-drop-down-list-height{
-  height: 400px;
+  height: 350px;
 }
 .search-form-width{
   width: 600px;
