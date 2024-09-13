@@ -218,8 +218,8 @@ const AddToCartPopup = ({product, handleCallback}) => {
     <>
       <div id='popup-result' className=' w-full h-full fixed left-0 top-0' onClick={hide}>
           <div id="popup-result-bg" className='w-full h-full bg-gray-400' style={{ opacity: '0' }}></div>
-          <div className='fixed inset-0 w-full sm:w-3/4 max-w-500 h-300 m-auto border-solid rounded-lg border-4 border-gray-500 bg-white'>
-              <div className='w-full h-300'>
+          <div className='fixed inset-0 w-full max-w-500 h-350 m-auto'>
+              <div className='w-full h-350 bg-white'>
                 <div className='text-center mb-2 text-sm py-4 text-green-600'>
                   <p>Add item to cart successful</p>
                 </div>
