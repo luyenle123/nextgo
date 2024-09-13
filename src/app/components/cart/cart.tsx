@@ -13,6 +13,8 @@ import Image from 'next/image';
 import { toast } from 'react-toastify';
 import Link from 'next/link';
 import { ICartModel } from '@/app/models/cartModel';
+import ProductRating from '../products/productRating';
+import { ContinueAndViewCartButtonCenter, ContinueAndViewCartButtonLeftRight, ContinueShoppingButton, ViewCartButton } from '../buttons/commonButton';
 
 const UpdateCartInfo = async(res, qty) => {
   
@@ -29,7 +31,7 @@ const UpdateCartInfo = async(res, qty) => {
       if(!currentQty){ currentQty = 0; }
       if(currentQty === 0) { currentQty = res.data.totalQuantity; }
       element.innerHTML = currentQty + qty;
-      console.log('Updatae cart info :' + res.data.totalQuantity);
+      //console.log('Updatae cart info :' + res.data.totalQuantity);
     }
   }
 
@@ -124,9 +126,8 @@ const CartDropdown = ({ cart, toggleHidden, continueShoppingClick, viewCartClick
           <div className="text-lg h-96 text-center"> Your cart is empty </div>
         )}
       </div>
-      <div className='p-1 h-12'>
-        <button className='float-left bg-blue-400 p-2 font-normal' onClick={continueShoppingClick}>Continue Shopping</button>
-        <button className='float-right bg-gray-400 p-2 font-normal' onClick={viewCartClick}>View Cart</button>
+      <div className='h-12 mb-2'>
+        <ContinueAndViewCartButtonLeftRight continueHandleClick={continueShoppingClick} viewCarthandleClick={viewCartClick}/>
       </div>
     </div>
   </div>
@@ -159,47 +160,87 @@ export function ProductItem({product}){
 const DoAddToCart = async (productId, productCode, updateStatus) => {
   const res = await AddToCart(productId, 1) as IResponseServiceModel;
   if(res.isSuccess){
-    toast("Add '" + productCode + "' to cart successful.");
+    //toast("Add '" + productCode + "' to cart successful.");
   }
   else{
     toast.error('Error: ' + res.data);
   }
 
-    updateStatus(true);
+  updateStatus(true);
 }
 
-const AddToCartPopup = ({product}) => {
+const AddToCartPopup = ({product, handleCallback}) => {
+  const [isdisplay, setIsDisplay] = useState(true);
 
-  const sku = product?.sku;
-  const title = product?.title;
+  const route = useRouter();
+
+  if(!isdisplay || !product){
+    return(<></>);
+  }  
+
+  const hide = () =>{
+    setIsDisplay(false);
+    handleCallback();
+  }
+  
+  const viewCartHandleClick = () =>{    
+    route.push('/cart');
+  }
+
+  let opacity = 0;
+  const FadeLoader = () => {
+    try{
+      const bgElement = document.getElementById('popup-result-bg');
+      if(!bgElement){
+        return;
+      }
+  
+      if (opacity < 0.3) {
+         opacity += 0.02;
+         setTimeout(function(){FadeLoader()}, 10);
+      }
+      bgElement.style.opacity = opacity + '';
+    }
+    catch(err){}
+  } 
+  
+    // useEffect(() => {
+    //   if(isdisplay){
+    //     setTimeout(function(){FadeLoader()}, 10);
+    //   }
+    // }, []);
+
+    if(isdisplay){
+      setTimeout(function(){FadeLoader()}, 10);
+    }    
 
   return(
     <>
-      <div id='add-to-cart-popup-result' className='bg-gray-400 bg-opacity-30 w-full h-full fixed left-0 top-10'>
-          <div className='fixed inset-0 w-500 h-300 m-auto border-solid rounded-lg border-4 border-gray-500 bg-white'>
-              {/* <div className='text-center w-full mt-5 text-xl text-gray-500 uppercase'>Login</div> */}
+      <div id='popup-result' className=' w-full h-full fixed left-0 top-0' onClick={hide}>
+          <div id="popup-result-bg" className='w-full h-full bg-gray-400' style={{ opacity: '0' }}></div>
+          <div className='fixed inset-0 w-full sm:w-3/4 max-w-500 h-300 m-auto border-solid rounded-lg border-4 border-gray-500 bg-white'>
               <div className='w-full h-300'>
-                <div className='text-center mb-2 text-lg p-5'>
-                  <p>Add to cart successful</p>
+                <div className='text-center mb-2 text-sm py-4 text-green-600'>
+                  <p>Add item to cart successful</p>
                 </div>
 
-                <div className='text-center mb-2 pt-5 font-bold text-2xl'>
-                  {sku} ABCDEFA
+                <div className='px-2 text-sm'>
+                  <Image className='float-left' src={product.thumbnail} alt={product.title} width={100} height={100}></Image>
+                  <div className='w-9/12 float-left ml-2'>
+                    <p className='font-bold'>{product?.sku}</p>
+                    <p className='font-bold'>{product?.title}</p>
+                    <p>{product?.description}</p>
+                    <p className='font-bold text-right'>{product?.price} $</p>
+                    <ProductRating rating={product.rating}/>
+                  </div>
                 </div>
 
-                <div className='text-center mb-2 pt-1'>
-                  {title} asdfllasjdf aldas df lasjdlf aljdlf aasdflasdj jfsl
-                </div>                
-
-                <div className='bottom-0 absolute mb-10 w-full'>
-                  <div className='flex justify-center'>
-                    <button className='w-40 p-3 bg-blue-400 rounded-3xl text-white floa'>Continue Shopping</button>
-                    <button className='w-40 p-3 bg-gray-400 rounded-3xl text-white ml-2'>View Cart</button>                 
-                  </div>   
+                <div className='bottom-0 absolute mb-4 w-full'>
+                  <ContinueAndViewCartButtonCenter continueHandleClick={hide} viewCarthandleClick={viewCartHandleClick}/>
                 </div>
               </div>
           </div>
-      </div>    
+      </div>
     </>
   );
 }

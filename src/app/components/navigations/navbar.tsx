@@ -66,7 +66,7 @@ export default function Navbar(){
 
   return (
     <> 
-        <div className="w-full h-10 bg-sky-800 fixed top-0 text-white z-50">
+        <div className="w-full h-10 bg-sky-800 fixed top-0 text-white nav-bar-zindex">
             <div className="hidden h-9 float-left my-1 px-1 w-full sm:hidden md:inline-block">
                 <NavbarList navs={navs} handleMenuClick={handleMenuClick} push={false}/>
             </div>

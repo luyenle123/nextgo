@@ -28,6 +28,10 @@ body {
   }
 }
 
+.nav-bar-zindex{
+  z-index: 9999;
+}
+
 .w-32p{
   width: 32%;
 }
@@ -38,6 +42,14 @@ body {
 
 .productcard-min-h{
   height: 460px;
+}
+
+.max-w-500{
+  max-width: 500px;
+}
+
+.h-700{
+  min-height: 700px;
 }
 
 .min-h-400{
@@ -80,3 +92,23 @@ body {
   height: 300px;
 }
 /*----------------*/
+
+.star {
+  width: 15px;  
+  aspect-ratio: 1;
+  background: #F8CA00;
+   clip-path: polygon(50% 0,79% 90%,2% 35%,98% 35%,21% 90%);
+}
+
+.star-inactive {
+  width: 15px;  
+  aspect-ratio: 1;
+  background: #a3a3a3;
+  clip-path: polygon(50% 0,79% 90%,2% 35%,98% 35%,21% 90%);  
+  /* clip-path: polygon(50% 0,
+    calc(50%*(1 + sin(.4turn))) calc(50%*(1 - cos(.4turn))),
+    calc(50%*(1 - sin(.2turn))) calc(50%*(1 - cos(.2turn))),
+    calc(50%*(1 + sin(.2turn))) calc(50%*(1 - cos(.2turn))),
+    calc(50%*(1 - sin(.4turn))) calc(50%*(1 - cos(.4turn))) 
+   );  */
+}

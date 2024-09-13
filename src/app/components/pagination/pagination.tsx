@@ -56,8 +56,8 @@ export const Pagination = ({config}) => {
     return(
         <div className="pagination">
             <button onClick={config.handleBackClick} className="pagination-number">&lt;&lt;</button>
-            {config.pageInfo.paginationNumbers.map((p) => (
-                <PaginationButton key={p} pageinfo={config.pageInfo} page={p} pageNumberBlick={config.handlePaginationNumberClick}/>
+            {config.pageInfo.paginationNumbers.map((p, i) => (
+                <PaginationButton key={i} pageinfo={config.pageInfo} page={p} pageNumberBlick={config.handlePaginationNumberClick}/>
             ))}
             <button onClick={config.handleNextClick} className="pagination-number">&gt;&gt;</button>
 

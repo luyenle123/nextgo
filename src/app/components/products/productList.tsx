@@ -2,22 +2,22 @@
 'use client'
 
 import { GetProductList, GetCategoryProduct } from "@/app/services/productService";
-import Link from "next/link";
 import { useEffect, useState } from "react";
 import { IResponseServiceModel } from "@/app/models/responseModel";
-import Image from "next/image";
 import { LoaderToggle } from "@/app/components/loader/loader";
 import { IProductItem } from "@/app/models/productmodel";
 import { Pagination, GetConfig, CloneConfig } from '@/app/components/pagination/pagination'
 import { GetPageInfo } from "@/app/components/pagination/paginationUtils";
 import { Category, UpdateCategoryProductCount } from "@/app/components/products/category";
 import { toast } from 'react-toastify';
-import { DoAddToCart, UpdateCartInfo } from "@/app/components/cart/cart";
+import { AddToCartPopup, DoAddToCart, UpdateCartInfo } from "@/app/components/cart/cart";
+import ProductItem from "./productItem";
 
 const List = () => {
     const [products, setProducts] = useState<IProductItem[] | undefined>(undefined);
     const [pageinfo, setPageInfo] = useState({page:1, pageSize:12, sorting:1, totalPage:1});
     const [categorySelected, setCategorySelected] = useState();
+    const [cartProduct, setCartProduct] = useState<IProductItem | undefined>(undefined);
 
     let fetchProduct = false;
 
@@ -95,14 +95,17 @@ const handlePaginationNumberClick = (e) => {
     FetchProduct(parseInt(e.target.value));
 };  
 
-const updateStatus = (b) => {
-  LoaderToggle(false);
-  UpdateCartInfo(null, 1);
-}
 const handleAddToCartClick = (product) => {
   LoaderToggle(true);
   const productId = product.id;
-  DoAddToCart(productId, product.sku, updateStatus);
+  DoAddToCart(productId, product.sku, () => {
+    LoaderToggle(false, () => {
+
+      setTimeout(function(){setCartProduct(product)}, 300);
+      // setCartProduct(product);
+    });
+    UpdateCartInfo(null, 1);
+  });  
 };
 
 const handleItemDisplayChanged = (e) => {
@@ -147,8 +150,8 @@ const categoryHandleClick = (category) => {
 
   return (
     <>
-    <div className="lg:flex clear-both min-h-svh">    
-      <div className="float-left sm:float-none md:float-none w-full lg:w-80 h-auto min-w-80 bg-gray-100">
+    <div className="lg:flex clear-both min-h-svh mt-2 mb-2">    
+      <div className="float-left sm:float-none md:float-none w-full lg:w-80 h-auto min-w-80">
         <Category handleClick={categoryHandleClick}/>
       </div>
       
@@ -162,7 +165,7 @@ const categoryHandleClick = (category) => {
           
           <div className="flex flex-wrap justify-left">
             {products.map((product, i) => (
-              <ProductItem  key = {i} product={product} handleAddToCartClick={handleAddToCartClick}/>
+              <ProductItemContainer  key = {i} product={product} handleAddToCartClick={handleAddToCartClick}/>
             ))}
           </div>
 
@@ -174,37 +177,16 @@ const categoryHandleClick = (category) => {
         </> : <></>}
       </div>
     </div> 
-    {/* <AddToCartPopup product={undefined}/> */}
+     { cartProduct && <AddToCartPopup product={cartProduct} handleCallback={() => { setCartProduct(undefined)}}/> }
     </>
   )
 }
 
-export function ProductItem({product, handleAddToCartClick}){
+export function ProductItemContainer({product, handleAddToCartClick}){
   return(
     <>      
       <div className="w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/3 2xl:w-1/4 relative">
-        <div className="productcard-min-h bg-slate-200 m-1 p-2">
-          <div className="w-60 mx-auto my-0 mt-5">
-            <Link href={'/products/'+product .id} className="font-bold">
-              <Image src={product .thumbnail} alt={product .title} width={200} height={200}/>  
-            </Link>                        
-          </div>
-
-          <Link href={'/products/'+ product .id} className="font-bold">
-            {product .sku}
-          </Link>
-
-          <p>{product .title}</p>
-          <p>{product .description}</p>
-          <p>{product .category}</p>
-
-          <p className="text-right">Instock({product .stock})</p>
-          <p className="text-right font-bold text-lg">{product .price} $</p>
-
-          <div className="absolute bottom-0 mb-3">
-            <button onClick={() => handleAddToCartClick(product )} className="py-2 px-4 text-emerald-800 font-bold bg-slate-300 hover:bg-slate-400 active:bg-slate-300">Add To Cart</button>
-          </div>
-        </div>
+        <ProductItem product={product} handleAddToCartClick={handleAddToCartClick}/>
       </div>    
     </>
   );
