@@ -16,7 +16,7 @@ import { ICartModel } from '@/app/models/cartModel';
 import ProductRating from '../products/productRating';
 import { ContinueAndViewCartButtonCenter, ContinueAndViewCartButtonLeftRight, ContinueShoppingButton, ViewCartButton } from '../buttons/commonButton';
 
-import searchIcon from '@/app/images/search-icon-100.png';
+import searchIcon from '@/app/images/search-icon-100-2.png';
 
 const UpdateCartInfo = async(res, qty) => {
   
@@ -105,11 +105,13 @@ const Cart = () => {
             <div className='float-left'>
               <Image className='w-10 cursor-pointer float-left' src={cartIcon} alt='cart' onClick={handleCartClick} width={36} height={36}/>
             </div>
-            <div id='cart-item-number' className='text-xs font-thin h-4 mt-0.5 mr-2 px-1 -ml-3 border rounded-lg border-gray-400 float-right'>{cart?cart.totalQuantity:0}</div>
+            <div id='cart-item-number' className='text-xs font-thin h-4 mt-0.5 mr-2 px-1 -ml-3 border rounded-lg border-gray-400 float-right'>
+              {cart?cart.totalQuantity:0}
+            </div>
         </div>
 
         {showMiniCart && <CartDropdown cart={cart} toggleHidden = { HideMiniCart} continueShoppingClick = {handleContinueClick} viewCartClick={handleViewCartClick} HideMiniCart = {HideMiniCart}/>}
-      </div>    
+      </div>
     </>
   )
 }
