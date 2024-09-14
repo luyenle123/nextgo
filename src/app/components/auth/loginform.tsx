@@ -67,11 +67,11 @@ const LoginForm = () => {
             <div className='p-5'>
 
               <div className='p-1'>
-                <input ref={inputRef} className='w-full h-8 rounded-3xl p-5 bg-gray-100 bg-opacity-10 border-solid border-2 border-gray-200 focus:border-gray-400 focus:outline-none' type='text' id='email' placeholder='user name' maxLength={100} onChange={emailChangeHandle}/>
+                <input ref={inputRef} className='w-full h-8 rounded-3xl p-5 bg-gray-100 bg-opacity-10 border-solid border-2 border-gray-400 focus:border-gray-200 focus:outline-none' type='text' id='email' placeholder='user name' maxLength={100} onChange={emailChangeHandle}/>
               </div>
 
               <div className='p-1'>
-                <input className='w-full h-8 rounded-3xl p-5 bg-gray-100 bg-opacity-10 border-solid border-2 border-gray-200 focus:border-gray-400 focus:outline-none' type='password' id='password' placeholder='password' maxLength={100} onChange={passwordChangeHandle}/>
+                <input className='w-full h-8 rounded-3xl p-5 bg-gray-100 bg-opacity-10 border-solid border-2 border-gray-400 focus:border-gray-200 focus:outline-none' type='password' id='password' placeholder='password' maxLength={100} onChange={passwordChangeHandle}/>
               </div>
 
               <div className='p-3'>
@@ -82,7 +82,7 @@ const LoginForm = () => {
               </div>
 
               <div className='p-1'>
-                <button className='w-full p-3 bg-gray-400 rounded-3xl text-white' onClick={handleloginClick}>Login</button>
+                <button className='w-full p-3 bg-gray-400 hover:bg-gray-500 active:bg-gray-400 rounded-3xl text-white' onClick={handleloginClick}>Login</button>
               </div>              
                 
             </div>

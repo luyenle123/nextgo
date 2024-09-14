@@ -13,7 +13,7 @@ import instagram from '@/app/images/instagram.svg';
 export default function Footer(){
   return (
     <footer className="text-center inline-block w-full">
-      <div className='w-full min-h-40 bg-slate-200'>
+      <div className='w-full  min-h-40 bg-slate-200'>
         <div className='text-left sm:flex w-fit float-left mt-2'>
           <div className='py-1 px-3 ml-2'>Supports</div>
           <div className='py-1 px-3 ml-2'>Guides</div>
