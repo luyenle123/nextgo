@@ -29,7 +29,7 @@ body {
 }
 
 .nav-bar-zindex{
-  z-index: 9999;
+  z-index: 999;
 }
 
 .w-32p{
@@ -91,6 +91,9 @@ body {
 }
 
 /*Login*/
+.max-w-500{
+  max-width: 500px;
+}
 .w-500{
   width: 500px;
 }
@@ -101,6 +104,10 @@ body {
   height: 350px;
 }
 /*----------------*/
+
+/*product*/
+
+/*-----------------*/
 
 .star {
   width: 15px;  

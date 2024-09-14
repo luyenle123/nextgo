@@ -101,7 +101,7 @@ export function NavbarList({navs, handleMenuClick, push}){
     return(
         <ul className="h-full w-full list-none">
             {navs.map((n, i) => (
-                <li key={i} onClick={() => handleMenuClick(n, push)} className="float-left py-1 px-3 w-full cursor-pointer md:w-auto sm:flex-nowrap sm:rounded border-sky-600 hover:bg-sky-700 active:bg-sky-900">
+                <li key={i} onClick={() => handleMenuClick(n, push)} className="py-2 sm:py-1 float-left px-3 w-full cursor-pointer md:w-auto sm:flex-nowrap sm:rounded border-sky-600 hover:bg-sky-700 active:bg-sky-900">
                     <Link href={n.url}>{n.text}</Link>
                 </li>
             ))}

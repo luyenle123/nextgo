@@ -171,7 +171,7 @@ const categoryHandleClick = (category) => {
 
         {products && products.length > 0 ? 
         <>
-          <div className="m-1 float-right">
+          <div className="m-1 float-left">
             {config.hasData && <Pagination config={config1}/>}
           </div>
         </> : <></>}

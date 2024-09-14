@@ -38,32 +38,31 @@ const LoginForm = () => {
     }    
 
     const handleloginClick = async (e) => {
-
       if(!email || !password){
         toast('Input username and password');
         return;
       }      
 
-        LoaderToggle(true);
-        const res = await LoginAPI('emilys','emilyspass') as IResponseServiceModel;
-        if(res.isSuccess)
-        {
-          if(res.data.token !== undefined){
-            SaveUser(res.data.token);
+      LoaderToggle(true);
+      const res = await LoginAPI('emilys','emilyspass') as IResponseServiceModel;
+      if(res.isSuccess)
+      {
+        if(res.data.token !== undefined){
+          SaveUser(res.data.token);
 
-            route.push('/');
-          }
+          route.push('/');
         }
-        else{
-          toast.error('Error: ' + res.data);
-        }
+      }
+      else{
+        toast.error('Error: ' + res.data);
+      }
 
-        LoaderToggle(false);
+      LoaderToggle(false);
     };
   return (
-    <div className='bg-slate-300 m-0 top-0 w-full h-full absolute'>
-        <div className='fixed inset-0 w-500 h-300 m-auto border-solid rounded-lg border-4 border-gray-500 bg-slate-500 bg-opacity-10'>
-            <div className='text-center w-full mt-5 text-xl text-gray-500 uppercase'>Login</div>
+    <div className='bg-slate-100 m-0 top-0 w-full h-full absolute'>
+        <div className='w-full fixed inset-0 sm:w-500 max-w-500 h-300 m-auto text-white border-solid sm:rounded-lg sm:border-4 border-gray-500 bg-slate-500'>
+            <div className='text-center w-full mt-5 text-xl uppercase'>Login</div>
             <div className='p-5'>
 
               <div className='p-1'>
@@ -82,7 +81,7 @@ const LoginForm = () => {
               </div>
 
               <div className='p-1'>
-                <button className='w-full p-3 bg-gray-400 hover:bg-gray-500 active:bg-gray-400 rounded-3xl text-white' onClick={handleloginClick}>Login</button>
+                <button className='w-full p-3 bg-gray-400 hover:bg-gray-500 active:bg-gray-400 rounded-3xl font-bold' onClick={handleloginClick}>Login</button>
               </div>              
                 
             </div>

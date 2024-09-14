@@ -16,6 +16,8 @@ import { ICartModel } from '@/app/models/cartModel';
 import ProductRating from '../products/productRating';
 import { ContinueAndViewCartButtonCenter, ContinueAndViewCartButtonLeftRight, ContinueShoppingButton, ViewCartButton } from '../buttons/commonButton';
 
+import searchIcon from '@/app/images/search-icon-100.png';
+
 const UpdateCartInfo = async(res, qty) => {
   
   if(!res)
@@ -90,17 +92,21 @@ const Cart = () => {
 
   useEffect(() => {
     doGetCartDetail();
-  }, []);
-  
-  if(!cart){
-    return(<></>);
-  }
+  }, []);  
 
   return (
     <>
-      <div className='fixed top-0 left-full -ml-16 text-white'>
-          <Image className='w-10 float-left cursor-pointer' src={cartIcon} alt='cart' onClick={handleCartClick} width={40} height={40}/>
-          <div id='cart-item-number' className='font-normal text-xs my-0.5 mx-8 py-px px-1 absolute border rounded-lg min-w-5 h-5'>{cart.totalQuantity}</div>
+      <div className='fixed h-10 top-0 w-40 left-full -mx-40 text-white'>
+        <div className='h-10 float-right flex'>
+            <Link href={'/search'} className='block md:hidden mt-1 opacity-40 mr-2 float-left'>
+              <Image src={searchIcon} width={30} height={30} alt='search'></Image>
+            </Link>
+
+            <div className='float-left'>
+              <Image className='w-10 cursor-pointer float-left' src={cartIcon} alt='cart' onClick={handleCartClick} width={36} height={36}/>
+            </div>
+            <div id='cart-item-number' className='text-xs font-thin h-4 mt-0.5 mr-2 px-1 -ml-3 border rounded-lg border-gray-400 float-right'>{cart?cart.totalQuantity:0}</div>
+        </div>
 
         {showMiniCart && <CartDropdown cart={cart} toggleHidden = { HideMiniCart} continueShoppingClick = {handleContinueClick} viewCartClick={handleViewCartClick} HideMiniCart = {HideMiniCart}/>}
       </div>    
@@ -114,12 +120,12 @@ const CartDropdown = ({ cart, toggleHidden, continueShoppingClick, viewCartClick
     <div className="absolute w-full sm:w-96 md:w-96 cart-dropdown-h-450 top-0 my-0 sm:mx-1 sm:right-0 bg-white z-50">
       <div className='h-10 mt-1 border-t border-b border-solid pl-2 text-sm text-black'>
         <div className='font-bold text-left mt-2 w-2/3 float-left'>
-          {cart.totalQuantity} Items, {cart.totalProducts} products, {cart.total.toFixed(2)} $
+          {cart?.totalQuantity} Items, {cart?.totalProducts} products, {cart?.total.toFixed(2)} $
         </div>
         <button className='float-right w-8 h-8 text-red-600 text-lg' onClick={HideMiniCart}>X</button>
       </div>
       <div className="cart-drop-down-list-height text-sm mt-2 overflow-y-auto">
-        {(cart && cart.products && cart.products.length) ? (
+        {(cart && cart?.products && cart?.products.length) ? (
           cart.products.map(item => <ProductItem key={item.id} product = {item} />)
         ) : (
           <div className="text-lg h-96 text-center"> Your cart is empty </div>
@@ -194,7 +200,7 @@ const AddToCartPopup = ({product, handleCallback}) => {
         return;
       }
   
-      if (opacity < 0.3) {
+      if (opacity < 0.4) {
          opacity += 0.02;
          setTimeout(function(){FadeLoader()}, 10);
       }
@@ -219,7 +225,7 @@ const AddToCartPopup = ({product, handleCallback}) => {
           <div id="popup-result-bg" className='w-full h-full bg-gray-400' style={{ opacity: '0' }}></div>
           <div className='fixed inset-0 w-full max-w-500 h-350 m-auto'>
               <div className='w-full h-350 bg-white'>
-                <div className='text-center mb-2 text-sm py-4 text-green-600'>
+                <div className='text-center mb-2 text-sm py-4 font-bold text-green-600'>
                   <p>Add item to cart successful</p>
                 </div>
 

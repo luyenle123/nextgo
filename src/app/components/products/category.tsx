@@ -48,7 +48,7 @@ const Category = ({handleClick}) => {
             }
         </div>
         {cateories && cateories.length > 0 && 
-            <div className='h-28 overflow-x-auto w-full lg:h-full'>
+            <div className='h-28 overflow-x-auto w-full lg:h-auto border sm:border-0 border-gray-200'>
                 {cateories.map((p, i) => ( <MapItem key = {i} category = {p} categoryHandleClick = {handleCategoryClick} categorySelected={categorySelected}/> ))}                
             </div>
         }
