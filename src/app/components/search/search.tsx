@@ -11,6 +11,9 @@ import { IResponseServiceModel } from "@/app/models/responseModel";
 import { IProductItem } from '@/app/models/productmodel';
 import ProductItem from '../products/productItem';
 
+import searchIcon from '@/app/images/search-icon-100.png';
+import Image from 'next/image';
+
 const Search = () => {
   const [products, setProducts] = useState<IProductItem[] | undefined>(undefined);
   const [key, setKey] = useState('');
@@ -59,11 +62,13 @@ const Search = () => {
 
 
   return (
-    <div className='p-2'>
-        <div className='w-full sm:w-3/4 md:search-form-width lg:search-form-width xl:search-form-width 2xl:search-form-width max-w-2xl mt-0 mx-auto bg-gray-200 rounded border-gray-400'>
-            <div className='p-8 flex'>
-                <input className='h-9 w-full rounded-l text-lg pl-1 outline-none' maxLength={50} ref={inputRef} autoFocus onChange={(e) => setKey(e.target.value)} onKeyDown={handleKeyDown}></input>
-                <button className='h-9 w-32 bg-gray-300 rounded-r font-bold hover:bg-gray-400 active:bg-gray-300' onClick={handleSearchClick} onKeyDown={handleKeyDown}>Search</button>
+    <div className='sm:p-2'>
+        <div className='w-full sm:w-3/4 md:search-form-width lg:search-form-width xl:search-form-width 2xl:search-form-width max-w-2xl mt-0 mx-auto bg-gray-200 sm:rounded border-gray-400'>
+            <div className='p-7 flex'>
+                <input className='h-10 w-full rounded-l text-lg pl-1 outline-none' maxLength={50} ref={inputRef} autoFocus onChange={(e) => setKey(e.target.value)} onKeyDown={handleKeyDown}></input>
+                <button className='h-10 w-12 bg-gray-100 border-l rounded-r font-bold hover:bg-gray-400 active:bg-gray-300' onClick={handleSearchClick} onKeyDown={handleKeyDown}>
+                  <Image src={searchIcon} width={30} height={30} alt='search' className='my-0 mx-auto opacity-50'></Image>
+                </button>
             </div>
         </div>
 

@@ -25,9 +25,9 @@ export default function Footer(){
           <div className='mb-4'>
             <div className='text-left uppercase'>Social Media</div>
             <div className='flex'>          
-              <Image src={facebook} width={20} height={15} alt='facebook' className='mr-3'></Image>
               <Image src={youtube} width={30} height={40} alt='youtube' className='mr-3'></Image>
-              <Image src={instagram} width={30} height={40} alt='instagram'></Image>
+              <Image src={instagram} width={30} height={40} alt='instagram' className='mr-3'></Image>
+              <Image src={facebook} width={15} height={15} alt='facebook' className='mr-3'></Image>
             </div>          
           </div>
 

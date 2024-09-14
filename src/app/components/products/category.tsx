@@ -37,9 +37,9 @@ const Category = ({handleClick}) => {
     }
 
   return (
-    <div className='h-52 lg:h-full p-2'>
-        <div className='text-base uppercase text-center py-2'>Category</div>
-        <div className='my-1 h-8 p-1 font-bold border-gray-200 border-solid border rounded'>
+    <div className='h-52 lg:h-full p-1 sm:p-2'>
+        <div className='text-base uppercase text-center'>Category</div>
+        <div className='my-1 h-8 p-1 font-bold border-gray-200 border-solid border'>
             {
                 categorySelected && <>
                     {categorySelected} (<span id='category-product-count'>0</span>) 
