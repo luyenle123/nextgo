@@ -100,9 +100,7 @@ const handleAddToCartClick = (product) => {
   const productId = product.id;
   DoAddToCart(productId, product.sku, () => {
     LoaderToggle(false, () => {
-
-      setTimeout(function(){setCartProduct(product)}, 300);
-      // setCartProduct(product);
+      setTimeout(function(){setCartProduct(product)}, 100);
     });
     UpdateCartInfo(null, 1);
   });  
@@ -146,6 +144,7 @@ const categoryHandleClick = (category) => {
   config.hidePageDropDownInfo = true;
 
   const config1 = CloneConfig(config);
+  config1.hideSortOption = false;
 
   return (
     <>
@@ -157,12 +156,12 @@ const categoryHandleClick = (category) => {
       <div className="float-left sm:float-none md:float-none">
         {products && products.length > 0 ? 
         <>
-          <div className="m-1">
+          <div className="float m-1 mr-1">
             {config.hasData && <Pagination config={config}/>}
           </div>
         </> : <></>}        
           
-          <div className="flex flex-wrap justify-left">
+          <div className="flex flex-wrap justify-left float-left">
             {products.map((product, i) => (
               <ProductItemContainer  key = {i} product={product} handleAddToCartClick={handleAddToCartClick}/>
             ))}
@@ -170,7 +169,7 @@ const categoryHandleClick = (category) => {
 
         {products && products.length > 0 ? 
         <>
-          <div className="m-1 float-left">
+          <div className="m-1 float-left w-full pr-2">
             {config.hasData && <Pagination config={config1}/>}
           </div>
         </> : <></>}

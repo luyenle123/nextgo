@@ -12,7 +12,7 @@ const Loader = ({isActive}) => {
       <div id='loader' className={display} >
         <div className="loader-bg"></div>        
         <div className='loader-container'>          
-          <span className="loader"></span>
+          <span id='loader-spin' className="loader"></span>
         </div>
       </div> 
     </>
@@ -50,10 +50,12 @@ const LoaderToggle = (display, callback = undefined) => {
 
 function ShowLoader(show){
   const loader = document.getElementById('loader');
+  //const spinelm = document.getElementById('loader-spin');
   if(loader)
   {
     if(show){
       loader.style.opacity = "1";
+      //spinelm.style.opacity = "1";
       loader.classList.remove('inActive');
       loader.classList.add('active');      
     }
@@ -67,16 +69,18 @@ function ShowLoader(show){
 function FadeLoader() {
   try{
     const loader = document.getElementById('loader');
+    //const spinelm = document.getElementById('loaderspin');
     if(!loader){
       return;
     }
 
     let opacity = parseInt( loader.style.opacity);
     if (opacity > 0) {
-       opacity -= 0.05;
-       setTimeout(function(){FadeLoader()}, 100);
+       opacity -= 0.01;
+       setTimeout(function(){FadeLoader()}, 10);
     }
     loader.style.opacity = opacity + '';
+    //spinelm.style.opacity = opacity + '';
   
     if(opacity <=0 )
     {

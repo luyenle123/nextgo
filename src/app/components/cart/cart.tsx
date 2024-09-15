@@ -203,8 +203,8 @@ const AddToCartPopup = ({product, handleCallback}) => {
       }
   
       if (opacity < 0.4) {
-         opacity += 0.02;
-         setTimeout(function(){FadeLoader()}, 10);
+         opacity += 0.01;
+         setTimeout(function(){FadeLoader()}, 1);
       }
       bgElement.style.opacity = opacity + '';
     }

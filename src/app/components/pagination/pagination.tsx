@@ -54,16 +54,15 @@ export const Pagination = ({config}) => {
     }
 
     return(
-        <div className="w-auto min-h-7">
-
-            <div className='inline-block sm:hidden float-left'>
+        <div className="w-full h-fit">
+            <div className='sm:hidden float-left h-5'>
                 <span>Page: </span>
-                <select className='min-w-10' onChange={config.handlePaginationNumberClick} value={config.pageInfo.page}>
+                <select className='min-w-10 bg-white' onChange={config.handlePaginationNumberClick} value={config.pageInfo.page}>
                     {config.pageInfo.allPaginationNumbers.map((p) => (
                         <option key={p} value={p}>{p}</option>
                     ))}
                 </select>
-                <span>of {config.pageInfo.totalPage}</span>
+                <span>of {config.pageInfo.totalPage} / {config.pageInfo.total} entries</span>
             </div>
 
             <div className='hidden sm:inline-block float-left'>
@@ -122,7 +121,7 @@ export function DisplayOption ({config}) {
             <>
                 &nbsp;
                 <span className="ml-2 text-xs">Show: </span>
-                <select className='w-12 h-7' onChange={config.handleItemDisplayChanged} value={config.pageInfo.pageSize}>
+                <select className='w-12 h-7 bg-white' onChange={config.handleItemDisplayChanged} value={config.pageInfo.pageSize}>
                     <option key={1} value={8}>8</option>
                     <option key={2} value={12}>12</option>
                     <option key={3} value={16}>16</option>
@@ -146,8 +145,7 @@ export function SortOption ({config}) {
     }
     else{
         return(
-            <div className='float-right'>
-                &nbsp;&nbsp;&nbsp;&nbsp;
+            <div className='pr-0.5 float-right h-6'>
                 <span className="text-xs ml-1">Sort: </span>
                 <select onChange={config.handleSortingChanged} value={config.pageInfo.sorting}>
                     <option key={1} value={1}>Price: L to H</option>
