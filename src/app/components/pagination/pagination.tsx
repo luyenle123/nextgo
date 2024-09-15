@@ -58,7 +58,7 @@ export const Pagination = ({config}) => {
 
             <div className='inline-block sm:hidden float-left'>
                 <span>Page: </span>
-                <select className='w-16' onChange={config.handlePaginationNumberClick} value={config.pageInfo.page}>
+                <select className='min-w-10' onChange={config.handlePaginationNumberClick} value={config.pageInfo.page}>
                     {config.pageInfo.allPaginationNumbers.map((p) => (
                         <option key={p} value={p}>{p}</option>
                     ))}
