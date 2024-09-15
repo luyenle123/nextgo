@@ -54,26 +54,41 @@ export const Pagination = ({config}) => {
     }
 
     return(
-        <div className="pagination">
-            <button onClick={config.handleBackClick} className="pagination-number">&lt;&lt;</button>
-            {config.pageInfo.paginationNumbers.map((p, i) => (
-                <PaginationButton key={i} pageinfo={config.pageInfo} page={p} pageNumberBlick={config.handlePaginationNumberClick}/>
-            ))}
-            <button onClick={config.handleNextClick} className="pagination-number">&gt;&gt;</button>
+        <div className="w-auto min-h-7">
 
-            {config.hidePageDropDownInfo ? <></> : 
-                <select onChange={config.handlePaginationNumberClick} value={config.pageInfo.page}>
+            <div className='inline-block sm:hidden float-left'>
+                <span>Page: </span>
+                <select className='w-16' onChange={config.handlePaginationNumberClick} value={config.pageInfo.page}>
                     {config.pageInfo.allPaginationNumbers.map((p) => (
                         <option key={p} value={p}>{p}</option>
                     ))}
-                </select>            
-            }
+                </select>
+                <span>of {config.pageInfo.totalPage}</span>
+            </div>
 
-            { config.hideTotalItem ? <></> : <span>{config.pageInfo.total} entries</span> }
+            <div className='hidden sm:inline-block float-left'>
+                <PButton page={-90} text = {'<<'} isActive={false} pageNumberClick={config.handleBackClick}/>
+                {config.pageInfo.paginationNumbers.map((p, i) => (
+                    <PaginationButton key={i} pageinfo={config.pageInfo} page={p} pageNumberClick={config.handlePaginationNumberClick}/>
+                ))}
+                <PButton page={-91} text = {'>>'} isActive={false} pageNumberClick={config.handleNextClick}/>
 
-            <DisplayPageInfo config={config}/>
+                {config.hidePageDropDownInfo ? <></> : 
+                    <select onChange={config.handlePaginationNumberClick} value={config.pageInfo.page}>
+                        {config.pageInfo.allPaginationNumbers.map((p) => (
+                            <option key={p} value={p}>{p}</option>
+                        ))}
+                    </select>            
+                }
 
-            <DisplayOption config={config}/>
+                { config.hideTotalItem ? <></> : <span>{config.pageInfo.total} entries</span> }
+
+                <DisplayPageInfo config={config}/>
+
+                <DisplayOption config={config}/>
+
+                {/* <SortOption config={config}/> */}
+            </div>
 
             <SortOption config={config}/>
 
@@ -90,7 +105,7 @@ export function DisplayPageInfo ({config}) {
     }
     else{
         return(
-            <span className="page-number">page {config.pageInfo.page} of {config.pageInfo.totalPage} / Showing {config.pageInfo.showFrom} to {config.pageInfo.showTo} of {config.pageInfo.total} entries</span>
+            <span className="ml-2 text-sm">page {config.pageInfo.page} of {config.pageInfo.totalPage} / Showing {config.pageInfo.showFrom} to {config.pageInfo.showTo} of {config.pageInfo.total} entries</span>
         );
     }
 };
@@ -106,8 +121,8 @@ export function DisplayOption ({config}) {
         return(
             <>
                 &nbsp;
-                <span className="page-number">Show: </span>
-                <select onChange={config.handleItemDisplayChanged} value={config.pageInfo.pageSize}>
+                <span className="ml-2 text-xs">Show: </span>
+                <select className='w-12 h-7' onChange={config.handleItemDisplayChanged} value={config.pageInfo.pageSize}>
                     <option key={1} value={8}>8</option>
                     <option key={2} value={12}>12</option>
                     <option key={3} value={16}>16</option>
@@ -116,7 +131,7 @@ export function DisplayOption ({config}) {
                     <option key={6} value={60}>60</option>
                     <option key={7} value={100}>100</option>
                 </select>
-                <span className="other-text ml-1">Entries</span>
+                <span className="text-xs ml-1">Entries</span>
             </>
         );
     }
@@ -131,30 +146,43 @@ export function SortOption ({config}) {
     }
     else{
         return(
-            <>
+            <div className='float-right'>
                 &nbsp;&nbsp;&nbsp;&nbsp;
-                <span className="page-number">Sort: </span>
+                <span className="text-xs ml-1">Sort: </span>
                 <select onChange={config.handleSortingChanged} value={config.pageInfo.sorting}>
                     <option key={1} value={1}>Price: L to H</option>
                     <option key={2} value={2}>Price: H to L</option>
                     <option key={3} value={3}>Title: A-Z</option>
                     <option key={4} value={4}>Title: Z-A</option>
                 </select>              
-            </>
+            </div>
         );
     }
 };
 
-export function PaginationButton({pageinfo, page, pageNumberBlick}){
+export function PaginationButton({pageinfo, page, pageNumberClick}){
     const currentPage = parseInt(page);
     if(currentPage > 0){
         return(
-            <button className={pageinfo.page === currentPage ? 'pagination-number-active' : 'pagination-number'} key={currentPage} onClick={pageNumberBlick} value={currentPage}>{currentPage}</button>
+            <PButton page={currentPage} text = {currentPage} isActive={pageinfo.page === currentPage} pageNumberClick={pageNumberClick}/>
         );
     }
     else{
+        pageNumberClick = ()=>{};
         return(
-            <button className='pagination-number-empty' key={page} >...</button>
+            <PButton page={page} text={'...'} isActive={false} pageNumberClick={pageNumberClick}/>
         );
     }
+}
+
+export function PButton({page, text, isActive, pageNumberClick}){
+
+    const bg = isActive ? 'bg-gray-400' : 'bg-gray-200 cursor-pointer';
+    if(isActive){
+        pageNumberClick = ()=>{};
+    }
+    return(
+        // <div className={'h-8 min-w-8 py-0.5 px-1 mr-1 pt-1.5 text-center ' + bg} key={page} onClick={pageNumberClick} >{ text }</div>
+        <button className={'h-7 min-w-7 py-0.5 px-1 mr-1 ' + bg} key={page} onClick={pageNumberClick} value={page}>{ text }</button>
+    );
 }

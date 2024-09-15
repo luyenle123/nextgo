@@ -30,7 +30,7 @@ const List = () => {
       }      
 
       LoaderToggle(true);
-      const res = await GetProductList(page, pageinfo.pageSize, 1) as IResponseServiceModel;
+      const res = await GetProductList(page, pageinfo.pageSize, pageinfo.sorting) as IResponseServiceModel;
 
       setPageInfo(GetPageInfo(res.data.total, res.data.products.length, page, pageinfo.pageSize, pageinfo.sorting));            
       setProducts(res.data.products);
@@ -67,13 +67,13 @@ const List = () => {
   }
 
   const handleSortingChanged = (e) => {
-    // console.log(e.target.value);
-    // var sortType = parseInt(e.target.value);
-    // var obj = pageinfo;
-    // obj.sorting = sortType;
-    // setPageInfo(obj);
+    const sortType = parseInt(e.target.value);
 
-    // queryData(1);        
+    const obj = pageinfo;
+    obj.sorting = sortType;
+    setPageInfo(obj);
+
+    FetchProduct(1);        
 };
 
 const handleNextClick = () => {
@@ -140,8 +140,7 @@ const categoryHandleClick = (category) => {
   config.handleAddToCartClick = handleAddToCartClick;
   config.handleItemDisplayChanged = handleItemDisplayChanged;
   config.handleSortingChanged = handleSortingChanged;
-  config.hideSortOption = true;
-  config.hideSortOption = true;
+  config.hideSortOption = false;
   config.hideDisplayPageInfo = true;
   config.hideDisplayOption = true;
   config.hidePageDropDownInfo = true;

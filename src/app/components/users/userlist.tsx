@@ -13,8 +13,9 @@ const List = () => {
     const [users, setUsers] = useState<IUserItem[] | undefined>(undefined);
     const [pageinfo, setPageInfo] = useState({page:1, pageSize:20, sorting:1, totalPage:1});  
     
-    const FetchUsers = async(page) => {                
-      const res = await GetUserList(1, pageinfo.pageSize) as IResponseServiceModel;
+    const FetchUsers = async(page) => {  
+      LoaderToggle(true);              
+      const res = await GetUserList(page, pageinfo.pageSize) as IResponseServiceModel;
       
       setUsers(res.data.users);
       setPageInfo(GetPageInfo(res.data.total, res.data.users.length, page, pageinfo.pageSize, pageinfo.sorting));
@@ -29,7 +30,7 @@ const List = () => {
         //     LoaderToggle(false);
         // }
 
-        LoaderToggle(true);
+        //LoaderToggle(true);
         FetchUsers(1);
     }, []);
 

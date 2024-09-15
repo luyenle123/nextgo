@@ -79,7 +79,7 @@ export default function Navbar(){
                         <hr className='h-1 bg-gray-500 mt-1'/>
                     </div>
 
-                    <div className='pl-3 mt-3 float-left'>
+                    <div className='pl-3 mt-1.5 float-left text-lg'>
                         {currentPageName}
                     </div>
                 </div>
