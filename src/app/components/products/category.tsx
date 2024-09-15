@@ -39,16 +39,20 @@ const Category = ({handleClick}) => {
   return (
     <div className='h-52 lg:h-full p-1 sm:p-2'>
         <div className='text-base uppercase text-center'>Category</div>
-        <div className='my-1 h-8 p-1 font-bold border-gray-200 border-solid border'>
-            {
-                categorySelected && <>
+
+        <div className='my-1 h-8 p-1 font-bold border-gray-100 border-solid border'>
+            {categorySelected ? <>
                     {categorySelected} (<span id='category-product-count'>0</span>) 
-                    <span className='float-right text-sm h-10 mr-2 text-red-500 cursor-pointer' onClick={() => handleClearClick()}>X</span>
+                    <span className='float-right text-sm mr-2 text-red-500 cursor-pointer' onClick={() => handleClearClick()}>X</span>
                 </> 
+                : <>
+                    <span className='text-gray-200'>No category selected</span>
+                </>
             }
         </div>
+
         {cateories && cateories.length > 0 && 
-            <div className='h-28 overflow-x-auto w-full lg:h-auto border sm:border-0 border-gray-200'>
+            <div className='h-28 overflow-x-auto w-full lg:h-auto border sm:border-0 border-gray-100'>
                 {cateories.map((p, i) => ( <MapItem key = {i} category = {p} categoryHandleClick = {handleCategoryClick} categorySelected={categorySelected}/> ))}                
             </div>
         }

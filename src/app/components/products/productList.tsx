@@ -156,7 +156,7 @@ const categoryHandleClick = (category) => {
       <div className="float-left sm:float-none md:float-none">
         {products && products.length > 0 ? 
         <>
-          <div className="float m-1 mr-1">
+          <div className="mx-1 float-left w-full pr-2">
             {config.hasData && <Pagination config={config}/>}
           </div>
         </> : <></>}        
@@ -169,7 +169,7 @@ const categoryHandleClick = (category) => {
 
         {products && products.length > 0 ? 
         <>
-          <div className="m-1 float-left w-full pr-2">
+          <div className="mx-1 float-left w-full pr-2">
             {config.hasData && <Pagination config={config1}/>}
           </div>
         </> : <></>}
