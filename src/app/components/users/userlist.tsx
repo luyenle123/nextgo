@@ -77,15 +77,15 @@ const List = () => {
   config.hideTotalItem = true;
 
   return (
-    <div className="w-full  md:px-20 2xl:px-40">
+    <div className="w-full md:px-20 2xl:px-40">
         {users && users.length > 0 ? 
         <>
-          <div className="m-1">
+          <div className="float-left m-1 w-full">
             {config.hasData && <Pagination config={config}/>}
           </div>
         </> : <></>} 
 
-        <div className="flex flex-wrap justify-center">
+        <div className="float-left flex flex-wrap justify-center">
           {users.map((user, i) => (
                   <div key={i} className="w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/4 2xl:w-1/5">
                     <div className="productcard-min-h-300 border-gray-300 border-solid border rounded m-1 p-2">
