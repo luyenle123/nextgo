@@ -5,7 +5,7 @@ import React, { useEffect, useState } from 'react'
 import { SearchProduct } from "@/app/services/productService";
 import { toast } from 'react-toastify';
 import { LoaderToggle } from "@/app/components/loader/loader";
-import { AddToCartPopup, DoAddToCart, UpdateCartInfo } from "@/app/components/cart/cart";
+import { DoAddToCart, UpdateCartInfo } from "@/app/components/cart/cart";
 import { IResponseServiceModel } from "@/app/models/responseModel";
 
 import { IProductItem } from '@/app/models/productmodel';
@@ -13,6 +13,9 @@ import ProductCard from '../products/productCard';
 
 import searchIcon from '@/app/images/search-icon-100.png';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
+
+const CartPopupResult = dynamic(() => import('@/app/components/cart/cartPopupResult'), { loading: () => <></>})
 
 const Search = () => {
   const [products, setProducts] = useState<IProductItem[] | undefined>(undefined);
@@ -90,7 +93,7 @@ const Search = () => {
           }       
         </div>
 
-        { cartProduct && <AddToCartPopup product={cartProduct} handleCallback={() => { setCartProduct(undefined)}}/> }
+        { cartProduct && <CartPopupResult product={cartProduct} handleCallback={() => { setCartProduct(undefined)}}/> }
     </div>
   )
 }

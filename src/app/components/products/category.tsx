@@ -4,7 +4,11 @@ import React, { useEffect, useState } from 'react'
 import { GetCategoryList } from "@/app/services/productService";
 import { IResponseServiceModel } from "@/app/models/responseModel";
 
-const Category = ({handleClick}) => {
+export function Hello() {
+    return <p>Hello!</p>
+  }
+
+export default function Category({handleClick}){
     const [cateories, setCateories] = useState([]);
     const [categorySelected, setCategorySelected] = useState();  
       

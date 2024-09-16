@@ -8,12 +8,16 @@ import { LoaderToggle } from "@/app/components/loader/loader";
 import { IProductItem } from "@/app/models/productmodel";
 import { Pagination, GetConfig, CloneConfig } from '@/app/components/pagination/pagination'
 import { GetPageInfo } from "@/app/components/pagination/paginationUtils";
-import { Category, UpdateCategoryProductCount } from "@/app/components/products/category";
+import { UpdateCategoryProductCount } from "@/app/components/products/category";
 import { toast } from 'react-toastify';
-import { AddToCartPopup, DoAddToCart, UpdateCartInfo } from "@/app/components/cart/cart";
+import { DoAddToCart, UpdateCartInfo } from "@/app/components/cart/cart";
 import ProductCard from "./productCard";
+import dynamic from "next/dynamic";
 
-const List = () => {
+const Category = dynamic(() => import('@/app/components/products/category'), { loading: () => <><p>Loading...</p></>})
+const CartPopupResult = dynamic(() => import('@/app/components/cart/cartPopupResult'), { loading: () => <></>})
+
+export default function List(){
     const [products, setProducts] = useState<IProductItem[] | undefined>(undefined);
     const [pageinfo, setPageInfo] = useState({page:1, pageSize:12, sorting:1, totalPage:1});
     const [categorySelected, setCategorySelected] = useState();
@@ -165,7 +169,7 @@ const categoryHandleClick = (category) => {
         {products && products.length > 0 ? <div className="px-1"><Pagination config={config}/></div> : <></>}
       </div>
     </div> 
-     { cartProduct && <AddToCartPopup product={cartProduct} handleCallback={() => { setCartProduct(undefined)}}/> }
+     { cartProduct && <CartPopupResult product={cartProduct} handleCallback={() => { setCartProduct(undefined)}}/> }
     </>
   )
 }
@@ -179,5 +183,3 @@ export function ProductItemContainer({product, handleAddToCartClick}){
     </>
   );
 }
-
-export { List }
