@@ -1,6 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import '../../styles/pagination.css';
-
 const handlePaginationNumberClick = (e) => {};
 const handleBackClick = (e) => {};
 const handleNextClick = (e) => {};
