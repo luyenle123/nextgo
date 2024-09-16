@@ -54,7 +54,7 @@ export const Pagination = ({config}) => {
     }
 
     return(
-        <div className="w-full h-fit">
+        <div className="w-full h-7">
             <div className='sm:hidden float-left h-5'>
                 <span>Page: </span>
                 <select className='min-w-10 bg-white' onChange={config.handlePaginationNumberClick} value={config.pageInfo.page}>

@@ -11,7 +11,7 @@ import { GetPageInfo } from "@/app/components/pagination/paginationUtils";
 import { Category, UpdateCategoryProductCount } from "@/app/components/products/category";
 import { toast } from 'react-toastify';
 import { AddToCartPopup, DoAddToCart, UpdateCartInfo } from "@/app/components/cart/cart";
-import ProductItem from "./productItem";
+import ProductCard from "./productCard";
 
 const List = () => {
     const [products, setProducts] = useState<IProductItem[] | undefined>(undefined);
@@ -154,12 +154,7 @@ const categoryHandleClick = (category) => {
       </div>
       
       <div className="float-left sm:float-none md:float-none">
-        {products && products.length > 0 ? 
-        <>
-          <div className="pl-1">
-            {config.hasData && <Pagination config={config}/>}
-          </div>
-        </> : <></>}        
+        {products && products.length > 0 ? <div className="px-1"><Pagination config={config}/></div> : <></>}
           
           <div className="flex flex-wrap justify-left float-left">
             {products.map((product, i) => (
@@ -167,12 +162,7 @@ const categoryHandleClick = (category) => {
             ))}
           </div>
 
-        {products && products.length > 0 ? 
-        <>
-          <div className="pl-1">
-            {config.hasData && <Pagination config={config1}/>}
-          </div>
-        </> : <></>}
+        {products && products.length > 0 ? <div className="px-1"><Pagination config={config}/></div> : <></>}
       </div>
     </div> 
      { cartProduct && <AddToCartPopup product={cartProduct} handleCallback={() => { setCartProduct(undefined)}}/> }
@@ -184,7 +174,7 @@ export function ProductItemContainer({product, handleAddToCartClick}){
   return(
     <>      
       <div className="w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/3 2xl:w-1/4 relative">
-        <ProductItem product={product} handleAddToCartClick={handleAddToCartClick}/>
+        <ProductCard product={product} handleAddToCartClick={handleAddToCartClick}/>
       </div>    
     </>
   );

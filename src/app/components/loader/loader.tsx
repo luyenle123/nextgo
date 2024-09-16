@@ -1,4 +1,5 @@
 import '../../styles/loader.css';
+// import {Spinner} from "@nextui-org/spinner";
 
 const Loader = ({isActive}) => {
   let display = isActive ? 'loader-main active' : 'loader-main inActive';
@@ -13,26 +14,15 @@ const Loader = ({isActive}) => {
         <div className="loader-bg"></div>        
         <div className='loader-container'>          
           <span id='loader-spin' className="loader"></span>
+          {/* <div>Loading...</div> */}
+
+          {/* <Spinner size="lg" label="Loading..." /> */}
+
         </div>
       </div> 
     </>
   )
 }
-
-// const IsLoading = () => {
-//     return IsShowLoader();
-//   }
-
-//   function IsShowLoader(){
-//     const loader = document.getElementById('loader');
-//     if(loader){
-//         if(loader.classList.contains('active'))
-//         {
-//           return true;
-//         }
-//     }
-//     return false;
-//   }  
 
 const LoaderToggle = (display, callback = undefined) => {
   if(display){

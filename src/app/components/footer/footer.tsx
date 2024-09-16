@@ -25,19 +25,19 @@ export default function Footer(){
           <div className='mb-4'>
             <div className='text-left uppercase'>Social Media</div>
             <div className='flex'>          
-              <Image src={youtube} width={30} height={40} alt='youtube' className='mr-3'></Image>
-              <Image src={instagram} width={30} height={40} alt='instagram' className='mr-3'></Image>
-              <Image src={facebook} width={15} height={15} alt='facebook' className='mr-3'></Image>
+              <Image src={youtube} alt='youtube' className='mr-3'></Image>
+              <Image src={instagram}  alt='instagram' className='mr-3'></Image>
+              <Image src={facebook} alt='facebook' className='mr-3'></Image>
             </div>          
           </div>
 
           <div>
             <div className='text-left uppercase'>Secure payment methods</div>
             <div className='flex'>          
-              <Image src={visa} width={50} height={30} alt='visa' className='mr-1'></Image>
-              <Image src={amex} width={50} height={30} alt='visa' className='mr-1'></Image>
-              <Image src={mastercard} width={50} height={30} alt='visa' className='mr-1'></Image>
-              <Image src={paypal} width={50} height={30} alt='visa'></Image>
+              <Image src={visa} width={50} alt='visa' className='mr-1'></Image>
+              <Image src={amex} width={50} alt='visa' className='mr-1'></Image>
+              <Image src={mastercard} width={50} alt='visa' className='mr-1'></Image>
+              <Image src={paypal} width={50} alt='visa'></Image>
             </div>          
           </div>
         </div>

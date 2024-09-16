@@ -46,7 +46,7 @@ const Category = ({handleClick}) => {
                     <span className='float-right text-sm mr-2 text-red-500 cursor-pointer' onClick={() => handleClearClick()}>X</span>
                 </> 
                 : <>
-                    <span className='text-gray-200'>No category selected</span>
+                    <span className='text-gray-200 font-normal'>No category selected</span>
                 </>
             }
         </div>
@@ -70,9 +70,10 @@ export function MapItem(props){
 }
 
 export function CategoryItem(props){
+    const selectedCls = props.categorySelected === props.category ?' font-bold' : '';
     return(
-        <div className="p-1 text-gray-500 cursor-pointer hover:bg-gray-200" onClick={() => props.categoryHandleClick(props.category)}> 
-            <div className={props.categorySelected === props.category ? "capitalize ml-2 font-bold" : "capitalize ml-2"}>
+        <div className="py-1 text-gray-500 cursor-pointer hover:bg-gray-200" onClick={() => props.categoryHandleClick(props.category)}> 
+            <div className={'capitalize ml-1' + selectedCls}>
                 {props.category}
             </div>            
         </div>

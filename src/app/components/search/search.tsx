@@ -9,7 +9,7 @@ import { AddToCartPopup, DoAddToCart, UpdateCartInfo } from "@/app/components/ca
 import { IResponseServiceModel } from "@/app/models/responseModel";
 
 import { IProductItem } from '@/app/models/productmodel';
-import ProductItem from '../products/productItem';
+import ProductCard from '../products/productCard';
 
 import searchIcon from '@/app/images/search-icon-100.png';
 import Image from 'next/image';
@@ -98,7 +98,7 @@ const Search = () => {
 export function ProductItemContainer({product, handleAddToCartClick}){
   return(
     <div className="w-full sm:w-1/2 md:w-1/3 lg:w-1/3 xl:w-1/4 2xl:w-1/5 relative">
-      <ProductItem product={product} handleAddToCartClick={handleAddToCartClick}/>
+      <ProductCard product={product} handleAddToCartClick={handleAddToCartClick}/>
     </div>   
   );
 }

@@ -30,7 +30,7 @@ const List = () => {
 
   return (
     <>
-        <ul className="my-5 w-1/2 min-h-svh">
+        <ul className="my-5 min-h-svh">
             {posts.map((post, i) => (
                 <li key={i} className="cursor-pointer px-5 hover:bg-gray-200">
                   <Link href={'/posts/'+post.id}>

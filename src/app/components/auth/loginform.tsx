@@ -7,6 +7,7 @@ import { LoaderToggle } from "@/app/components/loader/loader";
 import { useState} from 'react'
 import { IsLogin, LoginAPI, SaveUser } from '@/app/services/userService';
 import { IResponseServiceModel } from "@/app/models/responseModel";
+// import {Checkbox} from "@nextui-org/checkbox";
 
 import { useRouter } from 'next/navigation';
 
@@ -75,7 +76,8 @@ const LoginForm = () => {
 
               <div className='p-3'>
                 <label className='flex'>
-                  <input type="checkbox" name="checkbox" autoFocus className='outline-none w-5 h-5'/>
+                {/* <Checkbox>Remember</Checkbox> */}
+                  <input type="checkbox" name="checkbox" autoFocus className='outline-none w-5 h-5'/> 
                   <span className='ml-2'>Remember</span>
                 </label>
               </div>
