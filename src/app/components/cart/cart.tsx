@@ -15,6 +15,8 @@ import Link from 'next/link';
 import { ICartModel } from '@/app/models/cartModel';
 import { ContinueAndViewCartButtonLeftRight } from '../buttons/commonButton';
 
+import { SpeedInsights } from "@vercel/speed-insights/next"
+
 import searchIcon from '@/app/images/search-icon-100-2.png';
 
 const UpdateCartInfo = async(res, qty) => {

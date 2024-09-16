@@ -13,6 +13,7 @@ import { toast } from 'react-toastify';
 import { DoAddToCart, UpdateCartInfo } from "@/app/components/cart/cart";
 import ProductCard from "./productCard";
 import dynamic from "next/dynamic";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const Category = dynamic(() => import('@/app/components/products/category'), { loading: () => <><p>Loading...</p></>})
 const CartPopupResult = dynamic(() => import('@/app/components/cart/cartPopupResult'), { loading: () => <></>})

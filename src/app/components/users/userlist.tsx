@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
 import { GetUserList } from "@/app/services/userService";
@@ -8,6 +9,8 @@ import { LoaderToggle } from "@/app/components/loader/loader";
 import { IUserItem } from "@/app/models/usermodel";
 import { GetConfig, Pagination } from "../pagination/pagination";
 import { GetPageInfo } from "../pagination/paginationUtils";
+
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const List = () => {
     const [users, setUsers] = useState<IUserItem[] | undefined>(undefined);

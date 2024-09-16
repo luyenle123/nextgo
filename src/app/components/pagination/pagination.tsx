@@ -1,4 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
+import { SpeedInsights } from "@vercel/speed-insights/next"
+
 const handlePaginationNumberClick = (e) => {};
 const handleBackClick = (e) => {};
 const handleNextClick = (e) => {};

@@ -7,13 +7,13 @@ import { toast } from 'react-toastify';
 import { LoaderToggle } from "@/app/components/loader/loader";
 import { DoAddToCart, UpdateCartInfo } from "@/app/components/cart/cart";
 import { IResponseServiceModel } from "@/app/models/responseModel";
-
 import { IProductItem } from '@/app/models/productmodel';
 import ProductCard from '../products/productCard';
-
 import searchIcon from '@/app/images/search-icon-100.png';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
+
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const CartPopupResult = dynamic(() => import('@/app/components/cart/cartPopupResult'), { loading: () => <></>})
 

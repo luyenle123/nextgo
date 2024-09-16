@@ -12,6 +12,7 @@
     "@nextui-org/checkbox": "^2.1.5",
     "@nextui-org/react": "^2.4.8",
     "@nextui-org/spinner": "^2.0.34",
+    "@vercel/speed-insights": "^1.0.12",
     "cookies-next": "^4.2.1",
     "next": "^14.2.8",
     "react": "^18.3.1",

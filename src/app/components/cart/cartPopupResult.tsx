@@ -7,6 +7,8 @@ import Image from 'next/image';
 import ProductRating from '../products/productRating';
 import { ContinueAndViewCartButtonCenter} from '../buttons/commonButton';
 
+import { SpeedInsights } from "@vercel/speed-insights/next"
+
 export default function CartPopupResult({product, handleCallback}){
   const [isdisplay, setIsDisplay] = useState(true);
 
