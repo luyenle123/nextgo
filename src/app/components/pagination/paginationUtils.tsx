@@ -25,7 +25,7 @@ const  GetPageInfo = (total:number, resultLength:number, page, pageSize:number, 
 
     const paginationNumbers = [];
     const currentPage = parseInt(page);    
-    const pageRender = 3;
+    const pageRender = 5;
 
     if(currentPage < pageRender ){
       
