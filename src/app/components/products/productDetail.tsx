@@ -46,7 +46,7 @@ const ProductDetail = ({id}) => {
 
     return(
         <>
-            <div className="w-full sm:w-full md:w-full lg:w-2/3 m-0 mx-auto mb-3">
+            <div className="w-full lg:w-2/3 m-0 mx-auto mb-3">
                 <div className={'p-2 w-full min-h-52 mt-3 inline-block border-gray-300 border-solid border rounde pdp-header'}>
                     <div className="float-left block w-80">
                         {product.images && product.images.length > 0 ? <Image src={product.images[0]} alt={product.title} width={300} height={300}/> : <></>   }
