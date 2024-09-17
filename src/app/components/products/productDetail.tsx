@@ -21,6 +21,7 @@ const ProductDetail = ({id}) => {
             else{
                 toast.error('Error: ' + res.data);
             }
+            LoaderToggle(false);
         }
 
         LoaderToggle(true);
