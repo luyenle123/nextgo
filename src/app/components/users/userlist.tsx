@@ -4,17 +4,15 @@
 import { GetUserList } from "@/app/services/userService";
 import { useEffect, useState } from "react";
 import { IResponseServiceModel } from "@/app/models/responseModel";
-import Image from "next/image";
+// import Image from "next/image";
 import { LoaderToggle } from "@/app/components/loader/loader";
 import { IUserItem } from "@/app/models/usermodel";
 import { GetConfig, Pagination } from "../pagination/pagination";
 import { GetPageInfo } from "../pagination/paginationUtils";
 
-import { SpeedInsights } from "@vercel/speed-insights/next"
-
-const List = () => {
+export default function List(){
     const [users, setUsers] = useState<IUserItem[] | undefined>(undefined);
-    const [pageinfo, setPageInfo] = useState({page:1, pageSize:20, sorting:1, totalPage:1});  
+    const [pageinfo, setPageInfo] = useState({page:1, pageSize:9, sorting:1, totalPage:1});  
     
     const FetchUsers = async(page) => {  
       LoaderToggle(true);              
@@ -78,19 +76,22 @@ const List = () => {
   config.handleItemDisplayChanged = handleItemDisplayChanged;
   config.hideSortOption = true;
   config.hideTotalItem = true;
+  config.hideDisplayOption = true;
+  config.hidePageDropDownInfo = true;
+  config.hideDisplayPageInfo = true;
 
   return (
-    <div className="w-full md:px-20 2xl:px-40 justify-center my-2">
+    <div className="w-full md:px-40 xl:px-96 justify-center my-2">
         {users && users.length > 0 ? <div className='px-1'><Pagination config={config}/> </div> : <></>} 
 
         <div className="flex flex-wrap w-full">
           {users.map((user, i) => (
-                  <div key={i} className="w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/4 2xl:w-1/5">
-                    <div className="productcard-min-h-300 border-gray-300 border-solid border rounded m-1 p-2">
+                  <div key={i} className="w-full h-96 sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3">
+                    <div className="h-96 border-gray-300 border-solid border rounded m-1 p-2">
                         <p>{user.firstName} {user.lastName}</p>
                         <p>{user.email}</p>
                         <div className="w-32 mx-auto my-0 mt-5">
-                            <Image src={user.image} alt={user.firstName} width={128} height={128}/>  
+                            {/* <Image src={user.image} alt={user.firstName} width={100} height={100}/> */}
                         </div>
                     </div>
                   </div>
