@@ -10,8 +10,6 @@ import { toast } from 'react-toastify';
 import deletIcon from '@/app/images/icon-delete.svg'
 import Image from 'next/image';
 
-import { SpeedInsights } from "@vercel/speed-insights/next"
-
 export default function CartDetail(){
 
     const [cart, setCart] = useState({id:0, products:[],totalProducts:0, totalQuantity:0, total:0}); 

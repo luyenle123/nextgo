@@ -5,8 +5,6 @@ import React, { useEffect, useState } from 'react'
 import { GetCategoryList } from "@/app/services/productService";
 import { IResponseServiceModel } from "@/app/models/responseModel";
 
-import { SpeedInsights } from "@vercel/speed-insights/next"
-
 export function Hello() {
     return <p>Hello!</p>
   }

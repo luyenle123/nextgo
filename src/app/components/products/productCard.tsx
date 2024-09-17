@@ -4,8 +4,6 @@ import Link from 'next/link';
 import React from 'react'
 import ProductRating from './productRating';
 
-import { SpeedInsights } from "@vercel/speed-insights/next"
-
 export default function ProductCard({product, handleAddToCartClick}){
     return(
       <>      
