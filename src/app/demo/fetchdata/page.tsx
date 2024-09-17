@@ -7,7 +7,11 @@ export default function fetchdata(){
   // const posts = data.posts;
 
   return (
-    <List/>
+      <div className='p-100'>
+        <List/>
+      </div>
+    
+      
     // <ul>
     //   {posts.map((post) => (
     //     <li key={post.id}>{post.title}</li>
