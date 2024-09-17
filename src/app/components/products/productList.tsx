@@ -13,9 +13,10 @@ import { toast } from 'react-toastify';
 import { DoAddToCart, UpdateCartInfo } from "@/app/components/cart/cart";
 import ProductCard from "./productCard";
 import dynamic from "next/dynamic";
+import CartPopupResult from "../cart/cartPopupResult";
 
 const Category = dynamic(() => import('@/app/components/products/category'), { loading: () => <><p>Loading...</p></>})
-const CartPopupResult = dynamic(() => import('@/app/components/cart/cartPopupResult'), { loading: () => <></>})
+// const CartPopupResult = dynamic(() => import('@/app/components/cart/cartPopupResult'), { loading: () => <></>})
 
 export default function List(){
     const [products, setProducts] = useState<IProductItem[] | undefined>(undefined);
@@ -61,9 +62,18 @@ export default function List(){
   }
 
   useEffect(() => {
+    async function QueryProduct(page){
+      LoaderToggle(true);
+      const res = await GetProductList(page, pageinfo.pageSize, pageinfo.sorting) as IResponseServiceModel;
+
+      setPageInfo(GetPageInfo(res.data.total, res.data.products.length, page, pageinfo.pageSize, pageinfo.sorting));            
+      setProducts(res.data.products);
+      LoaderToggle(false);
+    }
+
     LoaderToggle(true);
-    FetchProduct(1);
-  }, []);
+    QueryProduct(1);
+  }, [pageinfo.pageSize, pageinfo.sorting]);
 
 
   if(!products){

@@ -1,12 +1,15 @@
-import { Search } from '@/app/components/search/search'
-import React from 'react'
+import React, { Suspense } from 'react'
 
 import { SpeedInsights } from '@vercel/speed-insights/next';
+
+const Search = React.lazy(() => import('@/app/components/search/search'));
 
 export default function SearchPage(){
   return (
     <>
-      <Search/>
+      <Suspense>
+        <Search/>
+      </Suspense>      
       <SpeedInsights/>
     </>
   )

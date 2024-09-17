@@ -23,7 +23,7 @@ export default function Navbar(){
         if(!isLogin){
             route.push('/' + constants.NAV_LOGIN);
         }
-    }, []);
+    }, [route, isLogin]);
 
     if(!isLogin){
         isLogin = IsLogin();

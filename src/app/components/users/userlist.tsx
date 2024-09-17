@@ -4,7 +4,6 @@
 import { GetUserList } from "@/app/services/userService";
 import { useEffect, useState } from "react";
 import { IResponseServiceModel } from "@/app/models/responseModel";
-// import Image from "next/image";
 import { LoaderToggle } from "@/app/components/loader/loader";
 import { IUserItem } from "@/app/models/usermodel";
 import { GetConfig, Pagination } from "../pagination/pagination";
@@ -23,17 +22,18 @@ export default function List(){
       LoaderToggle(false);
   }    
 
-    useEffect(() => {
-        // async function fetchPosts() {                
-        //     const res = await GetUserList(1, 50) as IResponseServiceModel;
-            
-        //     setUsers(res.data.users);
-        //     LoaderToggle(false);
-        // }
+  useEffect(() => {
+      async function QueryUsers() {                
+        const res = await GetUserList(1, pageinfo.pageSize) as IResponseServiceModel;
+    
+        setUsers(res.data.users);
+        setPageInfo(GetPageInfo(res.data.total, res.data.users.length, 1, pageinfo.pageSize, pageinfo.sorting));
+        LoaderToggle(false);
+      }
 
-        //LoaderToggle(true);
-        FetchUsers(1);
-    }, []);
+      LoaderToggle(true);
+      QueryUsers();
+  }, [pageinfo.pageSize, pageinfo.sorting]);
 
   if(!users){
     return(<></>);

@@ -20,7 +20,7 @@ export default function LogoutPage(){
       }catch (error) {
         route.push('/');
       }
-    }, []);
+    }, [route]);
   
     return (
       <>

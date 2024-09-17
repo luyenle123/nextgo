@@ -28,34 +28,32 @@ export default function CartPopupResult({product, handleCallback}){
   let opacity = 0;
   const FadeLoader = () => {
     try{
-      const bgElement = document.getElementById('popup-result-bg');
+      const bgElement = document.getElementById('popup-result');
       if(!bgElement){
+        console.log('element null');
         return;
       }
   
-      if (opacity < 0.5) {
+      if (opacity < 1) {
          opacity += 0.01;
          setTimeout(function(){FadeLoader()}, 1);
       }
       bgElement.style.opacity = opacity + '';
+      console.log('opacity: ' + opacity);
     }
-    catch(err){}
+    catch(err){
+      console.log(err);
+    }
   } 
-  
-    // useEffect(() => {
-    //   if(isdisplay){
-    //     setTimeout(function(){FadeLoader()}, 10);
-    //   }
-    // }, []);
 
     if(isdisplay){
-      setTimeout(function(){FadeLoader()}, 10);
+      setTimeout(function(){FadeLoader()}, 100);
     }    
 
   return(
     <>
-      <div id='popup-result' className=' w-full h-full fixed left-0 top-0' onClick={hide}>
-          <div id="popup-result-bg" className='w-full h-full bg-gray-500' style={{ opacity: '0' }}></div>
+      <div id='popup-result' className=' w-full h-full fixed left-0 top-0 '  style={{ opacity: '0' }} onClick={hide}>
+          <div id="popup-result-bg" className='w-full h-full bg-gray-500 bg-opacity-40'></div>
           <div className='fixed inset-0 w-full max-w-500 h-350 m-auto'>
               <div className='w-full h-350 bg-white'>
                 <div className='text-center mb-2 text-sm py-4 font-bold text-green-600'>

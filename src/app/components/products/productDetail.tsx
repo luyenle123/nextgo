@@ -11,22 +11,21 @@ import { toast } from 'react-toastify';
 const ProductDetail = ({id}) => {
     const [product, setProduct] = useState<IProductItem | undefined>(undefined);
 
-    const queryData = async () => {
-        const res = await GetProductDetail(id) as IResponseServiceModel;
-        if(res.isSuccess)
-        {
-            setProduct(res.data);
-        }
-        else{
-            toast.error('Error: ' + res.data);
-        }
-        LoaderToggle(false);
-    }
-
     useEffect(() => {
+        async function queryData() {
+            const res = await GetProductDetail(id) as IResponseServiceModel;
+            if(res.isSuccess)
+            {
+                setProduct(res.data);
+            }
+            else{
+                toast.error('Error: ' + res.data);
+            }
+        }
+
         LoaderToggle(true);
         queryData();
-    }, []);
+    }, [id]);
 
     if(!product){
         return(

@@ -15,20 +15,12 @@ const LoginForm = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
     const route = useRouter();
-    const inputRef = React.useRef();
 
     useEffect(() => {
       if(IsLogin()){
           route.push('/')
       }
-    });
-
-    useEffect(() => {
-      if(inputRef && inputRef.current)
-      {
-        //inputRef.current.focus();      
-      }
-    }, []);
+    }, [route]);
     
     const emailChangeHandle = (e) => {
       setEmail(e.target.value);
@@ -67,7 +59,7 @@ const LoginForm = () => {
             <div className='p-5'>
 
               <div className='p-1'>
-                <input ref={inputRef} className='w-full h-8 rounded-3xl p-5 bg-gray-100 bg-opacity-10 border-solid border-2 border-gray-400 focus:border-gray-200 focus:outline-none' type='text' id='email' placeholder='user name' maxLength={100} onChange={emailChangeHandle}/>
+                <input className='w-full h-8 rounded-3xl p-5 bg-gray-100 bg-opacity-10 border-solid border-2 border-gray-400 focus:border-gray-200 focus:outline-none' type='text' id='email' placeholder='user name' maxLength={100} onChange={emailChangeHandle}/>
               </div>
 
               <div className='p-1'>

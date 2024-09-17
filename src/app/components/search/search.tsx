@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { SearchProduct } from "@/app/services/productService";
 import { toast } from 'react-toastify';
 import { LoaderToggle } from "@/app/components/loader/loader";
@@ -11,25 +11,12 @@ import { IProductItem } from '@/app/models/productmodel';
 import ProductCard from '../products/productCard';
 import searchIcon from '@/app/images/search-icon-100.png';
 import Image from 'next/image';
-import dynamic from 'next/dynamic';
+import CartPopupResult from '../cart/cartPopupResult';
 
-// import { SpeedInsights } from "@vercel/speed-insights/next"
-
-const CartPopupResult = dynamic(() => import('@/app/components/cart/cartPopupResult'), { loading: () => <></>})
-
-const Search = () => {
+export default function Search(){
   const [products, setProducts] = useState<IProductItem[] | undefined>(undefined);
   const [key, setKey] = useState('');
   const [cartProduct, setCartProduct] = useState<IProductItem | undefined>(undefined);  
-
-  const inputRef = React.useRef();
-
-  useEffect(() => {
-    if(inputRef && inputRef.current)
-    {
-      //inputRef.current.focus();
-    }
-  }, []);
 
   const handleSearchClick = async () => {
     if(!key || key.length < 3) return;
@@ -63,12 +50,11 @@ const Search = () => {
     }
   }
 
-
   return (
     <div className='sm:p-2'>
         <div className='w-full sm:w-3/4 md:search-form-width lg:search-form-width xl:search-form-width 2xl:search-form-width max-w-2xl mt-0 mx-auto bg-gray-200 sm:rounded border-gray-400'>
             <div className='p-7 flex'>
-                <input className='h-10 w-full rounded-l text-lg pl-1 outline-none' placeholder='search product' maxLength={50} ref={inputRef} autoFocus onChange={(e) => setKey(e.target.value)} onKeyDown={handleKeyDown}></input>
+                <input className='h-10 w-full rounded-l text-lg pl-1 outline-none' placeholder='search product' maxLength={50} autoFocus onChange={(e) => setKey(e.target.value)} onKeyDown={handleKeyDown}></input>
                 <button className='h-10 w-12 bg-gray-100 border-l rounded-r font-bold hover:bg-gray-400 active:bg-gray-300' onClick={handleSearchClick} onKeyDown={handleKeyDown}>
                   <Image src={searchIcon} width={30} height={30} alt='search' className='my-0 mx-auto opacity-50'></Image>
                 </button>
@@ -105,5 +91,3 @@ export function ProductItemContainer({product, handleAddToCartClick}){
     </div>   
   );
 }
-
-export { Search }
