@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 import { usePathname, useRouter } from 'next/navigation';
 import { IsLogin } from '@/app/services/userService';
 
+import { SpeedInsights } from "@vercel/speed-insights/next"
+
 export default function Navbar(){
     const [isActive, setIsActive] = useState(false);
     //const [menuSelected, setmenuSelected] = useState('Home');
@@ -92,6 +94,7 @@ export default function Navbar(){
             </div>
 
             <Cart/>
+            <SpeedInsights/>
         </div>        
     </>
   )

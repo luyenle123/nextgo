@@ -13,7 +13,7 @@ import searchIcon from '@/app/images/search-icon-100.png';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 
-import { SpeedInsights } from "@vercel/speed-insights/next"
+// import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const CartPopupResult = dynamic(() => import('@/app/components/cart/cartPopupResult'), { loading: () => <></>})
 
@@ -68,14 +68,14 @@ const Search = () => {
     <div className='sm:p-2'>
         <div className='w-full sm:w-3/4 md:search-form-width lg:search-form-width xl:search-form-width 2xl:search-form-width max-w-2xl mt-0 mx-auto bg-gray-200 sm:rounded border-gray-400'>
             <div className='p-7 flex'>
-                <input className='h-10 w-full rounded-l text-lg pl-1 outline-none' maxLength={50} ref={inputRef} autoFocus onChange={(e) => setKey(e.target.value)} onKeyDown={handleKeyDown}></input>
+                <input className='h-10 w-full rounded-l text-lg pl-1 outline-none' placeholder='search product' maxLength={50} ref={inputRef} autoFocus onChange={(e) => setKey(e.target.value)} onKeyDown={handleKeyDown}></input>
                 <button className='h-10 w-12 bg-gray-100 border-l rounded-r font-bold hover:bg-gray-400 active:bg-gray-300' onClick={handleSearchClick} onKeyDown={handleKeyDown}>
                   <Image src={searchIcon} width={30} height={30} alt='search' className='my-0 mx-auto opacity-50'></Image>
                 </button>
             </div>
         </div>
 
-        <div className='mt-1 min-h-600'>
+        <div className='mt-1 min-h-600 w-full'>
           {!products || products.length <= 0 ? <div className='mx-auto text-center pt-12 w-full'>No Result</div> : <></>}
 
           {products && products.length > 0 &&

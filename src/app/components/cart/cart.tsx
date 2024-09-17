@@ -15,8 +15,6 @@ import Link from 'next/link';
 import { ICartModel } from '@/app/models/cartModel';
 import { ContinueAndViewCartButtonLeftRight } from '../buttons/commonButton';
 
-import { SpeedInsights } from "@vercel/speed-insights/next"
-
 import searchIcon from '@/app/images/search-icon-100-2.png';
 
 const UpdateCartInfo = async(res, qty) => {
@@ -107,7 +105,7 @@ const Cart = () => {
               <Image className='w-10 cursor-pointer float-left' src={cartIcon} alt='cart' onClick={handleCartClick} width={36} height={36}/>
             </div>
             <div id='cart-item-number' className='text-xs font-thin h-4 mt-0.5 mr-2 px-1 -ml-3 border rounded-lg border-gray-400 float-right'>
-              {cart?cart.totalQuantity:0}
+              {cart?cart.totalQuantity:'00'}
             </div>
         </div>
 
