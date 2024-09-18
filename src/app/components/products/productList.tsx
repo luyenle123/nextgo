@@ -14,6 +14,7 @@ import { DoAddToCart, UpdateCartInfo } from "@/app/components/cart/cart";
 import ProductCard from "./productCard";
 import dynamic from "next/dynamic";
 import CartPopupResult from "../cart/cartPopupResult";
+import ProductCardEmpty from "./productCardEmpty";
 
 const Category = dynamic(() => import('@/app/components/products/category'), { loading: () => <><p>Loading...</p></>})
 // const CartPopupResult = dynamic(() => import('@/app/components/cart/cartPopupResult'), { loading: () => <></>})
@@ -24,6 +25,9 @@ export default function List(){
     const [categorySelected, setCategorySelected] = useState();
     const [cartProduct, setCartProduct] = useState<IProductItem | undefined>(undefined);
 
+    const productEmptyList = [
+      {},{},{},{},{},{},{},{},{},{},{},{}
+    ];
     let fetchProduct = false;
 
     //console.log('>> product list> ' + 'pageinfo: ' + pageinfo.totalPage + ' / product:' + products?.length);
@@ -74,11 +78,6 @@ export default function List(){
     LoaderToggle(true);
     QueryProduct(1);
   }, [pageinfo.pageSize, pageinfo.sorting]);
-
-
-  if(!products){
-    return(<></>);
-  }
 
   const handleSortingChanged = (e) => {
     const sortType = parseInt(e.target.value);
@@ -171,9 +170,21 @@ const categoryHandleClick = (category) => {
         {products && products.length > 0 ? <div className="px-1"><Pagination config={config}/></div> : <></>}
           
           <div className="flex flex-wrap justify-left float-left">
-            {products.map((product, i) => (
-              <ProductItemContainer  key = {i} product={product} handleAddToCartClick={handleAddToCartClick}/>
-            ))}
+            {products && products.length > 0 ? 
+            <>
+              {
+                products.map((product, i) => (
+                  <ProductItemContainer  key = {i} product={product} handleAddToCartClick={handleAddToCartClick}/>
+                ))                
+              }
+            </> : 
+            <>
+            {
+            productEmptyList.map((p, i) => (
+              <ProductItemContainerEmpty key={i}/>
+            ))               
+            }
+            </>}
           </div>
 
         {products && products.length > 0 ? <div className="px-1"><Pagination config={config}/></div> : <></>}
@@ -189,6 +200,27 @@ export function ProductItemContainer({product, handleAddToCartClick}){
     <>      
       <div className="w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/3 2xl:w-1/4 relative">
         <ProductCard product={product} handleAddToCartClick={handleAddToCartClick}/>
+      </div>    
+    </>
+  );
+}
+
+export function paginationEmpty(){
+  return(
+    <>
+        <div className="w-full h-7 bg-slate-400">
+            <div className='inline-block float-left'>
+            </div>
+        </div>    
+    </>
+  );
+}
+
+export function ProductItemContainerEmpty(){
+  return(
+    <>      
+      <div className="w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/3 2xl:w-1/4 relative blur-sm opacity-50">
+        <ProductCardEmpty/>
       </div>    
     </>
   );
