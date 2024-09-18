@@ -6,15 +6,14 @@ import { useEffect, useState } from "react";
 import { IResponseServiceModel } from "@/app/models/responseModel";
 import { LoaderToggle } from "@/app/components/loader/loader";
 import { IProductItem } from "@/app/models/productmodel";
-import { Pagination, GetConfig, CloneConfig } from '@/app/components/pagination/pagination'
+import { Pagination, GetConfig, CloneConfig, PaginationEmpty } from '@/app/components/pagination/pagination'
 import { GetPageInfo } from "@/app/components/pagination/paginationUtils";
 import { UpdateCategoryProductCount } from "@/app/components/products/category";
 import { toast } from 'react-toastify';
 import { DoAddToCart, UpdateCartInfo } from "@/app/components/cart/cart";
-import ProductCard from "./productCard";
+import { ProductCard, ProductCardEmpty } from "./productCard";
 import dynamic from "next/dynamic";
 import CartPopupResult from "../cart/cartPopupResult";
-import ProductCardEmpty from "./productCardEmpty";
 
 const Category = dynamic(() => import('@/app/components/products/category'), { loading: () => <><p>Loading...</p></>})
 // const CartPopupResult = dynamic(() => import('@/app/components/cart/cartPopupResult'), { loading: () => <></>})
@@ -26,7 +25,7 @@ export default function List(){
     const [cartProduct, setCartProduct] = useState<IProductItem | undefined>(undefined);
 
     const productEmptyList = [
-      {},{},{},{},{},{},{},{},{},{},{},{}
+      {},{},{},{},{},{},{},{}
     ];
     let fetchProduct = false;
 
@@ -167,7 +166,7 @@ const categoryHandleClick = (category) => {
       </div>
       
       <div className="float-left sm:float-none md:float-none">
-        {products && products.length > 0 ? <div className="px-1"><Pagination config={config}/></div> : <></>}
+        {products && products.length > 0 ? <div className="px-1"><Pagination config={config}/></div> : <div className="px-1"><PaginationEmpty/></div>}
           
           <div className="flex flex-wrap justify-left float-left">
             {products && products.length > 0 ? 
@@ -180,14 +179,14 @@ const categoryHandleClick = (category) => {
             </> : 
             <>
             {
-            productEmptyList.map((p, i) => (
-              <ProductItemContainerEmpty key={i}/>
-            ))               
+              productEmptyList.map((p, i) => (
+                <ProductItemContainerEmpty key={i}/>
+              ))               
             }
             </>}
           </div>
 
-        {products && products.length > 0 ? <div className="px-1"><Pagination config={config}/></div> : <></>}
+        {products && products.length > 0 ? <div className="px-1"><Pagination config={config}/></div> : <div className="px-1"><PaginationEmpty/></div>}
       </div>
     </div> 
      { cartProduct && <CartPopupResult product={cartProduct} handleCallback={() => { setCartProduct(undefined)}}/> }
@@ -219,7 +218,8 @@ export function paginationEmpty(){
 export function ProductItemContainerEmpty(){
   return(
     <>      
-      <div className="w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/3 2xl:w-1/4 relative blur-sm opacity-50">
+      <div className="w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/3 2xl:w-1/4 relative blur-sm opacity-60"> 
+        {/* blur-sm opacity-50 */}
         <ProductCardEmpty/>
       </div>    
     </>

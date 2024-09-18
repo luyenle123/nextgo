@@ -10,8 +10,9 @@ export function Hello() {
   }
 
 export default function Category({handleClick}){
-    const [cateories, setCateories] = useState([]);
-    const [categorySelected, setCategorySelected] = useState();  
+    const [categories, setCateories] = useState([]);
+    const [categorySelected, setCategorySelected] = useState();
+    const categoryEmptyList = ['','','','','','','','','','','','','','','','','','','','','','','',''];
       
     const doFetchCategory = async () => {
         //console.log('>> fetch category via api');        
@@ -56,11 +57,18 @@ export default function Category({handleClick}){
             }
         </div>
 
-        {cateories && cateories.length > 0 && 
+        
             <div className='h-28 overflow-x-auto w-full lg:h-auto border sm:border-0 border-gray-100'>
-                {cateories.map((p, i) => ( <MapItem key = {i} category = {p} categoryHandleClick = {handleCategoryClick} categorySelected={categorySelected}/> ))}                
+                {categories && categories.length > 0 ?                     
+                    <>
+                        {categories.map((p, i) => ( <MapItem key = {i} category = {p} categoryHandleClick = {handleCategoryClick} categorySelected={categorySelected}/> ))}
+                    </>                 
+                    :
+                    <>
+                        {categoryEmptyList.map((p, i) => ( <MapEmptyItem key = {i} category = {p} categoryHandleClick = {handleCategoryClick} categorySelected={categorySelected}/> ))}
+                    </>
+                }
             </div>
-        }
     </div>
   )
 }
@@ -74,11 +82,26 @@ export function MapItem(props){
     )
 }
 
+export function MapEmptyItem(props){
+    return (<CategoryItem key = {props.category} category = {props.category} categorySelected={props.categorySelected}/>);
+}
+
 export function CategoryItem(props){
+
+    if(props.category.length === 0){
+        return(
+            <>
+                <div className="py-1 text-gray-400 my-1 blur-sm"> 
+                    <div className={'h-5 ml-1'}>kitchen-accessories</div>
+                </div>            
+            </>
+        );
+    }
+
     const selectedCls = props.categorySelected === props.category ?' font-bold' : '';
     return(
-        <div className="py-1 text-gray-500 cursor-pointer hover:bg-gray-200" onClick={() => props.categoryHandleClick(props.category)}> 
-            <div className={'capitalize ml-1' + selectedCls}>
+        <div className="py-1 my-1 text-gray-500 cursor-pointer hover:bg-gray-200" onClick={() => props.categoryHandleClick(props.category)}> 
+            <div className={'h-5 capitalize ml-1' + selectedCls}>
                 {props.category}
             </div>            
         </div>
