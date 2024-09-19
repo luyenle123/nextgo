@@ -25,7 +25,6 @@ export default function CartPopupResult({product, handleCallback}){
     route.push('/cart');
   }
 
-  let opacity = 0;
   const FadeLoader = () => {
     try{
       const bgElement = document.getElementById('popup-result');
@@ -33,13 +32,16 @@ export default function CartPopupResult({product, handleCallback}){
         console.log('element null');
         return;
       }
-  
-      if (opacity < 1) {
-         opacity += 0.01;
-         setTimeout(function(){FadeLoader()}, 1);
-      }
-      bgElement.style.opacity = opacity + '';
-      console.log('opacity: ' + opacity);
+
+      let opacity = 0;
+      const fadeEffect = setInterval(function () {
+        if (opacity < 1) {
+          opacity += 0.01;
+        } else {
+            clearInterval(fadeEffect);
+        }
+        bgElement.style.opacity = opacity + '';
+      }, 1);
     }
     catch(err){
       console.log(err);
