@@ -37,13 +37,12 @@ const LoaderToggle = (display, callback = undefined) => {
   }  
 }
 
-
 function ShowLoader(show){
   const loader = document.getElementById('loader');
   if(loader)
   {
     if(show){
-      loader.style.opacity = "1";
+      loader.style.opacity = "0";
       FadeIn();      
       loader.classList.remove('inActive');
       loader.classList.add('active');      
@@ -56,8 +55,9 @@ function ShowLoader(show){
 }
 
 function FadeIn() {
+  const loader = document.getElementById('loader');
+
   try{
-    const loader = document.getElementById('loader');
     if(!loader){
       return;
     }
@@ -65,7 +65,7 @@ function FadeIn() {
     let opacity = 0;
     const fadeEffect = setInterval(function () {
       if (opacity < 1) {
-        opacity += 0.1;
+        opacity += 0.05;
       } else {
           clearInterval(fadeEffect);
       }
@@ -73,6 +73,9 @@ function FadeIn() {
     }, 1);    
   }
   catch(err){
+    loader.classList.remove('inActive');
+    loader.classList.add('active');
+    loader.style.opacity = "1";
   }
 } 
 
