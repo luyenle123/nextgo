@@ -23,10 +23,8 @@ export default function List(){
     const [pageinfo, setPageInfo] = useState({page:1, pageSize:12, sorting:1, totalPage:1});
     const [categorySelected, setCategorySelected] = useState();
     const [cartProduct, setCartProduct] = useState<IProductItem | undefined>(undefined);
-
-    const productEmptyList = [
-      {},{},{},{},{},{},{},{}
-    ];
+    const productEmptyList = [{},{},{},{},{},{},{},{},{},{},{},{}];
+    
     let fetchProduct = false;
 
     //console.log('>> product list> ' + 'pageinfo: ' + pageinfo.totalPage + ' / product:' + products?.length);
@@ -74,7 +72,6 @@ export default function List(){
       LoaderToggle(false);
     }
 
-    LoaderToggle(true);
     QueryProduct(1);
   }, [pageinfo.pageSize, pageinfo.sorting]);
 
@@ -166,7 +163,12 @@ const categoryHandleClick = (category) => {
       </div>
       
       <div className="float-left sm:float-none md:float-none">
-        {products && products.length > 0 ? <div className="px-1"><Pagination config={config}/></div> : <div className="px-1"><PaginationEmpty/></div>}
+        <div className="px-1">
+          {products && products.length > 0 ? <Pagination config={config}/> : 
+          <>
+            <PaginationEmpty/>
+          </>}
+        </div>
           
           <div className="flex flex-wrap justify-left float-left">
             {products && products.length > 0 ? 
@@ -181,12 +183,17 @@ const categoryHandleClick = (category) => {
             {
               productEmptyList.map((p, i) => (
                 <ProductItemContainerEmpty key={i}/>
-              ))               
+              ))
             }
             </>}
           </div>
 
-        {products && products.length > 0 ? <div className="px-1"><Pagination config={config}/></div> : <div className="px-1"><PaginationEmpty/></div>}
+          <div className="px-1">
+          {products && products.length > 0 ? <Pagination config={config}/> : 
+          <>
+            <PaginationEmpty/>
+          </>}
+        </div>
       </div>
     </div> 
      { cartProduct && <CartPopupResult product={cartProduct} handleCallback={() => { setCartProduct(undefined)}}/> }
@@ -218,7 +225,7 @@ export function paginationEmpty(){
 export function ProductItemContainerEmpty(){
   return(
     <>      
-      <div className="w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/3 2xl:w-1/4 relative blur-sm opacity-60"> 
+      <div className="w-full sm:w-full md:w-1/2 lg:w-1/2 xl:w-1/3 2xl:w-1/4 relative blur-sm opacity-40"> 
         {/* blur-sm opacity-50 */}
         <ProductCardEmpty/>
       </div>    

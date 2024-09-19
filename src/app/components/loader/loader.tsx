@@ -29,7 +29,7 @@ const LoaderToggle = (display, callback = undefined) => {
     ShowLoader(true)
   }
   else{
-    FadeLoader();
+    FadeOut();
   }
 
   if(callback){
@@ -40,12 +40,11 @@ const LoaderToggle = (display, callback = undefined) => {
 
 function ShowLoader(show){
   const loader = document.getElementById('loader');
-  //const spinelm = document.getElementById('loader-spin');
   if(loader)
   {
     if(show){
       loader.style.opacity = "1";
-      //spinelm.style.opacity = "1";
+      FadeIn();      
       loader.classList.remove('inActive');
       loader.classList.add('active');      
     }
@@ -56,21 +55,44 @@ function ShowLoader(show){
   }
 }
 
-function FadeLoader() {
+function FadeIn() {
   try{
     const loader = document.getElementById('loader');
-    //const spinelm = document.getElementById('loaderspin');
+    if(!loader){
+      return;
+    }
+
+    let opacity = 0;
+    const fadeEffect = setInterval(function () {
+      if (opacity < 1) {
+        opacity += 0.1;
+      } else {
+          clearInterval(fadeEffect);
+      }
+      loader.style.opacity = opacity + '';
+    }, 1);    
+  }
+  catch(err){
+  }
+} 
+
+function FadeOut() {
+  try{
+    const loader = document.getElementById('loader');
     if(!loader){
       return;
     }
 
     let opacity = parseInt( loader.style.opacity);
-    if (opacity > 0) {
-       opacity -= 0.01;
-       setTimeout(function(){FadeLoader()}, 10);
-    }
-    loader.style.opacity = opacity + '';
-    //spinelm.style.opacity = opacity + '';
+    const fadeEffect = setInterval(function () {
+      if (opacity > 0) {
+        opacity -= 0.1;
+      } else {
+          clearInterval(fadeEffect);
+          ShowLoader(false);
+      }
+      loader.style.opacity = opacity + '';
+    }, 1);    
   
     if(opacity <=0 )
     {

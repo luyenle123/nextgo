@@ -96,26 +96,33 @@ export const Pagination = ({config}) => {
 };
 
 export const PaginationEmpty = () => {
+    const config  = {
+        pageInfo: {
+            sorting: '1'
+        },
+        hideSortOption: false,
+        handleSortingChanged: ()=>{}        
+    };
     return(
         <>
         <div className="w-full h-7 blur-sm">
             <div className='hidden sm:inline-block float-left'>
                 <PButton page={-90} text = {'<<'} isActive={false} pageNumberClick={() => {}}/>
 
-                <PButton page={1} text={1} isActive={false} pageNumberClick={() => {}}/>
+                <PButton page={1} text={1} isActive={true} pageNumberClick={() => {}}/>
                 <PButton page={2} text={2} isActive={false} pageNumberClick={() => {}}/>
                 <PButton page={3} text={3} isActive={false} pageNumberClick={() => {}}/>
                 <PButton page={4} text={4} isActive={false} pageNumberClick={() => {}}/>
                 <PButton page={5} text={5} isActive={false} pageNumberClick={() => {}}/>
                 <PButton page={6} text={'...'} isActive={false} pageNumberClick={() => {}}/>
-                <PButton page={7} text={10} isActive={false} pageNumberClick={() => {}}/>
+                <PButton page={7} text={20} isActive={false} pageNumberClick={() => {}}/>
 
                 <PButton page={-91} text = {'>>'} isActive={false} pageNumberClick={() => {}}/>
 
-                { <span>123 entries</span> }
+                { <span>100 entries</span> }
 
             </div>
-
+            <SortOption config={config}/>
         </div>
         </>
     );

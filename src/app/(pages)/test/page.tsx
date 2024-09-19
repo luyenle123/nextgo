@@ -31,26 +31,34 @@
 
 // import { GetStaticProps } from "next";
 
-function TestPage({props}) //: InferGetServerSidePropsType<typeof getServerSideProps>) 
-{
-  console.log('>> TestPage');
+// function TestPage({props}) //: InferGetServerSidePropsType<typeof getServerSideProps>) 
+// {
+//   console.log('>> TestPage');
+//   return (
+//     <div>
+//       <p>DATA: {JSON.stringify(props)}</p>
+//     </div>
+//   )
+// }
+
+// export default TestPage;
+
+// TestPage.getStaticProps = async() => {
+//   console.log('>> getStaticProps');
+//   const res = await fetch('https://dummyjson.com/products')
+//   const productJson = await res.json() ;//as IResponseServiceModel
+
+//   return {
+//     props: {
+//       products: productJson
+//     }
+//   }
+// }
+
+import React from 'react'
+
+export default function Page(){
   return (
-    <div>
-      <p>DATA: {JSON.stringify(props)}</p>
-    </div>
+    <div>page</div>
   )
-}
-
-export default TestPage;
-
-TestPage.getStaticProps = async() => {
-  console.log('>> getStaticProps');
-  const res = await fetch('https://dummyjson.com/products')
-  const productJson = await res.json() ;//as IResponseServiceModel
-
-  return {
-    props: {
-      products: productJson
-    }
-  }
 }

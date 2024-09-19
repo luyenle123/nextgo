@@ -42,11 +42,12 @@ export default function Category({handleClick}){
         handleClick()
     }
 
+    const blurclass = categories && categories.length > 0 ? '' : ' blur-sm opacity-70';
   return (
     <div className='h-52 lg:h-full p-1 sm:p-2'>
-        <div className='text-base uppercase text-center'>Category</div>
+        <div className={'text-base uppercase text-center' + blurclass}>Category</div>
 
-        <div className='my-1 h-8 p-1 font-bold border-gray-100 border-solid border'>
+        <div className={'my-1 h-8 p-1 font-bold border-gray-100 border-solid border' + blurclass}>
             {categorySelected ? <>
                     {categorySelected} (<span id='category-product-count'>0</span>) 
                     <span className='float-right text-sm mr-2 text-red-500 cursor-pointer' onClick={() => handleClearClick()}>X</span>
@@ -57,18 +58,17 @@ export default function Category({handleClick}){
             }
         </div>
 
-        
-            <div className='h-28 overflow-x-auto w-full lg:h-auto border sm:border-0 border-gray-100'>
-                {categories && categories.length > 0 ?                     
-                    <>
-                        {categories.map((p, i) => ( <MapItem key = {i} category = {p} categoryHandleClick = {handleCategoryClick} categorySelected={categorySelected}/> ))}
-                    </>                 
-                    :
-                    <>
-                        {categoryEmptyList.map((p, i) => ( <MapEmptyItem key = {i} category = {p} categoryHandleClick = {handleCategoryClick} categorySelected={categorySelected}/> ))}
-                    </>
-                }
-            </div>
+        <div className='h-28 overflow-x-auto w-full lg:h-auto border sm:border-0 border-gray-100'>
+            {categories && categories.length > 0 ?                     
+                <>
+                    {categories.map((p, i) => ( <MapItem key = {i} category = {p} categoryHandleClick = {handleCategoryClick} categorySelected={categorySelected}/> ))}
+                </>                 
+                :
+                <>
+                    {categoryEmptyList.map((p, i) => ( <MapEmptyItem key = {i} category = {p}/> ))}
+                </>
+            }
+        </div>
     </div>
   )
 }
@@ -83,7 +83,8 @@ export function MapItem(props){
 }
 
 export function MapEmptyItem(props){
-    return (<CategoryItem key = {props.category} category = {props.category} categorySelected={props.categorySelected}/>);
+    const categorySelected = ()=>{};
+    return (<CategoryItem key = {props.category} category = {props.category} categorySelected={categorySelected}/>);
 }
 
 export function CategoryItem(props){
@@ -91,7 +92,7 @@ export function CategoryItem(props){
     if(props.category.length === 0){
         return(
             <>
-                <div className="py-1 text-gray-400 my-1 blur-sm"> 
+                <div className="py-1 text-gray-400 my-1 blur-sm opacity-70"> 
                     <div className={'h-5 ml-1'}>kitchen-accessories</div>
                 </div>            
             </>
