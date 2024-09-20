@@ -60,9 +60,7 @@ export default function List(){
 
   const handleItemDisplayChanged = (e) => {
     const newPageSize = parseInt(e.target.value);
-    const obj = pageinfo;
-    obj.pageSize = newPageSize;
-    setPageInfo(obj);
+    pageinfo.pageSize = newPageSize;
 
     FetchUsers(1);
   };

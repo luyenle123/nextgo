@@ -77,10 +77,7 @@ export default function List(){
 
   const handleSortingChanged = (e) => {
     const sortType = parseInt(e.target.value);
-
-    const obj = pageinfo;
-    obj.sorting = sortType;
-    setPageInfo(obj);
+    pageinfo.sorting = sortType;
 
     FetchProduct(1);        
 };
@@ -117,9 +114,7 @@ const handleAddToCartClick = (product) => {
 
 const handleItemDisplayChanged = (e) => {
   const newPageSize = parseInt(e.target.value);
-  const obj = pageinfo;
-  obj.pageSize = newPageSize;
-  setPageInfo(obj);
+  pageinfo.pageSize = newPageSize;
 
   FetchProduct(1);
 };
