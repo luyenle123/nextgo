@@ -77,9 +77,9 @@ export const CartItemQuantity = ({quantity, handleClick}) => {
 
   return(
       <div className='flex float-right md:float-none md:justify-center'>
-          <button className='w-8 h-8 text-center mx-0 border-t border-l border-b border-solid border-gray-200 rounded-l' onClick={()=>handleChangeQty(false)}>-</button>
-          <div className='w-10 h-8 text-center mx-0 pt-1 border-t border-b border-solid bg-gray-100 border-gray-200'>{qty}</div>
-          <button className='w-8 h-8 text-center border-r border-t border-b border-solid border-gray-200 rounded-r' onClick={()=>handleChangeQty(true)}>+</button>
+          <button className='mx-0 border-t border-l rounded-l quantity-button' onClick={()=>handleChangeQty(false)}>-</button>
+          <div className='w-10 h-8 text-center mx-0 pt-1 border-t border-b border-solid bg-white border-gray-200'>{qty}</div>
+          <button className='border-r border-t rounded-r quantity-button' onClick={()=>handleChangeQty(true)}>+</button>
       </div>
   );
 }

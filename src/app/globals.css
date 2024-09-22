@@ -40,6 +40,10 @@ body {
     @apply w-40 py-3 px-2 bg-gray-400 text-white;
   }
 
+  .quantity-button{
+    @apply w-8 h-8 text-center border-b border-solid bg-gray-200 border-gray-200 hover:bg-gray-100 active:bg-slate-200;
+  }
+
   .nav-bar-zindex{
     z-index: 999;
   }

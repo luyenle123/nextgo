@@ -2,8 +2,9 @@ import * as constants from '@/app/constants'
 import { FetchData } from '@/app/services/queryServiceBase';
 
 const GetCartDetail = async (cartId) => {
-    const url = constants.CART_DETAIL_URL + cartId;
-    return FetchData(url);
+  cartId = 4;
+  const url = constants.CART_DETAIL_URL + cartId;
+  return FetchData(url);
 }
 
 const AddToCart = async (productId, quantity) => {
