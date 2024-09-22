@@ -84,7 +84,7 @@ export default function List(){
 
         <div className="flex flex-wrap w-full">
           {users.map((user, i) => (
-                  <div key={i} className="w-full h-96 sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3">
+                  <div key={i} className="w-full sm:w-1/2 md:w-1/2 lg:w-1/3 xl:w-1/3">
                     <div className="h-96 border-gray-300 border-solid border rounded m-1 p-2">
                         <p>{user.firstName} {user.lastName}</p>
                         <p>{user.email}</p>
