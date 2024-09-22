@@ -9,6 +9,7 @@ import { toast } from 'react-toastify';
 
 import deletIcon from '@/app/images/icon-delete.svg'
 import Image from 'next/image';
+import { CartItemQuantity } from '@/app/components/buttons/commonButton';
 
 export default function CartDetail(){
 
@@ -39,19 +40,11 @@ export default function CartDetail(){
             LoaderToggle(false);
         }, 1000);
     };
-    
-    const handleQuantityUpClick = (e) => {
-        LoaderToggle(true);
-        setTimeout(() => {
-            toast('Change quantity');
-            LoaderToggle(false);
-        }, 500);        
-    };
 
-    const handleQuantityDownClick = (e) => {
+    const handleQuantityChangeClick = (e) => {
         LoaderToggle(true);
         setTimeout(() => {
-            toast('Change quantity');
+            toast('Change quantity: ' + e);
             LoaderToggle(false);
         }, 500);  
     };
@@ -65,8 +58,7 @@ export default function CartDetail(){
     };
 
     const data = {
-        handleQuantityUpClick: handleQuantityUpClick,
-        handleQuantityDownClick: handleQuantityDownClick,
+        handleQuantityChangeClick: handleQuantityChangeClick,
         handleRemoveCartItemClick: handleRemoveCartItemClick,
         handleGoToCheckoutClick: handleGoToCheckoutClick
     };
@@ -166,17 +158,12 @@ export function ProductItem(props){
                 <div className="w-full md:w-1/12 font-bold text-right mt-1">{props.product.price} $</div>
 
                 <div className="w-full h-8 md:w-2/12">
-                    <div className='flex float-right md:float-none md:justify-center'>
-                        <button className='w-8 h-8 text-center mx-0 border-t border-l border-b border-solid border-gray-200 rounded-l' onClick={props.eventhandle.handleQuantityDownClick}>-</button>
-                        <div className='w-10 h-8 text-center mx-0 pt-1 border-t border-b border-solid bg-gray-100 border-gray-200'>{props.product.quantity}</div>
-                        <button className='w-8 h-8 text-center border-r border-t border-b border-solid border-gray-200 rounded-r' onClick={props.eventhandle.handleQuantityUpClick}>+</button>
-                    </div>
+                    <CartItemQuantity quantity={props.product.quantity} handleClick={props.eventhandle.handleQuantityChangeClick}/>
                 </div>
                 
                 <div className="w-full h-8 md:w-1/12 font-bold text-right mt-1">{props.product.total.toFixed(2)} $</div>
                 <div className="w-full h-8 md:w-1/12">
                     <Image src={deletIcon} width={20} height={20} title='Remove' alt='Remove' className='float-right cursor-pointer' onClick={() => props.eventhandle.handleRemoveCartItemClick(props.product)}></Image>
-                    {/* <button className='w-8 h-8 float-right text-red-500 font-bold cursor-pointer border rounded border-solid border-gray-200' onClick={props.eventhandle.handleRemoveCartItemClick} title='Delete' value={props.product.id}>X</button> */}
                 </div>
             </div>
         </div>

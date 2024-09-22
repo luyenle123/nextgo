@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 export const AddToCartButton = ({product, handleAddToCartClick}) => {
   return (
@@ -48,5 +48,38 @@ export const ContinueAndViewCartButtonLeftRight = ({continueHandleClick, viewCar
         </div>        
       </div>    
     </>
+  );
+}
+
+export const CartItemQuantity = ({quantity, handleClick}) => {
+  const [qty, setQty] = useState(quantity);
+
+  const handleChangeQty = (isUp) => {    
+
+    let currentQty = qty;
+    if(isUp){
+      currentQty+=1;
+      setQty(currentQty);
+    }
+    else{
+      if(qty <= 1)
+        return;
+
+      currentQty-=1;
+      setQty(currentQty);
+    }
+
+    if(handleClick)
+    {
+      handleClick(currentQty);
+    }
+  }
+
+  return(
+      <div className='flex float-right md:float-none md:justify-center'>
+          <button className='w-8 h-8 text-center mx-0 border-t border-l border-b border-solid border-gray-200 rounded-l' onClick={()=>handleChangeQty(false)}>-</button>
+          <div className='w-10 h-8 text-center mx-0 pt-1 border-t border-b border-solid bg-gray-100 border-gray-200'>{qty}</div>
+          <button className='w-8 h-8 text-center border-r border-t border-b border-solid border-gray-200 rounded-r' onClick={()=>handleChangeQty(true)}>+</button>
+      </div>
   );
 }
