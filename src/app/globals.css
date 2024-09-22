@@ -28,9 +28,72 @@ body {
   }
 }
 
-.nav-bar-zindex{
-  z-index: 999;
+@layer components{
+  .addtocart-button{
+    @apply px-4 text-emerald-800 font-bold bg-slate-300 hover:bg-slate-400 active:bg-slate-300;
+  }
+  .continue-button{
+    @apply w-40 py-3 px-2 bg-blue-400 text-white;
+  }
+
+  .viewcart-button{
+    @apply w-40 py-3 px-2 bg-gray-400 text-white;
+  }
+
+  .nav-bar-zindex{
+    z-index: 999;
+  }
+
+  /*Login*/
+  .max-w-500{
+    max-width: 500px;
+  }
+  .w-500{
+    width: 500px;
+  }
+  .h-300{
+    height: 300px;
+  }
+  .h-350{
+    height: 350px;
+  }
+  /*----------------*/  
+  
+  /*Cart drop down*/
+  .cart-dropdown-h-450{
+    height: 460px;
+  }
+  .cart-drop-down-list-height{
+    height: 350px;
+  }
+  .search-form-width{
+    width: 600px;
+  }
+  
+/*product*/
+
+  .star {
+    width: 15px;  
+    aspect-ratio: 1;
+    background: #F8CA00;
+    clip-path: polygon(50% 0,79% 90%,2% 35%,98% 35%,21% 90%);
+  }
+
+  .star-inactive {
+    width: 15px;  
+    aspect-ratio: 1;
+    background: #a3a3a3;
+    clip-path: polygon(50% 0,79% 90%,2% 35%,98% 35%,21% 90%);  
+    /* clip-path: polygon(50% 0,
+      calc(50%*(1 + sin(.4turn))) calc(50%*(1 - cos(.4turn))),
+      calc(50%*(1 - sin(.2turn))) calc(50%*(1 - cos(.2turn))),
+      calc(50%*(1 + sin(.2turn))) calc(50%*(1 - cos(.2turn))),
+      calc(50%*(1 - sin(.4turn))) calc(50%*(1 - cos(.4turn))) 
+    );  */
+  }  
 }
+
+
 
 .w-32p{
   width: 32%;
@@ -78,53 +141,4 @@ body {
 }
 .h-600{
   min-height: 600px;
-}
-/*Cart drop down*/
-.cart-dropdown-h-450{
-  height: 460px;
-}
-.cart-drop-down-list-height{
-  height: 350px;
-}
-.search-form-width{
-  width: 600px;
-}
-
-/*Login*/
-.max-w-500{
-  max-width: 500px;
-}
-.w-500{
-  width: 500px;
-}
-.h-300{
-  height: 300px;
-}
-.h-350{
-  height: 350px;
-}
-/*----------------*/
-
-/*product*/
-
-/*-----------------*/
-
-.star {
-  width: 15px;  
-  aspect-ratio: 1;
-  background: #F8CA00;
-   clip-path: polygon(50% 0,79% 90%,2% 35%,98% 35%,21% 90%);
-}
-
-.star-inactive {
-  width: 15px;  
-  aspect-ratio: 1;
-  background: #a3a3a3;
-  clip-path: polygon(50% 0,79% 90%,2% 35%,98% 35%,21% 90%);  
-  /* clip-path: polygon(50% 0,
-    calc(50%*(1 + sin(.4turn))) calc(50%*(1 - cos(.4turn))),
-    calc(50%*(1 - sin(.2turn))) calc(50%*(1 - cos(.2turn))),
-    calc(50%*(1 + sin(.2turn))) calc(50%*(1 - cos(.2turn))),
-    calc(50%*(1 - sin(.4turn))) calc(50%*(1 - cos(.4turn))) 
-   );  */
 }

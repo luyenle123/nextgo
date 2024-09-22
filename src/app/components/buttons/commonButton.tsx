@@ -3,7 +3,7 @@ import React from 'react'
 export const AddToCartButton = ({product, handleAddToCartClick}) => {
   return (
     <>
-        <button onClick={() => handleAddToCartClick(product)} className="py-2 px-4 text-emerald-800 font-bold bg-slate-300 hover:bg-slate-400 active:bg-slate-300">Add To Cart</button>    
+        <button onClick={() => handleAddToCartClick(product)} className="py-2 addtocart-button">Add To Cart</button>    
     </>
   )
 }
@@ -11,7 +11,7 @@ export const AddToCartButton = ({product, handleAddToCartClick}) => {
 export const ContinueShoppingButton = ({handleClick}) => {
   return (
     <>
-        <button className='w-40 py-3 px-2 bg-blue-400 text-white' onClick={handleClick}>Continue Shopping</button>
+        <button className='continue-button' onClick={handleClick}>Continue Shopping</button>
     </>
   )
 }
@@ -19,7 +19,7 @@ export const ContinueShoppingButton = ({handleClick}) => {
 export const ViewCartButton = ({handleClick}) => {
   return (
     <>
-        <button className='w-40 py-3 px-2 bg-gray-400 text-white' onClick={handleClick}>View Cart</button>
+        <button className='viewcart-button' onClick={handleClick}>View Cart</button>
     </>
   )
 }
