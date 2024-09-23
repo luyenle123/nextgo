@@ -40,8 +40,8 @@ const LoginForm = () => {
       const res = await LoginAPI('emilys','emilyspass') as IResponseServiceModel;
       if(res.isSuccess)
       {
-        if(res.data.token !== undefined){
-          SaveUser(res.data.token);
+        if(res.data.accessToken !== undefined){
+          SaveUser(res.data.accessToken);
 
           route.push('/');
         }

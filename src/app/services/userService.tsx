@@ -29,7 +29,7 @@ const LoginAPI = async (username, password) => {
                         resolve({data: res.status, isSuccess: false});
                     })
                   .then((res) =>{
-                        if(res.token !== undefined){
+                        if(res.accessToken !== undefined){
                             resolve({data: res, isSuccess: true})
                         }
                     })
