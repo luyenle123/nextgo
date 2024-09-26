@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { SearchProduct } from "@/app/services/productService";
 import { toast } from 'react-toastify';
 import { LoaderToggle } from "@/app/components/loader/loader";
@@ -9,29 +9,50 @@ import { DoAddToCart, UpdateCartInfo } from "@/app/components/cart/cart";
 import { IResponseServiceModel } from "@/app/models/responseModel";
 import { IProductItem } from '@/app/models/productmodel';
 import { ProductCard } from '../products/productCard';
-import searchIcon from '@/app/images/search-icon-100.png';
-import Image from 'next/image';
 import CartPopupResult from '../cart/cartPopupResult';
+import SearchBox from './searchBox';
+import { useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 
 export default function Search(){
   const [products, setProducts] = useState<IProductItem[] | undefined>(undefined);
-  const [key, setKey] = useState('');
-  const [cartProduct, setCartProduct] = useState<IProductItem | undefined>(undefined);  
+  const [cartProduct, setCartProduct] = useState<IProductItem | undefined>(undefined);
+  const [searchText, setSearchText] = useState('');
+  const searchParams = useSearchParams();
+  const text = searchParams.get('text');
+  const router = useRouter();
 
-  const handleSearchClick = async () => {
-    if(!key || key.length < 3) return;
-    LoaderToggle(true);
-    const res = await SearchProduct(key) as IResponseServiceModel;
-    if(res.isSuccess)
-    {
-        setProducts(res.data.products);
-    }
-    else{
-        toast('Error: ' + res.data);
+  const removeUrlParameter = (param) => {
+    // Create a new URL object based on the current URL
+    const url = new URL(window.location.href);
+    // Remove the specified parameter
+    url.searchParams.delete(param);
+    // Update the URL without reloading the page
+    router.push(url.pathname + url.search);
+  };  
+
+  useEffect(() => {
+    async function Search(searchText) {
+      LoaderToggle(true);
+      const res = await SearchProduct(searchText) as IResponseServiceModel;
+      if(res.isSuccess)
+      {
+          setSearchText(searchText);
+          setProducts(res.data.products);
+      }
+      else{
+          toast('Error: ' + res.data);
+      }
+  
+      LoaderToggle(false);
     }
 
-    LoaderToggle(false);
-  }
+    if(text && text.length >= 3){
+      Search(text);
+
+      removeUrlParameter('text');
+    }    
+  }, [text]); 
 
   const handleAddToCartClick = (product) => {
     LoaderToggle(true);
@@ -44,22 +65,27 @@ export default function Search(){
     });
   };
 
-  const handleKeyDown = (event) => {
-    if (event.key === 'Enter' && key && key.length>=3) {
-      handleSearchClick();
+  let textSearch = text;
+  const handleSearch = async (key) => {
+    LoaderToggle(true);
+    const res = await SearchProduct(key) as IResponseServiceModel;
+    if(res.isSuccess)
+    {
+      setSearchText(key);
+      setProducts(res.data.products);
+      textSearch = key;
     }
-  }
+    else{
+        toast('Error: ' + res.data);
+    }
+
+    LoaderToggle(false);
+  }  
 
   return (
     <div className='sm:p-2'>
-        <div className='w-full sm:w-3/4 md:search-form-width lg:search-form-width xl:search-form-width 2xl:search-form-width max-w-2xl mt-0 mx-auto bg-gray-200 sm:rounded border-gray-400'>
-            <div className='p-7 flex'>
-                <input className='h-10 w-full rounded-l text-lg pl-1 outline-none' placeholder='search product' maxLength={50} autoFocus onChange={(e) => setKey(e.target.value)} onKeyDown={handleKeyDown}></input>
-                <button className='h-10 w-12 bg-gray-100 border-l rounded-r font-bold hover:bg-gray-400 active:bg-gray-300' onClick={handleSearchClick} onKeyDown={handleKeyDown}>
-                  <Image src={searchIcon} width={30} height={30} alt='search' className='my-0 mx-auto opacity-50'></Image>
-                </button>
-            </div>
-        </div>
+
+        <SearchBox handleSearch={handleSearch} text={text}/>
 
         <div className='mt-1 min-h-600 w-full'>
           {!products || products.length <= 0 ? <div className='mx-auto text-center pt-12 w-full'>No Result</div> : <></>}
@@ -67,7 +93,7 @@ export default function Search(){
           {products && products.length > 0 &&
             <>
               <div className='ml-2'>
-                Found: {products.length} entries
+                Found: {products.length} entries for <span className='font-bold'>{searchText}</span>
               </div>
 
               <div className="flex flex-wrap justify-left">
