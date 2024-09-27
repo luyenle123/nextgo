@@ -3,7 +3,9 @@ import Image from 'next/image';
 import Link from 'next/link';
 import React from 'react'
 import ProductRating from './productRating';
-import { IMAGE_PLACEHOLDER } from '@/app/constants';
+// import { IMAGE_PLACEHOLDER } from '@/app/constants';
+
+// placeholder='blur' blurDataURL={IMAGE_PLACEHOLDER}
 
 const ProductCard = ({product, handleAddToCartClick}) => {
     return(
@@ -11,7 +13,7 @@ const ProductCard = ({product, handleAddToCartClick}) => {
           <div className="productcard-min-h bg-gray-500 bg-opacity-10 m-1 p-2">
             <div className="w-48 mx-auto my-0">
               <Link href={'/products/'+product .id} className="font-bold">
-                <Image src={product.thumbnail} alt={product .title} width={192} height={192} priority placeholder='blur' blurDataURL={IMAGE_PLACEHOLDER}/>  
+                <Image src={product.thumbnail} alt={product .title} width={192} height={192} priority/>  
               </Link>
             </div>
   

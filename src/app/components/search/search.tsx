@@ -56,16 +56,18 @@ export default function Search(){
 
   const handleAddToCartClick = (product) => {
     LoaderToggle(true);
-    const productId = product.id;
-    DoAddToCart(productId, product.sku, () => {
-      LoaderToggle(false, () => {
-        setCartProduct(product);
-      });
-      UpdateCartInfo(null, 1);
+    DoAddToCart(product, (sucess:boolean) => {
+      if(sucess){
+        LoaderToggle(false, () => {
+          setTimeout(function(){setCartProduct(product)}, 100);
+        });
+        UpdateCartInfo(null, 1);
+      }else{
+        LoaderToggle(false);
+      }
     });
   };
 
-  let textSearch = text;
   const handleSearch = async (key) => {
     LoaderToggle(true);
     const res = await SearchProduct(key) as IResponseServiceModel;
@@ -73,7 +75,6 @@ export default function Search(){
     {
       setSearchText(key);
       setProducts(res.data.products);
-      textSearch = key;
     }
     else{
         toast('Error: ' + res.data);
@@ -83,16 +84,19 @@ export default function Search(){
   }  
 
   return (
-    <div className='sm:p-2'>
 
+    <>
+      <div className='w-full -mt-36 absolute'>
         <SearchBox handleSearch={handleSearch} text={text}/>
+      </div>
 
+      <div className='sm:p-2 mt-10'>
         <div className='mt-1 min-h-600 w-full'>
-          {!products || products.length <= 0 ? <div className='mx-auto text-center pt-12 w-full'>No Result</div> : <></>}
+          {!products || products.length <= 0 ? <div className='mx-auto text-center pt-12 w-full text-gray-400'>No Result</div> : <></>}
 
           {products && products.length > 0 &&
             <>
-              <div className='ml-2'>
+              <div className='ml-1'>
                 Found: {products.length} entries for <span className='font-bold'>{searchText}</span>
               </div>
 
@@ -106,7 +110,9 @@ export default function Search(){
         </div>
 
         { cartProduct && <CartPopupResult product={cartProduct} handleCallback={() => { setCartProduct(undefined)}}/> }
-    </div>
+      </div>
+
+    </>
   )
 }
 

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { IResponseServiceModel } from "@/app/models/responseModel";
 import { LoaderToggle } from "@/app/components/loader/loader";
 import { IProductItem } from "@/app/models/productmodel";
-import { Pagination, GetConfig, CloneConfig, PaginationEmpty } from '@/app/components/pagination/pagination'
+import { GetConfig, CloneConfig } from '@/app/components/pagination/pagination'
 import { GetPageInfo } from "@/app/components/pagination/paginationUtils";
 import { UpdateCategoryProductCount } from "@/app/components/products/category";
 import { toast } from 'react-toastify';
@@ -20,14 +20,12 @@ const Category = dynamic(() => import('@/app/components/products/category'), { l
 
 export default function List(){
     const [products, setProducts] = useState<IProductItem[] | undefined>(undefined);
-    const [pageinfo, setPageInfo] = useState({page:1, pageSize:12, sorting:1, totalPage:1});
+    const [pageinfo, setPageInfo] = useState({total:0, page:1, pageSize:12, sorting:1, totalPage:1});
     const [categorySelected, setCategorySelected] = useState();
     const [cartProduct, setCartProduct] = useState<IProductItem | undefined>(undefined);
     const productEmptyList = [{},{},{},{},{},{},{},{},{},{},{},{}];
     
     let fetchProduct = false;
-
-    //console.log('>> product list> ' + 'pageinfo: ' + pageinfo.totalPage + ' / product:' + products?.length);
 
     const FetchProduct = async (page:number) => {
       if(categorySelected && !fetchProduct){
@@ -61,6 +59,41 @@ export default function List(){
       
       LoaderToggle(false);
   }
+
+  const LoadMoreProduct = async (category, page) => {
+    LoaderToggle(true);
+    let res = null;
+    if(categorySelected && !fetchProduct){
+        res = await GetCategoryProduct(category, page, pageinfo.pageSize, pageinfo.sorting);
+    }
+    else
+    {
+        res = await GetProductList(page, pageinfo.pageSize, pageinfo.sorting);
+        setCategorySelected(undefined);
+    }
+
+    if(!res){
+        LoaderToggle(false);
+        return;
+    }
+
+    if(res.isSuccess)
+    {
+        if(res.data.products?.length > 0){
+            const productlist = products;
+            res.data.products.forEach(element => {
+                productlist.push(element);
+            });
+            setProducts(productlist);
+        }
+
+        setPageInfo(GetPageInfo(res.data.total, res.data.products.length, page, pageinfo.pageSize, pageinfo.sorting));            
+    }
+    else{
+        //notify('Error: ' + res.data);
+    }
+    LoaderToggle(false);
+}    
 
   useEffect(() => {
     async function QueryProduct(page){
@@ -103,13 +136,16 @@ const handlePaginationNumberClick = (e) => {
 
 const handleAddToCartClick = (product) => {
   LoaderToggle(true);
-  const productId = product.id;
-  DoAddToCart(productId, product.sku, () => {
-    LoaderToggle(false, () => {
-      setTimeout(function(){setCartProduct(product)}, 100);
-    });
-    UpdateCartInfo(null, 1);
-  });  
+  DoAddToCart(product, (sucess:boolean) => {
+    if(sucess){
+      LoaderToggle(false, () => {
+        setTimeout(function(){setCartProduct(product)}, 100);
+      });
+      UpdateCartInfo(null, 1);
+    }else{
+      LoaderToggle(false);
+    }
+  });
 };
 
 const handleItemDisplayChanged = (e) => {
@@ -133,6 +169,14 @@ const categoryHandleClick = (category) => {
   } 
 }
 
+const handleLoadMoreClick = (e) => {
+  // Load more product
+  const page = pageinfo.page + 1;
+  if(page > config.pageInfo.totalPage){ return; }
+
+  LoadMoreProduct(categorySelected, page);
+};
+
   let gotData = false;
   if(products){ gotData = true;}
   const config = GetConfig(false, gotData, pageinfo);
@@ -140,6 +184,7 @@ const categoryHandleClick = (category) => {
   config.handleBackClick = handleBackClick;
   config.handleNextClick = handleNextClick;
   config.handleAddToCartClick = handleAddToCartClick;
+  config.handleLoadMoreClick = handleLoadMoreClick;
   config.handleItemDisplayChanged = handleItemDisplayChanged;
   config.handleSortingChanged = handleSortingChanged;
   config.hideSortOption = false;
@@ -158,13 +203,15 @@ const categoryHandleClick = (category) => {
       </div>
       
       <div className="float-left sm:float-none md:float-none">
-        <div className="px-1">
+        {/* <div className="px-1">
           {products && products.length > 0 ? <Pagination config={config}/> : 
           <>
             <PaginationEmpty/>
           </>}
-        </div>
+        </div> */}
           
+          <TopInfor products={products} pageinfo={pageinfo} config={config}/>
+
           <div className="flex flex-wrap justify-left float-left">
             {products && products.length > 0 ? 
             <>
@@ -183,12 +230,19 @@ const categoryHandleClick = (category) => {
             </>}
           </div>
 
-          <div className="px-1">
-          {products && products.length > 0 ? <Pagination config={config}/> : 
-          <>
-            <PaginationEmpty/>
-          </>}
-        </div>
+          {/* <div className="px-1">
+            {products && products.length > 0 ? <Pagination config={config}/> : 
+            <>
+              <PaginationEmpty/>
+            </>}
+          </div> */}
+
+          {config.pageInfo.allowLoadMore && 
+                <div className='w-full inline-block text-center pt-10 pb-5'>
+                    <button className='min-w-80 px-5 py-3 bg-gray-200 cursor-pointer hover:bg-gray-300 active:bg-gray-200' onClick={config.handleLoadMoreClick}>Load More (<span className='font-bold'>{config.pageInfo.remainingCount}</span> items)</button>
+                </div>
+            }
+
       </div>
     </div> 
      { cartProduct && <CartPopupResult product={cartProduct} handleCallback={() => { setCartProduct(undefined)}}/> }
@@ -227,3 +281,44 @@ export function ProductItemContainerEmpty(){
     </>
   );
 }
+
+export function TopInfor(props){
+  return(
+    <>
+        {
+          props.products && props.products.length > 0 ? 
+          <div className="float-left w-full px-1">
+            <div className='float-left w-20'>
+              {props.pageinfo?.total} items      
+            </div>
+
+            <SortOption config={props.config}/>
+          </div>
+          :
+          <>
+            <div className="float-left w-full px-1 opacity-40 blur-0">
+              <div className='float-left w-20 text-gray-200'>
+                00 items      
+              </div>
+
+              <SortOption config={props.config}/>
+            </div>          
+          </>
+        }    
+    </>
+  );
+}
+
+export function SortOption ({config}) {
+  return(
+      <div className='pr-0.5 float-right h-6'>
+          <span className="text-xs ml-1">Sort: </span>
+          <select onChange={config?.handleSortingChanged} value={config?.pageInfo?.sorting} className='bg-white'>
+              <option key={1} value={1}>Price: L to H</option>
+              <option key={2} value={2}>Price: H to L</option>
+              <option key={3} value={3}>Title: A-Z</option>
+              <option key={4} value={4}>Title: Z-A</option>
+          </select>              
+      </div>
+  );
+};

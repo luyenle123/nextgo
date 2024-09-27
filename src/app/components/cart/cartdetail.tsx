@@ -69,7 +69,7 @@ export default function CartDetail(){
     <>    
         <div className='inline-block w-full py-2 px-1 m:px-40 mb-5 min-h-700'>
             <div className='text-center my-3 mx-0 text-2xl'>
-                <div className='font-bold'>Your Cart</div> <div className='text-sm'>({cart.totalProducts} items - {cart.totalQuantity} )</div>
+                <div className='font-bold'>Your Cart</div> <div className='text-sm'>( total {cart.totalQuantity} / {cart.totalProducts} products )</div>
                 <hr className='w-60 mt-2 mx-auto'/>
                 <hr className='w-28 mt-2 mx-auto'/>
                 <hr className='w-10 mt-2 mx-auto'/>

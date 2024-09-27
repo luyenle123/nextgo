@@ -45,7 +45,7 @@ export default function Category({handleClick}){
     const blurclass = categories && categories.length > 0 ? '' : ' blur-sm opacity-70';
   return (
     <div className='h-52 lg:h-full p-1 sm:p-2'>
-        <div className={'text-base uppercase text-center' + blurclass}>Category</div>
+        <div className={'text-base uppercase text-center ' + blurclass}>Filter</div>
 
         <div className={'my-1 h-8 p-1 font-bold border-gray-100 border-solid border' + blurclass}>
             {categorySelected ? <>
@@ -101,8 +101,8 @@ export function CategoryItem(props){
 
     const selectedCls = props.categorySelected === props.category ?' font-bold' : '';
     return(
-        <div className="py-1 my-1 text-gray-500 cursor-pointer hover:bg-gray-200" onClick={() => props.categoryHandleClick(props.category)}> 
-            <div className={'h-5 capitalize ml-1' + selectedCls}>
+        <div className="h-6 my-1 text-gray-500 cursor-pointer hover:font-bold hover:border-b hover:border-dotted hover:border-blue-300" onClick={() => props.categoryHandleClick(props.category)}> 
+            <div className={'capitalize ml-1' + selectedCls}>
                 {props.category}
             </div>            
         </div>

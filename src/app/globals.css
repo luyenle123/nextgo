@@ -48,6 +48,18 @@ body {
     z-index: 999;
   }
 
+  /*banner*/
+  .w-600{
+    width: 600px;
+  }
+  .h-400{
+    height: 400px;
+  }
+  .left-5p{
+    left: 5%;
+  }
+  /*-------------------*/
+
   /*Login*/
   .max-w-500{
     max-width: 500px;
@@ -94,7 +106,11 @@ body {
       calc(50%*(1 + sin(.2turn))) calc(50%*(1 - cos(.2turn))),
       calc(50%*(1 - sin(.4turn))) calc(50%*(1 - cos(.4turn))) 
     );  */
-  }  
+  }
+  
+  .boxshadow{
+    box-shadow: 3px 3px 5px rgb(214, 214, 214), -3px -3px 5px rgba(214, 214, 214);    
+  }
 }
 
 

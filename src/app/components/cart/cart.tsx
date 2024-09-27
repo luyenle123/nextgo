@@ -115,8 +115,15 @@ const Cart = () => {
   )
 }
 
-const DoAddToCart = async (productId, productCode, updateStatus) => {
-  const res = await AddToCart(productId, 1) as IResponseServiceModel;
+const DoAddToCart = async (product, updateStatus) => {
+
+  if(parseInt(product.stock) <= 0){
+    updateStatus(false);
+    toast.warning('Not allow add the product ' + product.sku + ' to cart.');
+    return;
+  }
+
+  const res = await AddToCart(product.id, 1) as IResponseServiceModel;
   if(res.isSuccess){
     //toast("Add '" + productCode + "' to cart successful.");
   }
