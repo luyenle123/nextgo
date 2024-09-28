@@ -14,7 +14,7 @@ export default function Home() {
   return (
     <MainLayout>
       <div className='h-700'>
-        <div className='w-full -mt-36 absolute'>
+        <div className='w-full -mt-32 absolute'>
           <SearchBox handleSearch={handleSearch} type={2}/>
         </div>
         <div className='w-full h-full'>

@@ -52,7 +52,7 @@ export default function Search(){
 
       removeUrlParameter('text');
     }    
-  }, [text]); 
+  }, [text, removeUrlParameter]); 
 
   const handleAddToCartClick = (product) => {
     LoaderToggle(true);
@@ -86,7 +86,7 @@ export default function Search(){
   return (
 
     <>
-      <div className='w-full -mt-36 absolute'>
+      <div className='w-full -mt-32 absolute'>
         <SearchBox handleSearch={handleSearch} text={text}/>
       </div>
 

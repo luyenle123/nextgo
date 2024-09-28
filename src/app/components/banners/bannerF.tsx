@@ -72,7 +72,7 @@ export default function BannerF(){
             </div>
 
             <div className='mt-5 text-xl'>
-                <strong>The React Framework for the Web.</strong> Used by some of the world's largest companies, Next.js enables you to create high-quality web applications with the power of React components.
+                <strong>The React Framework for the Web.</strong> Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components.
             </div>
         </div>
     </div>

@@ -32,13 +32,13 @@ export default function SearchBox({handleSearch, type = 1, text = null}){
 
 
   return (
-    <div className='w-full sm:w-3/4 md:search-form-width lg:search-form-width xl:search-form-width 2xl:search-form-width max-w-2xl mt-0 mx-auto bg-slate-200 border-gray-400 shadow-[5px_5px_5px_-3px_rgba(0,0,0,0.25)]'>
+    <div className='w-full sm:w-3/4 md:search-form-width lg:search-form-width xl:search-form-width 2xl:search-form-width max-w-2xl mt-0 mx-auto bg-slate-100 border-gray-400 shadow-[5px_5px_5px_-3px_rgba(0,0,0,0.25)]'>
         <div className='uppercase text-center py-2 text-2xl text-gray-400 border-b border-solid border-gray-300'>
             Search product
         </div>
         <div className={'flex ' + cl}>
             <input className='h-10 w-full rounded-l text-lg pl-2 outline-none placeholder:text-gray-300' value={key} placeholder='kitchen, drink, iphone ...' maxLength={50} autoFocus onChange={(e) => handleOnChange(e.target.value)} onKeyDown={handleKeyDown}></input>
-            <button className='h-10 w-16 bg-gray-100 border-l rounded-r font-bold hover:bg-gray-400 active:bg-gray-300' onClick={handleSearchClick} onKeyDown={handleKeyDown}>
+            <button className='h-10 w-16 bg-gray-200 border-l rounded-r font-bold hover:bg-gray-300 active:bg-gray-200' onClick={handleSearchClick} onKeyDown={handleKeyDown}>
                 <Image src={searchIcon} width={30} height={30} alt='search' className='my-0 mx-auto opacity-50'></Image>
             </button>
         </div>
