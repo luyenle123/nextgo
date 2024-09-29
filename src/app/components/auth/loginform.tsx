@@ -11,6 +11,7 @@ import { IResponseServiceModel } from "@/app/models/responseModel";
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import Image from 'next/image';
+import { signIn } from 'next-auth/react';
 
 import googleIcon from '@/app/images/google.png';
 
@@ -44,7 +45,7 @@ const LoginForm = () => {
       if(res.isSuccess)
       {
         if(res.data.accessToken !== undefined){
-          SaveUser(res.data.accessToken);
+          SaveUser(res.data.accessToken, res.data.username);
 
           route.push('/');
         }
@@ -55,41 +56,51 @@ const LoginForm = () => {
 
       LoaderToggle(false);
     };
+
+
   return (
-    <div className='bg-slate-100 m-0 top-0 w-full h-full absolute'>
-        <div className='w-full fixed inset-0 sm:w-96 max-w-500 h-400 m-auto border-solid sm:rounded-lg sm:border-4 bg-white'>
-            <div className='text-center w-full mt-5 text-xl uppercase text-blue-900 font-bold'>Login</div>
+    <div className='bg-slate-200 m-0 top-0 w-full h-full absolute'>
+        <div className='w-full fixed inset-0 sm:w-85 h-100 m-auto bg-white boxshadow'>
+            <div className='text-center w-full mt-7 text-xl uppercase text-blue-900 font-bold'>Login</div>
             <div className='p-5 mt-5'>
               <div className='p-1'>
-                <input className='w-full h-8 rounded-md p-5 bg-gray-100 bg-opacity-10 border-solid border border-gray-200 focus:border-gray-400 focus:outline-none' type='text' id='email' placeholder='user name' maxLength={100} onChange={emailChangeHandle}/>
+                <input className='txt-user-pass' type='text' id='email' placeholder='user name' maxLength={100} onChange={emailChangeHandle}/>
               </div>
 
               <div className='p-1'>
-                <input className='w-full h-8 rounded-md p-5 bg-gray-100 bg-opacity-10 border-solid border border-gray-200 focus:border-gray-400 focus:outline-none' type='password' id='password' placeholder='password' maxLength={100} onChange={passwordChangeHandle}/>
+                <input className='txt-user-pass' type='password' id='password' placeholder='password' maxLength={100} onChange={passwordChangeHandle}/>
               </div>
 
               <div className='p-3'>
-                <label className='flex'>
+                <label className='flex float-left'>
                   <input type="checkbox" name="checkbox" autoFocus className='outline-none w-5 h-5'/> 
                   <span className='ml-2'>Remember</span>
                 </label>
+
+                <Link href={'/login'} className='hover:underline float-right'>
+                  Forgot password
+                </Link>  
               </div>
 
-              <div className='p-1'>
-                <button className='w-full p-3 text-white bg-gray-400 hover:bg-gray-500 active:bg-gray-400 rounded-3xl font-bold' onClick={handleloginClick}>Login</button>
+              <div className='p-1 mt-14'>
+                <button className='w-full p-3 text-white bg-blue-600 hover:bg-blue-700 active:bg-blue-400 rounded-md font-bold' onClick={handleloginClick}>Login</button>
+              </div>
+
+              <div className='p-1 text-center'>              
+                -------------------------Or-------------------------
               </div>
               
               <div className='p-1'>
-                <button className='w-full p-3 text-white bg-gray-300 hover:bg-gray-400 active:bg-gray-300 rounded-3xl font-bold' onClick={handleloginClick}>
+                <button className='w-full p-3 text-white bg-gray-300 hover:bg-gray-200 active:bg-gray-300 rounded-md font-bold' onClick={() => signIn('google')}>
                   <Image className='my-0 mx-auto' src={googleIcon} width={20} height={20} alt='google'/>
                 </button>
               </div>               
                 
-              <div className='p-1 text-center mt-2'>
+              {/* <div className='p-1 text-center mt-2'>
                 <Link href={'/login'} className='hover:underline'>
                   Forgot password
                 </Link>                
-              </div>                 
+              </div>                  */}
             </div>
         </div>
     </div>

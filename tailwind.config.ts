@@ -66,8 +66,12 @@ const config: Config = {
       64: '16rem',
       72: '18rem',
       80: '20rem',
-      96: '24rem',      
-      100: '30rem'
+      85: '22rem',
+      96: '24rem',
+      98: '26rem',
+      100: '28rem',
+      105: '30rem',
+      110: '34rem',
     }
   },
   plugins: [],

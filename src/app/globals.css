@@ -61,6 +61,9 @@ body {
   /*-------------------*/
 
   /*Login*/
+  .txt-user-pass{
+    @apply w-full h-8 rounded-md px-3 py-5 bg-gray-100 bg-opacity-10 border-solid border border-gray-200 focus:border-gray-400 focus:outline-none;
+  }
   .max-w-500{
     max-width: 500px;
   }

@@ -2,7 +2,7 @@
 
 import dynamic from "next/dynamic";
 
-const BuildPostList = dynamic(() => import('@/app/components/posts/BuildPostList'), { loading: () => <><p className="mt-20 text-red-400">Loading...</p></>})
+const BuildPostList = dynamic(() => import('@/app/components/post/BuildPostList'), { loading: () => <><p className="mt-20 text-red-400">Loading...</p></>})
 
 export default function List(){
   return(

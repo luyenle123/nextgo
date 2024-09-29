@@ -9,9 +9,9 @@ export function Hello() {
     return <p>Hello!</p>
   }
 
-export default function Category({handleClick}){
+export default function Category(props){
     const [categories, setCateories] = useState([]);
-    const [categorySelected, setCategorySelected] = useState();
+    const [categorySelected, setCategorySelected] = useState(props.category);
     const categoryEmptyList = ['','','','','','','','','','','','','','','','','','','','','','','',''];
       
     const doFetchCategory = async () => {
@@ -34,12 +34,12 @@ export default function Category({handleClick}){
     const handleCategoryClick = (p) => {
         if(p === categorySelected) return;
         setCategorySelected(p);
-        handleClick(p)
+        props.handleClick(p)
     }
 
     const handleClearClick = () => {
         setCategorySelected(undefined);
-        handleClick()
+        props.handleClick()
     }
 
     const blurclass = categories && categories.length > 0 ? '' : ' blur-sm opacity-70';
@@ -49,7 +49,7 @@ export default function Category({handleClick}){
 
         <div className={'my-1 h-8 p-1 font-bold border-gray-100 border-solid border' + blurclass}>
             {categorySelected ? <>
-                    {categorySelected} (<span id='category-product-count'>0</span>) 
+                    {categorySelected} (<span id='category-product-count'>{props.productCount?props.productCount : 0}</span>) 
                     <span className='float-right text-sm mr-2 text-red-500 cursor-pointer' onClick={() => handleClearClick()}>X</span>
                 </> 
                 : <>

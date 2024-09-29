@@ -20,18 +20,18 @@ export default function Search(){
   const [searchText, setSearchText] = useState('');
   const searchParams = useSearchParams();
   const text = searchParams.get('text');
-  const router = useRouter();
-
-  const removeUrlParameter = (param) => {
-    // Create a new URL object based on the current URL
-    const url = new URL(window.location.href);
-    // Remove the specified parameter
-    url.searchParams.delete(param);
-    // Update the URL without reloading the page
-    router.push(url.pathname + url.search);
-  };  
+  const router = useRouter(); 
 
   useEffect(() => {
+    const removeUrlParameter = (param) => {
+      // Create a new URL object based on the current URL
+      const url = new URL(window.location.href);
+      // Remove the specified parameter
+      url.searchParams.delete(param);
+      // Update the URL without reloading the page
+      router.push(url.pathname + url.search);
+    }; 
+
     async function Search(searchText) {
       LoaderToggle(true);
       const res = await SearchProduct(searchText) as IResponseServiceModel;
@@ -52,7 +52,7 @@ export default function Search(){
 
       removeUrlParameter('text');
     }    
-  }, [text, removeUrlParameter]); 
+  }, [text, router]); 
 
   const handleAddToCartClick = (product) => {
     LoaderToggle(true);

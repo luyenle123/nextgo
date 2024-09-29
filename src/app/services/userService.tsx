@@ -44,11 +44,13 @@ const LoginAPI = async (username, password) => {
     }
 }
 
-const SaveUser = (token) => {
+const SaveUser = (token, name) => {
     try {
         setCookie('access_token', token);
+        setCookie('user_name', name);
 
         localStorage.setItem(constants.AUTH_NAME, token);
+        localStorage.setItem(constants.AUTH_USER_NAME, name);
     } catch (error) { 
         return false;
     }      
@@ -99,6 +101,29 @@ const IsLogin = () =>{
     }
 }
 
+const GetUserName = () =>{
+    try {
+        let username = getCookie('user_name');
+        if(username)
+        {
+            return username;
+        }
+
+
+        //console.log(token + ' / ' + IsOk);
+
+        if(!username)
+        {
+            username = localStorage.getItem(constants.AUTH_USER_NAME);
+        }
+
+        return username;
+    } catch (error) { 
+        //console.log(error);
+        return 'User';
+    }
+}
+
 const ValidateUser = (route) =>{
     if(!IsLogin() && route)
     {
@@ -106,4 +131,4 @@ const ValidateUser = (route) =>{
     }
 }
 
-export { GetUserList, LoginAPI, ValidateUser, SaveUser, IsLogin, DeleteUserCookie };
+export { GetUserList, LoginAPI, ValidateUser, SaveUser, IsLogin, GetUserName, DeleteUserCookie };

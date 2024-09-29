@@ -1,4 +1,4 @@
-import { Detail } from "@/app/components/posts/postDetail";
+import { Detail } from "@/app/components/post/postDetail";
 import { Suspense } from "react";
 import { SpeedInsights } from '@vercel/speed-insights/next';
 

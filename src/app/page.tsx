@@ -4,6 +4,7 @@ import { useRouter } from 'next/navigation';
 import SearchBox from './components/search/searchBox';
 import { MainLayout } from './layouts/main';
 import * as constants from '@/app/constants'
+import CategoryBlock from '@/app/components/home/categoryblock';
 
 export default function Home() {
   const route = useRouter();
@@ -18,6 +19,7 @@ export default function Home() {
           <SearchBox handleSearch={handleSearch} type={2}/>
         </div>
         <div className='w-full h-full'>
+          <CategoryBlock/>
           {/* <SearchBox handleSearch={handleSearch} type={2}/> */}
             {/* <div className='sm:w-3/4 max-w-500 h-20 my-0 mx-auto border-solid border-t border-b border-gray-300 bg-white'>              
                 <div className='h-5 text-center mt-5 text-4xl font-bold text-gray-400'>

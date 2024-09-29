@@ -4,36 +4,42 @@ import React, { useEffect, useState } from 'react'
 import { isMobile } from 'react-device-detect';
 import Image from 'next/image';
 
-import bannerImg1 from '@/app/images/banners/banner_001_400.jpg';
-import bannerImg2 from '@/app/images/banners/banner_002_400.jpg';
-import bannerImg3 from '@/app/images/banners/banner_003_400.jpg';
-import bannerImg4 from '@/app/images/banners/banner_004_400.jpg';
+// import bannerImg1 from '@/app/images/banners/banner_001_400.jpg';
+// import bannerImg2 from '@/app/images/banners/banner_002_400.jpg';
+// import bannerImg3 from '@/app/images/banners/banner_003_400.jpg';
+// import bannerImg4 from '@/app/images/banners/banner_004_400.jpg';
 
-import bannerImg1m from '@/app/images/banners/mobile/banner_001_400_m.jpg';
-import bannerImg2m from '@/app/images/banners/mobile/banner_002_400_m.jpg';
-import bannerImg3m from '@/app/images/banners/mobile/banner_003_400_m.jpg';
-import bannerImg4m from '@/app/images/banners/mobile/banner_004_400_m.jpg';
+// import bannerImg1m from '@/app/images/banners/mobile/banner_001_400_m.jpg';
+// import bannerImg2m from '@/app/images/banners/mobile/banner_002_400_m.jpg';
+// import bannerImg3m from '@/app/images/banners/mobile/banner_003_400_m.jpg';
+// import bannerImg4m from '@/app/images/banners/mobile/banner_004_400_m.jpg';
 
 // import styles from '@/app/styles/ResponsiveBanner.module.css';
 
 export default function BannerF(){
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
+    // let bannerImages = [
+    //     bannerImg1,
+    //     bannerImg2,
+    //     bannerImg3,
+    //     bannerImg4
+    //   ];
     let bannerImages = [
-        bannerImg1,
-        bannerImg2,
-        bannerImg3,
-        bannerImg4
-      ];
+      '/images/banners/banner_001_400.jpg',
+      '/images/banners/banner_002_400.jpg',
+      '/images/banners/banner_003_400.jpg',
+      '/images/banners/banner_004_400.jpg',
+    ];    
 
     if(isMobile){
       console.log('MOBILE');
         bannerImages = [
-            bannerImg1m,
-            bannerImg2m,
-            bannerImg3m,
-            bannerImg4m
-          ];
+          '/images/banners/banner_001_400_m.jpg',
+          '/images/banners/banner_002_400_m.jpg',
+          '/images/banners/banner_003_400_m.jpg',
+          '/images/banners/banner_004_400_m.jpg',
+        ];
     }
 
       useEffect(() => {
@@ -46,7 +52,7 @@ export default function BannerF(){
     
         // Cleanup the interval on component unmount
         return () => clearInterval(intervalId);
-      }, []);
+      }, [bannerImages.length]);
 
   return (
     <div className='relative w-full h-400 bg-slate-50 md overflow-hidden'>
@@ -56,6 +62,8 @@ export default function BannerF(){
           key={index}
           src={image}
           alt={`Banner ${index + 1}`}
+          width={1920}
+          height={400}
           style={{
             position: 'absolute',
             width:'100%',

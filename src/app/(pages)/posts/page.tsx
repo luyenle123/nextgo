@@ -1,5 +1,5 @@
 
-import List from "@/app/components/posts/list";
+import List from "@/app/components/post/list";
 // import BuildPostList from "@/app/components/posts/BuildPostList";
 // import { SpeedInsights } from '@vercel/speed-insights/next';
 // import { Suspense } from "react";

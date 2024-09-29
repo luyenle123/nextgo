@@ -8,25 +8,28 @@ import ProductRating from './productRating';
 // placeholder='blur' blurDataURL={IMAGE_PLACEHOLDER}
 
 const ProductCard = ({product, handleAddToCartClick}) => {
+
+  const outOfStockColor = product.stock === 0 ? 'text-red-600' : '';
+  const stock = product.stock === 0 ? 'OutStock' : `Instock(${product.stock})`;
     return(
       <>      
           <div className="productcard-min-h bg-gray-500 bg-opacity-10 m-1 p-2">
             <div className="w-48 mx-auto my-0">
-              <Link href={'/products/'+product .id} className="font-bold">
-                <Image src={product.thumbnail} alt={product .title} width={192} height={192} priority/>  
+              <Link href={'/products/'+product.id} className="font-bold">
+                <Image src={product.thumbnail} alt={product.title} width={192} height={192} priority/>  
               </Link>
             </div>
   
-            <Link href={'/products/'+ product .id} className="font-bold">
+            <Link href={'/products/'+ product.id} className="font-bold">
               {product .sku}
             </Link>
   
-            <p>{product .title}</p>
-            <p>{product .description}</p>
-            <p>{product .category}</p>
+            <p>{product.title}</p>
+            <p>{product.description}</p>
+            <p>{product.category}</p>
   
-            <p className="text-right">Instock({product .stock})</p>
-            <p className="text-right font-bold text-lg">{product .price} $</p>
+            <p className={'text-right ' + outOfStockColor}>{stock}</p>
+            <p className="text-right font-bold text-lg">{product.price} $</p>
   
             <ProductRating rating={product.rating}/>
   
