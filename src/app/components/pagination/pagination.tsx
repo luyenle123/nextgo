@@ -1,12 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-const handlePaginationNumberClick = (e) => {};
-const handleBackClick = (e) => {};
-const handleNextClick = (e) => {};
 const handleAddToCartClick = (e) => {};
 const handleItemDisplayChanged = (e) => {};
-const handleSortingChanged = (e) => {};
 const handleLoadMoreClick = (e) => {};
-
 const PageChanged = (page, paggeSize) => {}  
 
 export const GetConfig = (isLoading, hasData, pageInfo) => {
@@ -18,14 +13,11 @@ export const GetConfig = (isLoading, hasData, pageInfo) => {
         hideDisplayOption: false,
         hideDisplayPageInfo: false,
         hidePageDropDownInfo: false,
+        hidePageOption: false,
         hideTotalItem: false,
-        handlePaginationNumberClick: handlePaginationNumberClick,
-        handleBackClick:handleBackClick,
-        handleNextClick:handleNextClick,
         handleAddToCartClick:handleAddToCartClick,
         handleLoadMoreClick: handleLoadMoreClick,
         handleItemDisplayChanged: handleItemDisplayChanged,
-        handleSortingChanged: handleSortingChanged,
         PageChanged: PageChanged
     } 
 }
@@ -40,13 +32,10 @@ export const CloneConfig = (config) => {
         hideDisplayPageInfo: config.hideDisplayPageInfo,
         hidePageDropDownInfo: config.hidePageDropDownInfo,
         hideTotalItem: config.hideTotalItem,
-        handlePaginationNumberClick: config.handlePaginationNumberClick,
-        handleBackClick:config.handleBackClick,
-        handleNextClick:config.handleNextClick,
+        hidePageOption: config.hidePageOption,
         handleLoadMoreClick: config.handleLoadMoreClick,
         handleAddToCartClick:config.handleAddToCartClick,
         handleItemDisplayChanged: config.handleItemDisplayChanged,
-        handleSortingChanged: config.handleSortingChanged,
         PageChanged: config.PageChanged
     } 
 }

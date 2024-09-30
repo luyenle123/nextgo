@@ -114,6 +114,14 @@ body {
   .boxshadow{
     box-shadow: 3px 3px 5px rgb(214, 214, 214), -3px -3px 5px rgba(214, 214, 214);    
   }
+
+  .blog-reaction-count{
+    @apply font-bold text-gray-300 ml-3 text-xs;
+  }
+
+  .empty-item{
+    @apply opacity-50 blur-sm;
+  }
 }
 
 
