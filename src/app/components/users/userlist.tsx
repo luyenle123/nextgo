@@ -11,72 +11,62 @@ import { GetPageInfo } from "../pagination/paginationUtils";
 
 export default function List(){
     const [users, setUsers] = useState<IUserItem[] | undefined>(undefined);
-    const [pageinfo, setPageInfo] = useState({page:1, pageSize:9, sorting:1, totalPage:1});  
+    const [pageInfo, setPageInfo] = useState({page:1, pageSize:9, sorting:1, totalPage:1});  
     
     const FetchUsers = async(page) => {  
       LoaderToggle(true);              
-      const res = await GetUserList(page, pageinfo.pageSize) as IResponseServiceModel;
+      const res = await GetUserList(page, pageInfo.pageSize) as IResponseServiceModel;
       
       setUsers(res.data.users);
-      setPageInfo(GetPageInfo(res.data.total, res.data.users.length, page, pageinfo.pageSize, pageinfo.sorting));
+      setPageInfo(GetPageInfo(res.data.total, res.data.users.length, page, pageInfo.pageSize, pageInfo.sorting));
       LoaderToggle(false);
   }    
 
   useEffect(() => {
       async function QueryUsers() {                
-        const res = await GetUserList(1, pageinfo.pageSize) as IResponseServiceModel;
+        const res = await GetUserList(1, pageInfo.pageSize) as IResponseServiceModel;
     
         setUsers(res.data.users);
-        setPageInfo(GetPageInfo(res.data.total, res.data.users.length, 1, pageinfo.pageSize, pageinfo.sorting));
+        setPageInfo(GetPageInfo(res.data.total, res.data.users.length, 1, pageInfo.pageSize, pageInfo.sorting));
         LoaderToggle(false);
       }
 
       LoaderToggle(true);
       QueryUsers();
-  }, [pageinfo.pageSize, pageinfo.sorting]);
+
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   if(!users){
     return(<></>);
   }
 
-  const handleNextClick = () => {
-    if(pageinfo.page >= pageinfo.totalPage) return;
-    let page = pageinfo.page+1;
-    if(page > pageinfo.totalPage){ page = pageinfo.page}
-    FetchUsers(page);
-  };
+  const PageChanged = (page, pageSize) => {
+    const pnumber = parseInt(page);
+    const psizenumber = parseInt(pageSize);
 
-  const handleBackClick = () => {
-      if(pageinfo.page <= 1) return;
-      let page = pageinfo.page-1;
-      if(page <= 0){ page = 1}
-      FetchUsers(page);
-  };
+    if(pnumber !== pageInfo.page){
+        pageInfo.pageSize = psizenumber;
+        FetchUsers(pnumber);
+        return;
+    }
 
-  const handlePaginationNumberClick = (e) => {
-      if(parseInt(e.target.value) === pageinfo.page) return;
-      FetchUsers(parseInt(e.target.value));
-  }; 
-
-  const handleItemDisplayChanged = (e) => {
-    const newPageSize = parseInt(e.target.value);
-    pageinfo.pageSize = newPageSize;
-
-    FetchUsers(1);
-  };
+    if(psizenumber !== pageInfo.pageSize){
+        pageInfo.pageSize = psizenumber;
+        FetchUsers(1);
+        return;
+    }
+};  
 
   let gotData = false;
   if(users){ gotData = true;}
-  const config = GetConfig(false, gotData, pageinfo);
-  config.handlePaginationNumberClick = handlePaginationNumberClick;
-  config.handleBackClick = handleBackClick;
-  config.handleNextClick = handleNextClick;
-  config.handleItemDisplayChanged = handleItemDisplayChanged;
+  const config = GetConfig(false, gotData, pageInfo);
   config.hideSortOption = true;
   config.hideTotalItem = true;
   config.hideDisplayOption = true;
   config.hidePageDropDownInfo = true;
   config.hideDisplayPageInfo = true;
+  config.PageChanged = PageChanged;
 
   return (
     <div className="w-full md:px-40 xl:px-96 justify-center my-2">

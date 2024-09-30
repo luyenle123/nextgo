@@ -99,31 +99,31 @@ export default function List(){
         //notify('Error: ' + res.data);
     }
     LoaderToggle(false);
-}    
+  }    
 
-let category = categorySelected;
-if(!category && cat)
-  category = cat;
+  let category = categorySelected;
+  if(!category && cat)
+    category = cat;
 
-useEffect(() => {
-  const removeUrlParameter = (param) => {
-    // Create a new URL object based on the current URL
-    const url = new URL(window.location.href);
-    // Remove the specified parameter
-    url.searchParams.delete(param);
-    // Update the URL without reloading the page
-    router.push(url.pathname + url.search);
-  }; 
+  useEffect(() => {
+    const removeUrlParameter = (param) => {
+      // Create a new URL object based on the current URL
+      const url = new URL(window.location.href);
+      // Remove the specified parameter
+      url.searchParams.delete(param);
+      // Update the URL without reloading the page
+      router.push(url.pathname + url.search);
+    }; 
 
-  async function QueryProduct(page){
-    LoaderToggle(true);
+    async function QueryProduct(page){
+      LoaderToggle(true);
 
-    let res = null;
-    if(category){
-      res = await GetCategoryProduct(category, page, pageinfo.pageSize, pageinfo.sorting) as IResponseServiceModel;      
-    }
-    else{
-      res = await GetProductList(page, pageinfo.pageSize, pageinfo.sorting) as IResponseServiceModel;
+      let res = null;
+      if(category){
+        res = await GetCategoryProduct(category, page, pageinfo.pageSize, pageinfo.sorting) as IResponseServiceModel;      
+      }
+      else{
+        res = await GetProductList(page, pageinfo.pageSize, pageinfo.sorting) as IResponseServiceModel;
     }
 
     removeUrlParameter('cat');
@@ -133,7 +133,8 @@ useEffect(() => {
   }
 
   QueryProduct(1);
-}, [pageinfo.pageSize, pageinfo.sorting, category, router]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+}, []);
 
 const handleSortingChanged = (e) => {
   const sortType = parseInt(e.target.value);
@@ -141,25 +142,6 @@ const handleSortingChanged = (e) => {
 
   FetchProduct(1);        
 };
-
-const handleNextClick = () => {
-    if(pageinfo.page >= pageinfo.totalPage) return;
-    let page = pageinfo.page+1;
-    if(page > pageinfo.totalPage){ page = pageinfo.page}
-    FetchProduct(page);
-};
-
-const handleBackClick = () => {
-    if(pageinfo.page <= 1) return;
-    let page = pageinfo.page-1;
-    if(page <= 0){ page = 1}
-    FetchProduct(page);
-};
-
-const handlePaginationNumberClick = (e) => {
-    if(parseInt(e.target.value) === pageinfo.page) return;
-    FetchProduct(parseInt(e.target.value));
-};  
 
 const handleAddToCartClick = (product) => {
   LoaderToggle(true);
@@ -173,13 +155,6 @@ const handleAddToCartClick = (product) => {
       LoaderToggle(false);
     }
   });
-};
-
-const handleItemDisplayChanged = (e) => {
-  const newPageSize = parseInt(e.target.value);
-  pageinfo.pageSize = newPageSize;
-
-  FetchProduct(1);
 };
 
 const categoryHandleClick = (category) => {
@@ -207,20 +182,13 @@ const handleLoadMoreClick = (e) => {
   let gotData = false;
   if(products){ gotData = true;}
   const config = GetConfig(false, gotData, pageinfo);
-  config.handlePaginationNumberClick = handlePaginationNumberClick;
-  config.handleBackClick = handleBackClick;
-  config.handleNextClick = handleNextClick;
   config.handleAddToCartClick = handleAddToCartClick;
   config.handleLoadMoreClick = handleLoadMoreClick;
-  config.handleItemDisplayChanged = handleItemDisplayChanged;
   config.handleSortingChanged = handleSortingChanged;
   config.hideSortOption = false;
   config.hideDisplayPageInfo = true;
   config.hideDisplayOption = true;
   config.hidePageDropDownInfo = true;
-
-  const config1 = CloneConfig(config);
-  config1.hideSortOption = false;
 
   return (
     <>
