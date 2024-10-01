@@ -9,62 +9,76 @@ import { toast } from 'react-toastify';
 import { GetPageInfo } from '@/app/components/pagination/paginationUtils';
 import { LoaderToggle } from '@/app/components/loader/loader';
 import PostItem from './postItem';
+import useSWR from 'swr'
+import * as constants from '@/app/constants'
+
+const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function BlogList() {
-    const [posts, setPosts] = useState(undefined);
-    const [isLoading, setIsLoading] = useState(false);
-    const [pageInfo, setPageInfo] = useState({page:1, pageSize:12, sorting:1});
+    //const [posts, setPosts] = useState(undefined);
+    //const [isLoading, setIsLoading] = useState(false);
+    //const [pageInfo, setPageInfo] = useState({page:1, pageSize:12, sorting:1});
+
+    const page = 1;
+    const pageSize = 12;
+    const skip = (page - 1) * pageSize;        
+    const limit = 'limit='+ pageSize + '&skip=' + skip;
+    const url = constants.POST_URL + '?' + limit;       
+    const { data, error, isLoading } = useSWR(url, fetcher)
+    console.log(data);
+
+    const pageInfo = data ? GetPageInfo(data.total, data.length, 1, 12, 1) : {page:1, pageSize:12, sorting:1};
 
     const emptyPosts = [{},{},{},{},{},{},{},{},{},{},{},{}];
 
-    useEffect(() => {
-        async function fetchPosts() {                
-            const res = await GetPostList(1, pageInfo.pageSize, pageInfo.sorting) as IResponseServiceModel;
+    // useEffect(() => {
+    //     async function fetchPosts() {                
+    //         const res = await GetPostList(1, pageInfo.pageSize, pageInfo.sorting) as IResponseServiceModel;
   
-            setPosts(res.data.posts);
-            setPageInfo(GetPageInfo(res.data.total, res.data.posts.length, 1, pageInfo.pageSize, pageInfo.sorting));            
-            setIsLoading(false);
-            LoaderToggle(false);
-        }
+    //         //setPosts(res.data.posts);
+    //         setPageInfo(GetPageInfo(res.data.total, res.data.posts.length, 1, pageInfo.pageSize, pageInfo.sorting));            
+    //         //setIsLoading(false);
+    //         LoaderToggle(false);
+    //     }
   
-        setIsLoading(true);
-        LoaderToggle(true);
-        fetchPosts();
+    //     //setIsLoading(true);
+    //     LoaderToggle(true);
+    //     fetchPosts();
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    // // eslint-disable-next-line react-hooks/exhaustive-deps
+    // }, []);
 
     const queryData = async (page) => {
-        LoaderToggle(true);
-        setIsLoading(true);
-        const res = await GetPostList(page, pageInfo.pageSize, pageInfo.sorting) as IResponseServiceModel;
-        if(res.isSuccess)
-        {
-            setPosts(res.data.posts);
-            setPageInfo(GetPageInfo(res.data.total, res.data.posts.length, page, pageInfo.pageSize, pageInfo.sorting));
-        }
-        else{
-            toast('Error: ' + res.data);
-        }
-        setIsLoading(false);
-        LoaderToggle(false);
+        // LoaderToggle(true);
+        // //setIsLoading(true);
+        // const res = await GetPostList(page, pageInfo.pageSize, pageInfo.sorting) as IResponseServiceModel;
+        // if(res.isSuccess)
+        // {
+        //     //setPosts(res.data.posts);
+        //     setPageInfo(GetPageInfo(res.data.total, res.data.posts.length, page, pageInfo.pageSize, pageInfo.sorting));
+        // }
+        // else{
+        //     toast('Error: ' + res.data);
+        // }
+        // //setIsLoading(false);
+        // LoaderToggle(false);
     }    
 
     const PageChanged = (page, pageSize) => {
-        if(page !== pageInfo.page){
-            pageInfo.pageSize = pageSize;
-            queryData(page);
-            return;
-        }
+        // if(page !== pageInfo.page){
+        //     pageInfo.pageSize = pageSize;
+        //     queryData(page);
+        //     return;
+        // }
 
-        if(pageSize !== pageInfo.pageSize){
-            pageInfo.pageSize = pageSize;
-            queryData(1);
-            return;
-        }
+        // if(pageSize !== pageInfo.pageSize){
+        //     pageInfo.pageSize = pageSize;
+        //     queryData(1);
+        //     return;
+        // }
     };    
 
-    const gotData = posts && posts.length > 0;
+    const gotData = data?.posts && data?.posts.length > 0;
     const config = GetConfig(isLoading, gotData, pageInfo);
     config.hideSortOption = true;
     config.hideDisplayOption = true;
@@ -79,6 +93,8 @@ export default function BlogList() {
     emptyConfig.hideDisplayPageInfo = true;
     emptyConfig.hidePageOption = true;
     emptyConfig.hidePageDropDownInfo = true;
+
+    const posts = data?.posts;
 
     return (
         <div className='w-full py-2 px-2 md:px-20 lg:px-40 xl:px-80 text-sm'>
