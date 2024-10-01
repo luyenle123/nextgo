@@ -72,6 +72,9 @@ const config: Config = {
       100: '28rem',
       105: '30rem',
       110: '34rem',
+      112: '36rem',
+      114: '38rem',
+      116: '40rem',
     }
   },
   plugins: [],

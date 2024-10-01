@@ -57,6 +57,7 @@ export default function Navbar(){
         {url:'/' + constants.NAV_CART_DETAIL, text:'Cart'},
         {url:'/' + constants.NAV_USER_LIST, text:'Users'},        
         {url:'/' + constants.NAV_POST_LIST, text:'Blog'},
+        {url:'/' + constants.NAV_CONTACT_US, text:'Contact Us'},
     ];
    
     const handleClick = () => {

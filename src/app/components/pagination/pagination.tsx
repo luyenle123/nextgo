@@ -2,6 +2,7 @@
 const handleAddToCartClick = (e) => {};
 const handleItemDisplayChanged = (e) => {};
 const handleLoadMoreClick = (e) => {};
+const handleSortingChanged = (e) => {};
 const PageChanged = (page, paggeSize) => {}  
 
 export const GetConfig = (isLoading, hasData, pageInfo) => {
@@ -15,8 +16,10 @@ export const GetConfig = (isLoading, hasData, pageInfo) => {
         hidePageDropDownInfo: false,
         hidePageOption: false,
         hideTotalItem: false,
+        loadMoreOnly: false,
         handleAddToCartClick:handleAddToCartClick,
         handleLoadMoreClick: handleLoadMoreClick,
+        handleSortingChanged: handleSortingChanged,
         handleItemDisplayChanged: handleItemDisplayChanged,
         PageChanged: PageChanged
     } 
@@ -30,8 +33,9 @@ export const CloneConfig = (config) => {
         hideSortOption: config.hideSortOption,
         hideDisplayOption: config.hideDisplayOption,
         hideDisplayPageInfo: config.hideDisplayPageInfo,
-        hidePageDropDownInfo: config.hidePageDropDownInfo,
+        hidePageDropDownInfo: config.hidePageDropDownInfo,        
         hideTotalItem: config.hideTotalItem,
+        loadMoreOnly: config.loadMoreOnly,
         hidePageOption: config.hidePageOption,
         handleLoadMoreClick: config.handleLoadMoreClick,
         handleAddToCartClick:config.handleAddToCartClick,
@@ -81,8 +85,29 @@ export const Pagination = ({config}) => {
         }        
     }; 
 
+    const handleLoadMoreClick = (e) => {
+        const page = config.pageInfo.page + 1;
+        if(page > config.pageInfo.totalPage){ return; }
+
+        if(config.PageChanged)
+        {
+            config.PageChanged(page, config.pageInfo.pageSize);
+        }       
+    
+    };     
+
     if(config === undefined){
         config = GetConfig(false, false, {});       
+    }
+
+    if(config.loadMoreOnly){
+        return(
+            <>
+                <div className='w-full inline-block text-center pt-10 pb-5'>
+                    <button className='min-w-80 px-5 py-3 bg-gray-200 cursor-pointer hover:bg-gray-300 active:bg-gray-200' onClick={handleLoadMoreClick}>Load More (<span className='font-bold'>{config.pageInfo.remainingCount}</span> items)</button>
+                </div>            
+            </>
+        );
     }
 
     return(

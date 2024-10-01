@@ -2,7 +2,6 @@
 
 import React, { useEffect, useState } from 'react'
 import { GetPostList } from "@/app/services/postService";
-import Link from "next/link";
 import { IResponseServiceModel } from "@/app/models/responseModel";
 
 import { GetConfig, Pagination } from '@/app/components/pagination/pagination';
@@ -10,7 +9,6 @@ import { toast } from 'react-toastify';
 import { GetPageInfo } from '@/app/components/pagination/paginationUtils';
 import { LoaderToggle } from '@/app/components/loader/loader';
 import PostItem from './postItem';
-import PostItemEmpty from './postItemEmpty';
 
 export default function BlogList() {
     const [posts, setPosts] = useState(undefined);
@@ -39,7 +37,7 @@ export default function BlogList() {
     const queryData = async (page) => {
         LoaderToggle(true);
         setIsLoading(true);
-        var res = await GetPostList(page, pageInfo.pageSize, pageInfo.sorting) as IResponseServiceModel;
+        const res = await GetPostList(page, pageInfo.pageSize, pageInfo.sorting) as IResponseServiceModel;
         if(res.isSuccess)
         {
             setPosts(res.data.posts);
@@ -64,7 +62,6 @@ export default function BlogList() {
             queryData(1);
             return;
         }
-
     };    
 
     const gotData = posts && posts.length > 0;
@@ -76,7 +73,7 @@ export default function BlogList() {
     config.hidePageDropDownInfo = true;
     config.PageChanged = PageChanged;
 
-    const emptyConfig = GetConfig(isLoading, true, GetPageInfo(12, 12, 1, pageInfo.pageSize, pageInfo.sorting));
+    const emptyConfig = GetConfig(isLoading, true, GetPageInfo(250, 12, 1, pageInfo.pageSize, pageInfo.sorting));
     emptyConfig.hideSortOption = true;
     emptyConfig.hideDisplayOption = true;
     emptyConfig.hideDisplayPageInfo = true;
@@ -92,7 +89,7 @@ export default function BlogList() {
             <div className='mt-5'>
                 {!posts ? 
                     <>
-                        <div className='opacity-50 blur-sm'>
+                        <div className='opacity-80 blur-sm'>
                             <Pagination config={emptyConfig}/>
                         </div>
                     </> 
@@ -104,7 +101,7 @@ export default function BlogList() {
                     {!posts ? 
                     <>
                         {emptyPosts.map((post, i) => (
-                            <PostItemEmpty key={i} post={post}/>
+                            <PostItem key={i} post={post} isEmpty={true}/>
                         ))}                    
                     </> 
                     : 

@@ -120,7 +120,14 @@ body {
   }
 
   .empty-item{
-    @apply opacity-50 blur-sm;
+    @apply opacity-60 blur-sm;
+  }
+
+  .contact-us-form-control{
+    @apply w-full my-3;
+  }
+  .form-control-input{
+    @apply w-full text-sm p-2 border border-gray-100 focus:border-gray-300 focus:outline-none;
   }
 }
 

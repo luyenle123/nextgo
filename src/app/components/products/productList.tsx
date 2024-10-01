@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { IResponseServiceModel } from "@/app/models/responseModel";
 import { LoaderToggle } from "@/app/components/loader/loader";
 import { IProductItem } from "@/app/models/productmodel";
-import { GetConfig, CloneConfig } from '@/app/components/pagination/pagination'
+import { GetConfig, CloneConfig, Pagination, PaginationEmpty } from '@/app/components/pagination/pagination'
 import { GetPageInfo } from "@/app/components/pagination/paginationUtils";
 import { UpdateCategoryProductCount } from "@/app/components/products/category";
 import { toast } from 'react-toastify';
@@ -16,13 +16,13 @@ import dynamic from "next/dynamic";
 import CartPopupResult from "../cart/cartPopupResult";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from 'next/navigation';
+import { TopInfo } from "./topInfo";
 
 const Category = dynamic(() => import('@/app/components/products/category'), { loading: () => <><p>Loading...</p></>})
-// const CartPopupResult = dynamic(() => import('@/app/components/cart/cartPopupResult'), { loading: () => <></>})
 
 export default function List(){
   const [products, setProducts] = useState<IProductItem[] | undefined>(undefined);
-  const [pageinfo, setPageInfo] = useState({total:0, page:1, pageSize:12, sorting:1, totalPage:1});
+  const [pageInfo, setPageInfo] = useState({total:0, page:1, pageSize:12, sorting:1, totalPage:1});
   const [categorySelected, setCategorySelected] = useState(null);
   const [cartProduct, setCartProduct] = useState<IProductItem | undefined>(undefined);
   const searchParams = useSearchParams();
@@ -40,9 +40,9 @@ export default function List(){
     }      
 
     LoaderToggle(true);
-    const res = await GetProductList(page, pageinfo.pageSize, pageinfo.sorting) as IResponseServiceModel;
+    const res = await GetProductList(page, pageInfo.pageSize, pageInfo.sorting) as IResponseServiceModel;
 
-    setPageInfo(GetPageInfo(res.data.total, res.data.products.length, page, pageinfo.pageSize, pageinfo.sorting));            
+    setPageInfo(GetPageInfo(res.data.total, res.data.products.length, page, pageInfo.pageSize, pageInfo.sorting));            
     setProducts(res.data.products);
     LoaderToggle(false);
   }
@@ -51,11 +51,11 @@ export default function List(){
     LoaderToggle(true);
 
     if(!page) { page = 1; }
-    const res = await GetCategoryProduct(category, page, pageinfo.pageSize, pageinfo.sorting) as IResponseServiceModel;
+    const res = await GetCategoryProduct(category, page, pageInfo.pageSize, pageInfo.sorting) as IResponseServiceModel;
     if(res.isSuccess)
     {
         setProducts(res.data.products);
-        setPageInfo(GetPageInfo(res.data.total, res.data.products.length, page, pageinfo.pageSize, pageinfo.sorting));
+        setPageInfo(GetPageInfo(res.data.total, res.data.products.length, page, pageInfo.pageSize, pageInfo.sorting));
         UpdateCategoryProductCount(res.data.total);
         setCategorySelected(category);
     }
@@ -70,11 +70,11 @@ export default function List(){
     LoaderToggle(true);
     let res = null;
     if(categorySelected && !fetchProduct){
-        res = await GetCategoryProduct(category, page, pageinfo.pageSize, pageinfo.sorting);
+        res = await GetCategoryProduct(category, page, pageInfo.pageSize, pageInfo.sorting);
     }
     else
     {
-        res = await GetProductList(page, pageinfo.pageSize, pageinfo.sorting);
+        res = await GetProductList(page, pageInfo.pageSize, pageInfo.sorting);
         setCategorySelected(undefined);
     }
 
@@ -93,7 +93,7 @@ export default function List(){
             setProducts(productlist);
         }
 
-        setPageInfo(GetPageInfo(res.data.total, res.data.products.length, page, pageinfo.pageSize, pageinfo.sorting));            
+        setPageInfo(GetPageInfo(res.data.total, res.data.products.length, page, pageInfo.pageSize, pageInfo.sorting));            
     }
     else{
         //notify('Error: ' + res.data);
@@ -120,14 +120,14 @@ export default function List(){
 
       let res = null;
       if(category){
-        res = await GetCategoryProduct(category, page, pageinfo.pageSize, pageinfo.sorting) as IResponseServiceModel;      
+        res = await GetCategoryProduct(category, page, pageInfo.pageSize, pageInfo.sorting) as IResponseServiceModel;      
       }
       else{
-        res = await GetProductList(page, pageinfo.pageSize, pageinfo.sorting) as IResponseServiceModel;
+        res = await GetProductList(page, pageInfo.pageSize, pageInfo.sorting) as IResponseServiceModel;
     }
 
     removeUrlParameter('cat');
-    setPageInfo(GetPageInfo(res.data.total, res.data.products.length, page, pageinfo.pageSize, pageinfo.sorting));            
+    setPageInfo(GetPageInfo(res.data.total, res.data.products.length, page, pageInfo.pageSize, pageInfo.sorting));            
     setProducts(res.data.products);
     LoaderToggle(false);
   }
@@ -138,7 +138,7 @@ export default function List(){
 
 const handleSortingChanged = (e) => {
   const sortType = parseInt(e.target.value);
-  pageinfo.sorting = sortType;
+  pageInfo.sorting = sortType;
 
   FetchProduct(1);        
 };
@@ -171,24 +171,20 @@ const categoryHandleClick = (category) => {
   } 
 }
 
-const handleLoadMoreClick = (e) => {
-  // Load more product
-  const page = pageinfo.page + 1;
-  if(page > config.pageInfo.totalPage){ return; }
-
-  LoadMoreProduct(categorySelected, page);
-};
+const PageChanged = (page, pageSize) => {
+  if(page !== pageInfo.page){
+    pageInfo.pageSize = pageSize;
+    LoadMoreProduct(categorySelected, page);
+  }    
+}; 
 
   let gotData = false;
-  if(products){ gotData = true;}
-  const config = GetConfig(false, gotData, pageinfo);
+  if(products){ gotData = true; }
+  const config = GetConfig(false, gotData, pageInfo);
   config.handleAddToCartClick = handleAddToCartClick;
-  config.handleLoadMoreClick = handleLoadMoreClick;
   config.handleSortingChanged = handleSortingChanged;
-  config.hideSortOption = false;
-  config.hideDisplayPageInfo = true;
-  config.hideDisplayOption = true;
-  config.hidePageDropDownInfo = true;
+  config.PageChanged = PageChanged;
+  config.loadMoreOnly = true;
 
   return (
     <>
@@ -197,40 +193,24 @@ const handleLoadMoreClick = (e) => {
         <Category handleClick={categoryHandleClick} category = {category} productCount = {config.pageInfo.total}/>
       </div>
       
-      <div className="float-left sm:float-none md:float-none">
-        {/* <div className="px-1">
-          {products && products.length > 0 ? <Pagination config={config}/> : 
-          <>
-            <PaginationEmpty/>
-          </>}
-        </div> */}
-          
-          <TopInfor products={products} pageinfo={pageinfo} config={config}/>
+      <div className="float-left sm:float-none md:float-none">         
+          <TopInfo products={products} pageinfo={pageInfo} config={config}/>
 
           <div className="flex flex-wrap justify-left float-left">
             {products && products.length > 0 ? 
             <>
-              {
-                products.map((product, i) => (
-                  <ProductItemContainer  key = {i} product={product} handleAddToCartClick={handleAddToCartClick}/>
-                ))                
-              }
+              { products.map((product, i) => (<ProductItemContainer  key = {i} product={product} handleAddToCartClick={handleAddToCartClick}/>)) }
             </> : 
             <>
-            {
-              productEmptyList.map((p, i) => (
-                <ProductItemContainerEmpty key={i}/>
-              ))
-            }
+              { productEmptyList.map((p, i) => (<ProductItemContainerEmpty key={i}/> )) }
             </>}
           </div>
 
           {config.pageInfo.allowLoadMore && 
-                <div className='w-full inline-block text-center pt-10 pb-5'>
-                    <button className='min-w-80 px-5 py-3 bg-gray-200 cursor-pointer hover:bg-gray-300 active:bg-gray-200' onClick={config.handleLoadMoreClick}>Load More (<span className='font-bold'>{config.pageInfo.remainingCount}</span> items)</button>
-                </div>
-            }
-
+              <div className="px-1">
+                {products && products.length > 0 ? <Pagination config={config}/> :  <PaginationEmpty/>}
+              </div>
+          }
       </div>
     </div> 
      { cartProduct && <CartPopupResult product={cartProduct} handleCallback={() => { setCartProduct(undefined)}}/> }
@@ -269,44 +249,3 @@ export function ProductItemContainerEmpty(){
     </>
   );
 }
-
-export function TopInfor(props){
-  return(
-    <>
-        {
-          props.products && props.products.length > 0 ? 
-          <div className="float-left w-full px-1">
-            <div className='float-left w-20 font-bold'>
-              {props.pageinfo?.total} items      
-            </div>
-
-            <SortOption config={props.config}/>
-          </div>
-          :
-          <>
-            <div className="float-left w-full px-1 opacity-40 blur-0">
-              <div className='float-left w-20  ont-bold text-gray-200'>
-                00 items      
-              </div>
-
-              <SortOption config={props.config}/>
-            </div>          
-          </>
-        }    
-    </>
-  );
-}
-
-export function SortOption ({config}) {
-  return(
-      <div className='pr-0.5 float-right h-6'>
-          <span className="text-xs ml-1">Sort: </span>
-          <select onChange={config?.handleSortingChanged} value={config?.pageInfo?.sorting} className='bg-white'>
-              <option key={1} value={1}>Price: L to H</option>
-              <option key={2} value={2}>Price: H to L</option>
-              <option key={3} value={3}>Title: A-Z</option>
-              <option key={4} value={4}>Title: Z-A</option>
-          </select>              
-      </div>
-  );
-};
