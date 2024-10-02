@@ -1,35 +1,29 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
-import React, { useEffect, useState } from 'react'
-import { GetCategoryList } from "@/app/services/productService";
-import { IResponseServiceModel } from "@/app/models/responseModel";
+import React, { useState } from 'react'
+import { Fetcher, GetCategoryListUrl } from "@/app/services/productAPI";
+import useSWR from 'swr'
 
 export function Hello() {
     return <p>Hello!</p>
   }
 
 export default function Category(props){
-    const [categories, setCateories] = useState([]);
     const [categorySelected, setCategorySelected] = useState(props.category);
     const categoryEmptyList = ['','','','','','','','','','','','','','','','','','','','','','','',''];
-      
-    const doFetchCategory = async () => {
-        //console.log('>> fetch category via api');        
-        const res = await GetCategoryList() as IResponseServiceModel;
-        if(res.isSuccess)
-        {
-            setCateories(res.data);
-        }
-        else{
-            //notify('Error: ' + res.data);
-        }
-    }
-    
-    useEffect(() => {
-        doFetchCategory();
-    }, []);
 
+    const { data, error, isLoading } = useSWR(GetCategoryListUrl(), Fetcher(), {
+        revalidateIfStale: false,
+        revalidateOnFocus: false,
+        revalidateOnReconnect: false
+      });      
+
+    const categories = data;
+
+    if(error){
+        console.log(error);
+    }
 
     const handleCategoryClick = (p) => {
         if(p === categorySelected) return;
@@ -59,7 +53,7 @@ export default function Category(props){
         </div>
 
         <div className='h-28 overflow-x-auto w-full lg:h-auto border sm:border-0 border-gray-100'>
-            {categories && categories.length > 0 ?                     
+            {!isLoading ?                     
                 <>
                     {categories.map((p, i) => ( <MapItem key = {i} category = {p} categoryHandleClick = {handleCategoryClick} categorySelected={categorySelected}/> ))}
                 </>                 

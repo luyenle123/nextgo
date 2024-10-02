@@ -1,81 +1,42 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
-import { GetPostList } from "@/app/services/postService";
-import { IResponseServiceModel } from "@/app/models/responseModel";
-
+import React, { useState } from 'react'
+import { Fetcher, GetPostListUrl } from "@/app/services/postAPI";
 import { GetConfig, Pagination } from '@/app/components/pagination/pagination';
 import { toast } from 'react-toastify';
 import { GetPageInfo } from '@/app/components/pagination/paginationUtils';
-import { LoaderToggle } from '@/app/components/loader/loader';
+import { Loader } from '@/app/components/loader/loader';
 import PostItem from './postItem';
 import useSWR from 'swr'
-import * as constants from '@/app/constants'
-
-const fetcher = (url) => fetch(url).then((res) => res.json());
 
 export default function BlogList() {
-    //const [posts, setPosts] = useState(undefined);
-    //const [isLoading, setIsLoading] = useState(false);
-    //const [pageInfo, setPageInfo] = useState({page:1, pageSize:12, sorting:1});
+    const [pageData, setPageData] = useState({index:1, size: 12, sorting: 1}); 
 
-    const page = 1;
-    const pageSize = 12;
-    const skip = (page - 1) * pageSize;        
-    const limit = 'limit='+ pageSize + '&skip=' + skip;
-    const url = constants.POST_URL + '?' + limit;       
-    const { data, error, isLoading } = useSWR(url, fetcher)
-    console.log(data);
-
-    const pageInfo = data ? GetPageInfo(data.total, data.length, 1, 12, 1) : {page:1, pageSize:12, sorting:1};
+    const { data, error, isLoading } = useSWR(GetPostListUrl(pageData.index, pageData.size, pageData.size), Fetcher(), {
+        revalidateIfStale: false,
+        revalidateOnFocus: false,
+        revalidateOnReconnect: false
+      });
+    const pageInfo = data ? GetPageInfo(data.total, data.length, pageData.index, pageData.size, 1) : {page:1, pageSize:12, sorting:1};
 
     const emptyPosts = [{},{},{},{},{},{},{},{},{},{},{},{}];
 
-    // useEffect(() => {
-    //     async function fetchPosts() {                
-    //         const res = await GetPostList(1, pageInfo.pageSize, pageInfo.sorting) as IResponseServiceModel;
-  
-    //         //setPosts(res.data.posts);
-    //         setPageInfo(GetPageInfo(res.data.total, res.data.posts.length, 1, pageInfo.pageSize, pageInfo.sorting));            
-    //         //setIsLoading(false);
-    //         LoaderToggle(false);
-    //     }
-  
-    //     //setIsLoading(true);
-    //     LoaderToggle(true);
-    //     fetchPosts();
-
-    // // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, []);
-
-    const queryData = async (page) => {
-        // LoaderToggle(true);
-        // //setIsLoading(true);
-        // const res = await GetPostList(page, pageInfo.pageSize, pageInfo.sorting) as IResponseServiceModel;
-        // if(res.isSuccess)
-        // {
-        //     //setPosts(res.data.posts);
-        //     setPageInfo(GetPageInfo(res.data.total, res.data.posts.length, page, pageInfo.pageSize, pageInfo.sorting));
-        // }
-        // else{
-        //     toast('Error: ' + res.data);
-        // }
-        // //setIsLoading(false);
-        // LoaderToggle(false);
-    }    
+    if(error){
+        toast.error(error);
+    } 
 
     const PageChanged = (page, pageSize) => {
-        // if(page !== pageInfo.page){
-        //     pageInfo.pageSize = pageSize;
-        //     queryData(page);
-        //     return;
-        // }
+        if(page !== pageInfo.page){
+            pageInfo.pageSize = pageSize;
+            setPageData({index:page, size: pageSize, sorting: 1});
+            return;
+        }
 
-        // if(pageSize !== pageInfo.pageSize){
-        //     pageInfo.pageSize = pageSize;
-        //     queryData(1);
-        //     return;
-        // }
+        if(pageSize !== pageInfo.pageSize){
+            pageInfo.pageSize = pageSize;
+            setPageData({index:page, size: pageSize, sorting: 1});
+            return;
+        }
     };    
 
     const gotData = data?.posts && data?.posts.length > 0;
@@ -101,6 +62,8 @@ export default function BlogList() {
             <div className='uppercase text-4xl text-center'>
                 Blog
             </div>
+
+            {isLoading && <Loader isActive={true}/>}
           
             <div className='mt-5'>
                 {!posts ? 

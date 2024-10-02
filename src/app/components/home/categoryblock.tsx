@@ -1,41 +1,27 @@
-import React, { useEffect, useState } from 'react'
-import { GetCategoryList } from "@/app/services/productService";
-import { IResponseServiceModel } from '@/app/models/responseModel';
+import React from 'react'
+import { Fetcher, GetCategoryListUrl } from "@/app/services/productAPI";
 import Image from 'next/image';
 import * as constants from '@/app/constants';
-// import Spinner from '@/app/components/loader/spiner';
+import useSWR from 'swr'
 
 export default function CategoryBlock(){
-    const [cateories, setCateories] = useState([]);
-    const [isLoading, setIsLoading] = useState(true);
     const emptyCategories = [{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{},{}];
 
-    const t = process.env.NEXT_APP_CLIENT_ID;
-    console.log('CLIENTID: ' + t);
-         
-    useEffect(() => {
-        async function FetchCategory(){     
-            const res = await GetCategoryList() as IResponseServiceModel;
-            if(res.isSuccess)
-            {
-                setIsLoading(false);
-                setCateories(res.data);
-            }
-        }
+    const { data, error, isLoading } = useSWR(GetCategoryListUrl(), Fetcher(), {
+        revalidateIfStale: false,
+        revalidateOnFocus: false,
+        revalidateOnReconnect: false
+      });      
 
-        FetchCategory();        
-    }, []);
+    const categories = data;
+    
+    if(error){
+        console.log(error);
+    }
 
   return (
     <>
         <div className='w-full pt-32'>
-            {/* <div className='float-left w-full mt-52'>
-                <div className='text-center'>
-                    <Spinner/>
-                </div>
-            </div> */}
-
-
                 <div className='uppercase text-4xl text-center'>
                     Browse a category
                     <hr className='w-80 my-3 mx-auto border border-solid border-gray-200'/>
@@ -46,11 +32,9 @@ export default function CategoryBlock(){
                         {emptyCategories.map((p, i) => ( <EmptyCategoryItem key = {i}/> ))}
                     </> : 
                     <>
-                        {cateories.map((p, i) => ( <CategoryItem key = {i} id={i+1} category = {p} /> ))}                    
+                        {categories.map((p, i) => ( <CategoryItem key = {i} id={i+1} category = {p} /> ))}                    
                     </>}                    
                 </div>
-
-            {/* {isLoading && <Spinner/>} */}
         </div>
     </>
   )

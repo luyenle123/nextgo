@@ -2,57 +2,58 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
-import { SearchProduct } from "@/app/services/productService";
+import { Fetcher, SearchProductUrl } from "@/app/services/productAPI";
 import { toast } from 'react-toastify';
-import { LoaderToggle } from "@/app/components/loader/loader";
+import { Loader, LoaderToggle } from "@/app/components/loader/loader";
 import { DoAddToCart, UpdateCartInfo } from "@/app/components/cart/cart";
-import { IResponseServiceModel } from "@/app/models/responseModel";
 import { IProductItem } from '@/app/models/productmodel';
 import { ProductCard } from '../products/productCard';
 import CartPopupResult from '../cart/cartPopupResult';
 import SearchBox from './searchBox';
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/navigation';
+import useSWR from 'swr'
 
 export default function Search(){
-  const [products, setProducts] = useState<IProductItem[] | undefined>(undefined);
   const [cartProduct, setCartProduct] = useState<IProductItem | undefined>(undefined);
   const [searchText, setSearchText] = useState('');
   const searchParams = useSearchParams();
   const text = searchParams.get('text');
   const router = useRouter(); 
 
+  const removeUrlParameter = (param) => {
+    // Create a new URL object based on the current URL
+    const url = new URL(window.location.href);
+    // Remove the specified parameter
+    url.searchParams.delete(param);
+    // Update the URL without reloading the page
+    router.push(url.pathname + url.search);
+  };
+
+  let textToSearch = searchText;
+  if(text && text.length >= 3){
+    textToSearch = text;    
+  }
+
+  const { data, error, isLoading } = useSWR(SearchProductUrl(textToSearch), Fetcher(), {
+    revalidateIfStale: false,
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false
+  });
+
+  const products = data?.products;
+
+  if(error){
+    toast.error(error);
+  }  
+
   useEffect(() => {
-    const removeUrlParameter = (param) => {
-      // Create a new URL object based on the current URL
-      const url = new URL(window.location.href);
-      // Remove the specified parameter
-      url.searchParams.delete(param);
-      // Update the URL without reloading the page
-      router.push(url.pathname + url.search);
-    }; 
-
-    async function Search(searchText) {
-      LoaderToggle(true);
-      const res = await SearchProduct(searchText) as IResponseServiceModel;
-      if(res.isSuccess)
-      {
-          setSearchText(searchText);
-          setProducts(res.data.products);
-      }
-      else{
-          toast('Error: ' + res.data);
-      }
-  
-      LoaderToggle(false);
-    }
-
-    if(text && text.length >= 3){
-      Search(text);
-
+    if(text){
+      setSearchText(text);
       removeUrlParameter('text');
-    }    
-  }, [text, router]); 
+    } 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleAddToCartClick = (product) => {
     LoaderToggle(true);
@@ -69,18 +70,11 @@ export default function Search(){
   };
 
   const handleSearch = async (key) => {
-    LoaderToggle(true);
-    const res = await SearchProduct(key) as IResponseServiceModel;
-    if(res.isSuccess)
-    {
-      setSearchText(key);
-      setProducts(res.data.products);
-    }
-    else{
-        toast('Error: ' + res.data);
-    }
+    setSearchText(key);
 
-    LoaderToggle(false);
+    if(text){
+      removeUrlParameter('text');
+    } 
   }  
 
   return (
@@ -89,6 +83,8 @@ export default function Search(){
       <div className='w-full -mt-32 absolute'>
         <SearchBox handleSearch={handleSearch} text={text}/>
       </div>
+
+      {isLoading && <Loader isActive={true}/>}
 
       <div className='sm:p-2 mt-10'>
         <div className='mt-1 min-h-600 w-full'>

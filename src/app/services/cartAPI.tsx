@@ -1,10 +1,14 @@
 import * as constants from '@/app/constants'
 import { FetchData } from '@/app/services/queryServiceBase';
 
-const GetCartDetail = async (cartId) => {
+const GetCartDetailUrl = (cartId:number) => {
   cartId = 4;
   const url = constants.CART_DETAIL_URL + cartId;
-  return FetchData(url);
+  return url;
+}
+
+const GetCartDetail = async (cartId) => {
+  return FetchData(GetCartDetailUrl(cartId));
 }
 
 const AddToCart = async (productId, quantity) => {
@@ -42,4 +46,9 @@ const AddToCart = async (productId, quantity) => {
     }
 }
 
-export { GetCartDetail, AddToCart };
+const Fetcher = () => {
+  const fetcher = (url) => fetch(url).then((res) => res.json());
+  return fetcher;
+}
+
+export { GetCartDetail, AddToCart, Fetcher, GetCartDetailUrl };

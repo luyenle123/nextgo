@@ -4,17 +4,17 @@
 import cartIcon from '@/app/images/cart.png';
 import searchIcon from '@/app/images/search-icon-100-2.png';
 
-import { useEffect, useState } from 'react'
-import { GetCartDetail, AddToCart } from "@/app/services/cartService";
+import { useState } from 'react'
+import { GetCartDetail, AddToCart, Fetcher, GetCartDetailUrl } from "@/app/services/cartAPI";
 import * as constants from '@/app/constants'
-import { LoaderToggle } from "@/app/components/loader/loader";
+import { Loader } from "@/app/components/loader/loader";
 import { IResponseServiceModel } from "@/app/models/responseModel";
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import { toast } from 'react-toastify';
 import Link from 'next/link';
-import { ICartModel } from '@/app/models/cartModel';
 import dynamic from 'next/dynamic';
+import useSWR from 'swr';
 
 const CartDropdown = dynamic(() => import('./minicart'), { loading: () => <></>})
 
@@ -42,10 +42,20 @@ const UpdateCartInfo = async(res, qty) => {
 
 const Cart = () => {
   const [showMiniCart, setShowMiniCart] = useState(false);
-  const [cart, setCart] = useState<ICartModel | undefined>(undefined);
   const route = useRouter();
 
-  //console.log('Cart Info');
+  const url = GetCartDetailUrl(4);   
+  const { data, error, isLoading } = useSWR(url, Fetcher(), {
+      revalidateIfStale: false,
+      revalidateOnFocus: false,
+      revalidateOnReconnect: false
+    });
+  
+  const cart = data;
+
+  if(error){
+    console.log(error);
+  }
 
   const handleCartClick = async (e) => {
      if(showMiniCart)
@@ -53,17 +63,7 @@ const Cart = () => {
       setShowMiniCart(false);
      }
      else{
-      LoaderToggle(true);
-      const res = await GetCartDetail(5) as IResponseServiceModel;
-      if(res.isSuccess)
-      {
-        setCart(res.data);
-      }
-      else{
-        setCart(undefined);
-      }
       setShowMiniCart(true);
-      LoaderToggle(false);
      }
   };
   
@@ -81,20 +81,9 @@ const Cart = () => {
     setShowMiniCart(false);
   }  
 
-  useEffect(() => {
-    async function doGetCartDetail() {
-      const res = await GetCartDetail(5) as IResponseServiceModel;
-      if(res.isSuccess)
-      {
-        setCart(res.data);
-      }
-    }
-
-    doGetCartDetail();
-  }, []);
-
   return (
     <>
+    {isLoading && <Loader isActive={true}/>}
       <div className='fixed h-10 top-0 w-40 left-full -mx-40 text-white'>
         <div className='h-10 float-right flex'>
             <Link href={'/search'} className='block md:hidden mt-1 opacity-40 mr-2 float-left'>

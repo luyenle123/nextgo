@@ -1,38 +1,35 @@
 import React, { useState } from 'react'
-import { GetPostComments } from "@/app/services/postService";
+import { Fetcher, GetPostCommentUrl } from "@/app/services/postAPI";
 import { GetPageInfo } from '@/app/components/pagination/paginationUtils';
 import { toast } from 'react-toastify';
-import { LoaderToggle } from '@/app/components/loader/loader';
-import { IResponseServiceModel } from "@/app/models/responseModel";
 import CommentList from './commentList';
+import useSWR from 'swr'
 
 export default function PostItem(props){
     const [showComment, setShowComment] = useState(false);
-    const [comments, setComments] = useState([]);
-    const [pageInfo, setPageInfo] = useState({total:0, pageSize:12, sorting:1});
-    const [isLoading, setIsLoading] = useState(false);
+    const [postId, setPostId] = useState(0);
+
+    let pageInfo = {total:0, page:1, pageSize:20, sorting:1};
+    let comments = [];
+
+    const { data, error, isLoading } = useSWR(GetPostCommentUrl(postId), Fetcher(), {
+        revalidateIfStale: false,
+        revalidateOnFocus: false,
+        revalidateOnReconnect: false
+    });
+    pageInfo = data ? GetPageInfo(data.total, data.length, 1, 20, 1) : {total:0, page:1, pageSize:20, sorting:1};
+    comments = data?.comments;
+
+    if(error){
+        toast.error(error);
+    }        
 
     const emptyComments = [{},{}];
-
-    const getComment = async(postId) => {
-        LoaderToggle(true);
-        setIsLoading(true);
-        const res = await GetPostComments(postId) as IResponseServiceModel;
-        if(res.isSuccess){
-            setComments(res.data.comments);
-            setPageInfo(GetPageInfo(res.data.total, res.data.comments.length, 1, pageInfo.pageSize, pageInfo.sorting));
-        }
-        else{
-            toast('Error: ' + res.data);
-        }
-        setIsLoading(false);
-        LoaderToggle(false);
-    }
     
     const handleShowCommentClick = async(postId) => {
         setShowComment(!showComment);
         if(!showComment){
-            await getComment(postId);
+            setPostId(postId);
         }
     }
 

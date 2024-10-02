@@ -26,28 +26,28 @@ export default function ContactUsForm(){
         <div className='w-full px-2 lg:w-116 mx-auto mt-10'>
             <form onSubmit={handleSubmit}>
                 <div className='w-full my-3'>
-                    <input className='form-control-input' type='text' name='enquiry' placeholder='Enquiry' onChange={handleChange}></input>
+                    <input className='form-control-input' type='text' name='enquiry' placeholder='Enquiry' onChange={() => handleChange}></input>
                 </div>
                 <div className='w-full my-3 md:flex'>
                     <div className='float-left w-full md:w-1/2 mr-2'>
-                        <input className='form-control-input' type='text' name='firstname' placeholder='First name' onChange={handleChange}></input>
+                        <input className='form-control-input' type='text' name='firstname' placeholder='First name' onChange={() => handleChange}></input>
                     </div>
                     <div className='float-right w-full md:w-1/2 ml-2 mt-3 md:mt-0'>
-                        <input className='form-control-input' type='text' name='lastname' placeholder='Last name' onChange={handleChange}></input>
+                        <input className='form-control-input' type='text' name='lastname' placeholder='Last name' onChange={() => handleChange}></input>
                     </div>
                 </div>
 
                 <div className='w-full my-3 md:flex'>
                     <div className='float-left w-full md:w-1/2 mr-2 mt-3 md:mt-0'>
-                        <input className='form-control-input' type='text' name='email' placeholder='Email' onChange={handleChange}></input>
+                        <input className='form-control-input' type='text' name='email' placeholder='Email' onChange={() => handleChange}></input>
                     </div>
                     <div className='float-right w-full md:w-1/2 ml-2 mt-3 md:mt-0'>
-                        <input className='form-control-input' type='text' name='contactnumber' placeholder='Contact number' onChange={handleChange}></input>
+                        <input className='form-control-input' type='text' name='contactnumber' placeholder='Contact number' onChange={() => handleChange}></input>
                     </div>
                 </div>
 
                 <div className='w-full my-3'>
-                    <textarea className='form-control-input h-40 mt-3 md:mt-0' name='message' onChange={handleChange} placeholder='Message'></textarea>
+                    <textarea className='form-control-input h-40 mt-3 md:mt-0' name='message' onChange={() => handleChange} placeholder='Message'></textarea>
                 </div>
 
                 <div className='w-full my-3'>
@@ -59,7 +59,7 @@ export default function ContactUsForm(){
 
                 <div className='w-full my-3'>
                     <label className='flex'>
-                        <input className='w-5 h-5 m-0' type="checkbox" name="chk1" checked/> 
+                        <input className='w-5 h-5 m-0' type="checkbox" name="chk1"/> 
                         <span className='ml-2'>Agree with GO GO</span>
                     </label>
                 </div>

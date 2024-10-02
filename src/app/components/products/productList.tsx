@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
-import { GetProductList, GetCategoryProduct } from "@/app/services/productService";
+import { GetProductList, GetCategoryProduct } from "@/app/services/productAPI";
 import { useEffect, useState } from "react";
 import { IResponseServiceModel } from "@/app/models/responseModel";
 import { LoaderToggle } from "@/app/components/loader/loader";
@@ -17,8 +17,9 @@ import CartPopupResult from "../cart/cartPopupResult";
 import { useSearchParams } from "next/navigation";
 import { useRouter } from 'next/navigation';
 import { TopInfo } from "./topInfo";
+import useSWR from 'swr'
 
-const Category = dynamic(() => import('@/app/components/products/category'), { loading: () => <><p>Loading...</p></>})
+const Category = dynamic(() => import('@/app/components/products/category'), { loading: () => <></>})
 
 export default function List(){
   const [products, setProducts] = useState<IProductItem[] | undefined>(undefined);
