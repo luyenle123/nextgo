@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
-import { GetProductList, GetCategoryProduct } from "@/app/services/productAPI";
+import { GetProductList, GetCategoryProduct, GetProductListUrl, Fetcher } from "@/app/services/productAPI";
 import { useEffect, useState } from "react";
 import { IResponseServiceModel } from "@/app/models/responseModel";
 import { LoaderToggle } from "@/app/components/loader/loader";
 import { IProductItem } from "@/app/models/productmodel";
-import { GetConfig, CloneConfig, Pagination, PaginationEmpty } from '@/app/components/pagination/pagination'
+import { GetConfig, Pagination, PaginationEmpty } from '@/app/components/pagination/pagination'
 import { GetPageInfo } from "@/app/components/pagination/paginationUtils";
 import { UpdateCategoryProductCount } from "@/app/components/products/category";
 import { toast } from 'react-toastify';
@@ -18,6 +18,7 @@ import { useSearchParams } from "next/navigation";
 import { useRouter } from 'next/navigation';
 import { TopInfo } from "./topInfo";
 import useSWR from 'swr'
+import useSWRInfinite from "swr/infinite";
 
 const Category = dynamic(() => import('@/app/components/products/category'), { loading: () => <></>})
 
@@ -27,10 +28,25 @@ export default function List(){
   const [categorySelected, setCategorySelected] = useState(null);
   const [cartProduct, setCartProduct] = useState<IProductItem | undefined>(undefined);
   const searchParams = useSearchParams();
-  const router = useRouter();   
-
+  const router = useRouter();
+  
   const cat = searchParams.get('cat');
-  const productEmptyList = [{},{},{},{},{},{},{},{},{},{},{},{}];    
+  const productEmptyList = [{},{},{},{},{},{},{},{},{},{},{},{}];
+  
+  const [pageData, setPageData] = useState({index:1, size: 12, sorting: 1}); 
+  const {
+    data,
+    mutate,
+    size,
+    setSize,
+    isValidating,
+    isLoading
+  } = useSWRInfinite(() => GetProductListUrl(pageData.index, pageData.size, pageData.sorting), Fetcher());
+
+  const results = data ? [].concat(...data) : [];
+
+  console.log('' + pageData.index + ' | ' + pageData.size + ' | ' + pageData.sorting);
+  console.log(data);
   
   let fetchProduct = false;
 
@@ -175,7 +191,10 @@ const categoryHandleClick = (category) => {
 const PageChanged = (page, pageSize) => {
   if(page !== pageInfo.page){
     pageInfo.pageSize = pageSize;
-    LoadMoreProduct(categorySelected, page);
+    //LoadMoreProduct(categorySelected, page);
+
+    setPageData({index:page, size: pageSize, sorting: 1});
+    setSize(size + 1)
   }    
 }; 
 

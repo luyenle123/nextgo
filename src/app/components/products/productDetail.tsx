@@ -1,39 +1,25 @@
 'use client'
 
-import { useEffect, useState } from 'react';
-import { GetProductDetail } from "@/app/services/productService";
-import { IResponseServiceModel } from "@/app/models/responseModel";
-import { IProductItem } from '@/app/models/productmodel';
+import { Fetcher, GetProductDetailUrl } from "@/app/services/productAPI";
 import Image from 'next/image';
-import { LoaderToggle } from "@/app/components/loader/loader";
+import { Loader } from "@/app/components/loader/loader";
 import { toast } from 'react-toastify';
+import { useRouter } from 'next/navigation';
+import useSWR from 'swr'
+import * as constants from '@/app/constants'
 
 const ProductDetail = ({id}) => {
-    const [product, setProduct] = useState<IProductItem | undefined>(undefined);
+    const router = useRouter();   
+    const { data, error, isLoading } = useSWR(GetProductDetailUrl(id), Fetcher(), {
+        revalidateIfStale: false,
+        revalidateOnFocus: false,
+        revalidateOnReconnect: false
+      });    
+    
+    const product = data;
 
-    useEffect(() => {
-        async function queryData() {
-            const res = await GetProductDetail(id) as IResponseServiceModel;
-            if(res.isSuccess)
-            {
-                setProduct(res.data);
-            }
-            else{
-                toast.error('Error: ' + res.data);
-            }
-            LoaderToggle(false);
-        }
-
-        LoaderToggle(true);
-        queryData();
-    }, [id]);
-
-    if(!product){
-        return(
-            <div className='min-h-svh'>
-                <p>Loading...</p>
-            </div>
-        );
+    if(error){
+        toast.error(error);
     }
 
     if(!product){
@@ -44,9 +30,17 @@ const ProductDetail = ({id}) => {
         );
     }
 
+    const backToListHandle = () => {
+        router.push('/' + constants.NAV_PRODUCT_LIST);
+    }
+
     return(
         <>
+            {isLoading && <Loader isActive={true}/>}
             <div className="w-full lg:w-2/3 m-0 mx-auto mb-3">
+                <div className="mt-2 font-bold cursor-pointer" onClick={() => backToListHandle()}>
+                    Back to list
+                </div>
                 <div className={'p-2 w-full min-h-52 mt-3 inline-block border-gray-300 border-solid border rounde pdp-header'}>
                     <div className="float-left block w-80">
                         {product.images && product.images.length > 0 ? <Image src={product.images[0]} alt={product.title} width={300} height={300}/> : <></>   }
