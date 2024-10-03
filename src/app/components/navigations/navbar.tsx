@@ -32,7 +32,7 @@ export default function Navbar(){
         if(uname){
             setUserName(uname);
         }
-        console.log('UserName: ' + uname);
+        //console.log('UserName: ' + uname);
     }, []);
 
     if(!isLogin){

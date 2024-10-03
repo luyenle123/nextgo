@@ -12,8 +12,8 @@ export default function SearchBox({handleSearch, type = 1, text = null}){
         }        
     }, [text]);     
 
-    const handleSearchClick = async (event) => {
-        if (event.key === 'Enter' && key && key.length >= 3) {
+    const handleSearchClick = async () => {
+        if (key && key.length >= 3) {
             handleSearch(key);
         }
     }    

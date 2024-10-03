@@ -83,7 +83,7 @@ const Cart = () => {
 
   return (
     <>
-    {isLoading && <Loader isActive={true}/>}
+    {/* {isLoading && <Loader isActive={true}/>} */}
       <div className='fixed h-10 top-0 w-40 left-full -mx-40 text-white'>
         <div className='h-10 float-right flex'>
             <Link href={'/search'} className='block md:hidden mt-1 opacity-40 mr-2 float-left'>

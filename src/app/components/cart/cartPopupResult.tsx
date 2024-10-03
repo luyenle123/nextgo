@@ -54,7 +54,7 @@ export default function CartPopupResult({product, handleCallback}){
 
   return(
     <>
-      <div id='popup-result' className=' w-full h-full fixed left-0 top-0 '  style={{ opacity: '0' }} onClick={hide}>
+      <div id='popup-result' className=' w-full h-full fixed left-0 top-0 z-50 '  style={{ opacity: '0' }} onClick={hide}>
           <div id="popup-result-bg" className='w-full h-full bg-gray-500 bg-opacity-40'></div>
           <div className='fixed inset-0 w-full max-w-500 h-350 m-auto'>
               <div className='w-full h-350 bg-white'>
@@ -63,12 +63,12 @@ export default function CartPopupResult({product, handleCallback}){
                 </div>
 
                 <div className='px-2 text-sm'>
-                  <Image className='float-left' src={product.thumbnail} alt={product.title} width={100} height={100}></Image>
+                  <Image className='float-left' src={product.thumbnail} alt={product.title} width={150} height={150}></Image>
                   <div className='ml-2'>
                     <p className='font-bold'>{product?.sku}</p>
                     <p className='font-bold'>{product?.title}</p>
                     <p>{product?.description}</p>
-                    <p className='font-bold text-right'>{product?.price} $</p>
+                    <p className='font-bold text-right mt-2'>{product?.price} $</p>
                     <ProductRating rating={product.rating}/>
                   </div>
                 </div>

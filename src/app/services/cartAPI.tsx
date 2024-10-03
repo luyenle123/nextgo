@@ -1,8 +1,10 @@
 import * as constants from '@/app/constants'
 import { FetchData } from '@/app/services/queryServiceBase';
 
+const default_CartId = 4;
+
 const GetCartDetailUrl = (cartId:number) => {
-  cartId = 4;
+  cartId = default_CartId;
   const url = constants.CART_DETAIL_URL + cartId;
   return url;
 }
@@ -13,7 +15,7 @@ const GetCartDetail = async (cartId) => {
 
 const AddToCart = async (productId, quantity) => {
     try {      
-        const url = constants.CART_DETAIL_URL + 5;
+        const url = constants.CART_DETAIL_URL + default_CartId;
         const response = await new Promise(            
             resolve => {
                 fetch(url, {

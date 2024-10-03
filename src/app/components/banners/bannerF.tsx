@@ -4,61 +4,44 @@ import React, { useEffect, useState } from 'react'
 import { isMobile } from 'react-device-detect';
 import Image from 'next/image';
 
-// import bannerImg1 from '@/app/images/banners/banner_001_400.jpg';
-// import bannerImg2 from '@/app/images/banners/banner_002_400.jpg';
-// import bannerImg3 from '@/app/images/banners/banner_003_400.jpg';
-// import bannerImg4 from '@/app/images/banners/banner_004_400.jpg';
-
-// import bannerImg1m from '@/app/images/banners/mobile/banner_001_400_m.jpg';
-// import bannerImg2m from '@/app/images/banners/mobile/banner_002_400_m.jpg';
-// import bannerImg3m from '@/app/images/banners/mobile/banner_003_400_m.jpg';
-// import bannerImg4m from '@/app/images/banners/mobile/banner_004_400_m.jpg';
-
-// import styles from '@/app/styles/ResponsiveBanner.module.css';
-
 export default function BannerF(){
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-    // let bannerImages = [
-    //     bannerImg1,
-    //     bannerImg2,
-    //     bannerImg3,
-    //     bannerImg4
-    //   ];
-    let bannerImages = [
-      '/images/banners/banner_001_400.jpg',
-      '/images/banners/banner_002_400.jpg',
-      '/images/banners/banner_003_400.jpg',
-      '/images/banners/banner_004_400.jpg',
-    ];    
+    let banners = [
+      {title:'GO GO NEXT 1', body:"Welcome to the Next.js App Router course! In this free interactive course, you'll learn the main features of Next.js by building a full-stack web application.", image: '/images/banners/banner_001_400.jpg'},
+      {title:'GO GO NEXT 2', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components. 2', image: '/images/banners/banner_002_400.jpg'},
+      {title:'GO GO NEXT 3', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components. 3', image: '/images/banners/banner_003_400.jpg'},
+      {title:'GO GO NEXT 4', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components. 4', image: '/images/banners/banner_004_400.jpg'}     
+    ]   
 
     if(isMobile){
       console.log('MOBILE');
-        bannerImages = [
-          '/images/banners/banner_001_400_m.jpg',
-          '/images/banners/banner_002_400_m.jpg',
-          '/images/banners/banner_003_400_m.jpg',
-          '/images/banners/banner_004_400_m.jpg',
-        ];
+      banners = [
+        {title:'GO GO NEXT 1', body:"Welcome to the Next.js App Router course! In this free interactive course, you'll learn the main features of Next.js by building a full-stack web application.", image: '/images/banners/banner_001_400_m.jpg'},
+        {title:'GO GO NEXT 2', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components. 2', image: '/images/banners/banner_002_400_m.jpg'},
+        {title:'GO GO NEXT 3', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components. 3', image: '/images/banners/banner_003_400_m.jpg'},
+        {title:'GO GO NEXT 4', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components. 4', image: '/images/banners/banner_004_400_m.jpg'}     
+      ]
     }
 
-      useEffect(() => {
-        // Set up an interval to change the image every 10 seconds
-        const intervalId = setInterval(() => {
-          setCurrentImageIndex(prevIndex => 
-            (prevIndex + 1) % bannerImages.length
-          );
-        }, 10000); // 10000 milliseconds = 10 seconds
-    
-        // Cleanup the interval on component unmount
-        return () => clearInterval(intervalId);
-      }, [bannerImages.length]);
+    useEffect(() => {
+      // Set up an interval to change the image every 10 seconds
+      const intervalId = setInterval(() => {
+        setCurrentImageIndex(prevIndex => 
+          (prevIndex + 1) % banners.length
+        );
+      }, 10000); // 10000 milliseconds = 10 seconds
+  
+      // Cleanup the interval on component unmount
+      return () => clearInterval(intervalId);
+    }, [banners.length]);
 
   return (
     <div className='relative w-full h-400 bg-slate-50 md overflow-hidden'>
 
-      {bannerImages.map((image, index) => (
+      {/* {bannerImages.map((image, index) => (
         <Image 
+          priority 
           key={index}
           src={image}
           alt={`Banner ${index + 1}`}
@@ -66,23 +49,42 @@ export default function BannerF(){
           height={400}
           style={{
             position: 'absolute',
-            width:'100%',
-            height: '100%',
+            width:'auto',
+            height: 'auto',
             opacity: currentImageIndex === index ? 1 : 0,
             transition: 'opacity 1s ease-in-out'
           }} 
         />
-      ))}
-      
-        <div className='w-full md:w-500 absolute top-1/4 md:left-5p text-white bg-gray-700 bg-opacity-40 p-5'>
-            <div className='font-bold text-3xl'>
-                GO GO NEXT
-            </div>
+      ))} */}
 
-            <div className='mt-5 text-xl'>
-                <strong>The React Framework for the Web.</strong> Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components.
-            </div>
+    {banners.map((b, index) => (
+        <div key={index}  style={{
+          opacity: currentImageIndex === index ? 1 : 0,
+          transition: 'opacity 1s ease-in-out'
+        }}>
+          <Image 
+            priority 
+            src={b.image}
+            alt={b.title}
+            width={1920}
+            height={400}
+            style={{
+              position: 'absolute',
+              width:'auto',
+              height: 'auto',
+            }} 
+          />
+          <div className='w-full md:w-500 absolute top-1/4 md:left-5p text-white bg-gray-700 bg-opacity-30 p-5'>
+              <div className='font-bold text-3xl'>
+                  {b.title}
+              </div>
+
+              <div className='mt-5 text-xl'>
+                {b.body}
+              </div>
+          </div>
         </div>
+      ))}          
     </div>
   )
 }

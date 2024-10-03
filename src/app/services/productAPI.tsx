@@ -22,6 +22,18 @@ const GetProductListUrl = (page, pageSize, sorting) => {
     return url;
 }
 
+const GetCategoryAndProductUrl = (category, page, pageSize, sorting) => {
+    //console.log('>> build url >> category: ' + category + ' / page:'+page + ' / pageSize:' + pageSize + ' / sorting:' + sorting);
+    if(category && category.length > 0){
+        return GetCategoryProductUrl(category, page, pageSize, sorting);
+    }
+    const skip = (page - 1) * pageSize;
+    const sort = BuildSortParam(sorting);
+    const pagging = '&limit='+ pageSize + '&skip=' + skip;
+    const url = constants.PRODUCT_LIST_URL + '?' + sort + pagging; 
+    return url;
+}
+
 const GetProductDetailUrl = (productId) => {
     if(!productId || productId <=0 ){
         return null;
@@ -69,4 +81,4 @@ const Fetcher = () => {
     return fetcher;
 }
 
-export { Fetcher, GetCategoryList, GetCategoryProduct, GetProductList, GetProductDetail, SearchProduct, GetCategoryListUrl, GetCategoryProductUrl, GetProductListUrl, GetProductDetailUrl, SearchProductUrl };
+export { Fetcher, GetCategoryList, GetCategoryProduct, GetProductList, GetProductDetail, SearchProduct, GetCategoryListUrl, GetCategoryProductUrl, GetProductListUrl, GetCategoryAndProductUrl, GetProductDetailUrl, SearchProductUrl };

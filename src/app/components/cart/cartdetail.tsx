@@ -140,7 +140,7 @@ export default function CartDetail(){
                 <div className='md:flex text-sm'>
                     <div className="w-full md:w-7/12">
                         <div className="h-full w-20 relative float-left">
-                            {props.isEmpty ? <div className="w-16 h-16 bg-gray-300"></div> : <Image src={props.product.thumbnail} alt={props?.product?.title} width={75} height={75}/>}
+                            {props.isEmpty ? <div className="w-16 h-16 bg-gray-300"></div> : <Image src={props.product.thumbnail} alt={props?.product?.title} width={100} height={100}/>}
                         </div>                
                         <div>
                             <p>{props.isEmpty ? '00' : props.product.id}</p>

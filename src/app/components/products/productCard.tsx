@@ -1,16 +1,35 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react'
+import React, { useState } from 'react'
 import ProductRating from './productRating';
-// import { IMAGE_PLACEHOLDER } from '@/app/constants';
+import CartPopupResult from '../cart/cartPopupResult';
+import { IProductItem } from '@/app/models/productmodel';
+import { LoaderToggle } from '../loader/loader';
+import { DoAddToCart, UpdateCartInfo } from '../cart/cart';
 
-// placeholder='blur' blurDataURL={IMAGE_PLACEHOLDER}
+const ProductCard = (props) => {
+  const [cartProduct, setCartProduct] = useState<IProductItem | undefined>(undefined);
 
-const ProductCard = ({product, handleAddToCartClick}) => {
-
+  const product = props.product;
   const outOfStockColor = product.stock === 0 ? 'text-red-600' : '';
-  const stock = product.stock === 0 ? 'OutStock' : `Instock(${product.stock})`;
+  const stock = props.product.stock === 0 ? 'OutStock' : `Instock(${product.stock})`;
+
+
+  const handleAddToCart = (product) => {
+    LoaderToggle(true);
+    DoAddToCart(product, (sucess:boolean) => {
+      if(sucess){
+        LoaderToggle(false, () => {
+          setTimeout(function(){setCartProduct(product)}, 100);
+        });
+        UpdateCartInfo(null, 1);
+      }else{
+        LoaderToggle(false);
+      }
+    });
+  };  
+
     return(
       <>      
           <div className="productcard-min-h bg-gray-500 bg-opacity-10 m-1 p-2">
@@ -34,9 +53,11 @@ const ProductCard = ({product, handleAddToCartClick}) => {
             <ProductRating rating={product.rating}/>
   
             <div className="absolute bottom-0 mb-3">
-              <button onClick={() => handleAddToCartClick(product )} className="py-2 px-4 text-emerald-800 font-bold bg-slate-300 hover:bg-slate-400 active:bg-slate-300">Add To Cart</button>
+              <button onClick={() => handleAddToCart(product)} className="py-2 px-4 text-emerald-800 font-bold bg-slate-300 hover:bg-slate-400 active:bg-slate-300">Add To Cart</button>
             </div>
           </div>
+
+          { cartProduct && <CartPopupResult product={cartProduct} handleCallback={() => { setCartProduct(undefined)}}/> }          
       </>
     );
   }

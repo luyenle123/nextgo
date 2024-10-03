@@ -45,7 +45,7 @@ export function CategoryItem(props){
         <div className="w-52 block mb-8 p-2"> 
             <a className='hover:underline decoration-gray-400' href={'/' + constants.NAV_PRODUCT_LIST + '?cat=' + props.category }>
                 <div className='text-center'>
-                    <Image className='my-0 mx-auto'
+                    <Image className='my-0 mx-auto opacity-60'
                         alt={props.category}
                         height={100}
                         src={'/images/categories/c/' + props.id +'.svg'}

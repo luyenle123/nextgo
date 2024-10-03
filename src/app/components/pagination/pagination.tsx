@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 const handleAddToCartClick = (e) => {};
 const handleItemDisplayChanged = (e) => {};
-const handleLoadMoreClick = (e) => {};
 const handleSortingChanged = (e) => {};
 const PageChanged = (page, paggeSize) => {}  
 
@@ -18,7 +17,6 @@ export const GetConfig = (isLoading, hasData, pageInfo) => {
         hideTotalItem: false,
         loadMoreOnly: false,
         handleAddToCartClick:handleAddToCartClick,
-        handleLoadMoreClick: handleLoadMoreClick,
         handleSortingChanged: handleSortingChanged,
         handleItemDisplayChanged: handleItemDisplayChanged,
         PageChanged: PageChanged
@@ -37,7 +35,6 @@ export const CloneConfig = (config) => {
         hideTotalItem: config.hideTotalItem,
         loadMoreOnly: config.loadMoreOnly,
         hidePageOption: config.hidePageOption,
-        handleLoadMoreClick: config.handleLoadMoreClick,
         handleAddToCartClick:config.handleAddToCartClick,
         handleItemDisplayChanged: config.handleItemDisplayChanged,
         PageChanged: config.PageChanged
