@@ -9,18 +9,18 @@ export default function BannerF(){
 
     let banners = [
       {title:'GO GO NEXT 1', body:"Welcome to the Next.js App Router course! In this free interactive course, you'll learn the main features of Next.js by building a full-stack web application.", image: '/images/banners/banner_001_400.jpg'},
-      {title:'GO GO NEXT 2', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components. 2', image: '/images/banners/banner_002_400.jpg'},
-      {title:'GO GO NEXT 3', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components. 3', image: '/images/banners/banner_003_400.jpg'},
-      {title:'GO GO NEXT 4', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components. 4', image: '/images/banners/banner_004_400.jpg'}     
+      {title:'GO GO NEXT 2', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components.', image: '/images/banners/banner_002_400.jpg'},
+      {title:'GO GO NEXT 3', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components.', image: '/images/banners/banner_003_400.jpg'},
+      {title:'GO GO NEXT 4', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components.', image: '/images/banners/banner_004_400.jpg'}     
     ]   
 
     if(isMobile){
       console.log('MOBILE');
       banners = [
         {title:'GO GO NEXT 1', body:"Welcome to the Next.js App Router course! In this free interactive course, you'll learn the main features of Next.js by building a full-stack web application.", image: '/images/banners/banner_001_400_m.jpg'},
-        {title:'GO GO NEXT 2', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components. 2', image: '/images/banners/banner_002_400_m.jpg'},
-        {title:'GO GO NEXT 3', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components. 3', image: '/images/banners/banner_003_400_m.jpg'},
-        {title:'GO GO NEXT 4', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components. 4', image: '/images/banners/banner_004_400_m.jpg'}     
+        {title:'GO GO NEXT 2', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components.', image: '/images/banners/banner_002_400_m.jpg'},
+        {title:'GO GO NEXT 3', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components.', image: '/images/banners/banner_003_400_m.jpg'},
+        {title:'GO GO NEXT 4', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components.', image: '/images/banners/banner_004_400_m.jpg'}     
       ]
     }
 
@@ -57,7 +57,7 @@ export default function BannerF(){
         />
       ))} */}
 
-    {banners.map((b, index) => (
+    {/* {banners.map((b, index) => (
         <div key={index}  style={{
           opacity: currentImageIndex === index ? 1 : 0,
           transition: 'opacity 1s ease-in-out'
@@ -84,7 +84,41 @@ export default function BannerF(){
               </div>
           </div>
         </div>
-      ))}          
+      ))} */}
+
+      {banners.map((b, index) => (
+        <div key={index}  style={{
+          opacity: currentImageIndex === index ? 1 : 0,
+          transition: 'opacity 1s ease-in-out'
+        }}>
+            <div className='overflow-hidden justify-center'>
+              <Image 
+              priority 
+              objectFit="contain"
+              src={b.image}
+              alt={b.title}
+              width={1920}
+              height={400}
+              style={{
+                position: 'absolute',
+                width:'auto',
+                height: 'auto',
+                maxWidth: 'none'
+              }}/>
+            </div>
+          
+          <div className='w-full md:w-500 absolute top-1/4 md:left-5p text-white bg-gray-700 bg-opacity-30 p-5'>
+              <div className='font-bold text-3xl'>
+                  {b.title}
+              </div>
+
+              <div className='mt-5 text-xl'>
+                {b.body}
+              </div>
+          </div>
+        </div>
+      ))}      
+
     </div>
   )
 }

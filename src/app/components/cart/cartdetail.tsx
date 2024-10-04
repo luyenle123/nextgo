@@ -53,12 +53,9 @@ export default function CartDetail(){
     };
 
     let cart = data;
-    const hasData = cart && cart.id > 0;
     let isEmpty = false;
     if(isLoading){
-        cart = {
-            products: [{},{},{},{}]
-        };
+        cart = { products: [{},{},{},{}] };
         isEmpty = true;
     }
 
@@ -66,21 +63,27 @@ export default function CartDetail(){
     return (
         <>
             <div className={'inline-block w-full py-2 px-1 m:px-40 mb-5 min-h-700' + emptycl}>
-                <div className='text-center my-3 mx-0 text-2xl'>
-                    <div className='font-bold'>Your Cart</div> <div className='text-sm'>( total {cart?.totalQuantity} / {cart?.totalProducts} products )</div>
-                    <hr className='w-60 mt-2 mx-auto'/>
-                    <hr className='w-28 mt-2 mx-auto'/>
-                    <hr className='w-10 mt-2 mx-auto'/>
+  
+                <div className="w-full lg:w-4/5 2xl:w-3/5 md:pr-2 justify-center mx-auto ">
+                    <div className='text-center my-3 mx-0 text-2xl bg-slate-300 bg-opacity-10 p-3 rounded-md'>
+                        <div className='font-bold'>Your Cart</div> <div className='text-sm'>( total {cart?.totalQuantity} / {cart?.totalProducts} products )</div>
+                        <hr className='w-60 mt-2 mx-auto'/>
+                        <hr className='w-28 mt-2 mx-auto'/>
+                        <hr className='w-10 mt-2 mx-auto'/>
+                    </div>
+
+                    <div className="w-full mt-5 bg-slate-300 bg-opacity-10 p-3 rounded-md">
+                        {cart?.products && cart?.products.length > 0 && <TableHeader/> }
+                        {cart?.products.map((p,i) => {
+                            return <ProductItem key = {i} product = {p} eventhandle={config} isEmpty={isEmpty}/>
+                        })}
+                    </div>
+
+                    <div className="w-full overflow-auto bg-slate-300 bg-opacity-10 p-3 mt-3 rounded-md">
+                        <CartSummary cart={cart} eventhandle={config} isEmpty={isEmpty}/>
+                    </div>
                 </div>
-    
-                <div className="w-full lg:w-4/5 2xl:w-3/5 md:pr-2 justify-center mt-10 mx-auto">
-                    {cart?.products && cart?.products.length > 0 && <TableHeader/> }
-                    {cart?.products.map((p) => {
-                        return <ProductItem key = {p.id} product = {p} eventhandle={config} isEmpty={isEmpty}/>
-                    })}
-    
-                    <CartSummary cart={cart} eventhandle={config} isEmpty={isEmpty}/>
-                </div>
+                
             </div>
         </>
       )
@@ -98,8 +101,8 @@ export default function CartDetail(){
         }
     
         return(
-            <div className='float-right w-full sm:w-1/2 md:w-1/3'>
-                <div className='my-5 bg-gray-200 p-2 rounded-md'>
+            <div className='w-full sm:w-1/2 md:w-1/3 float-right'>
+                <div className='bg-gray-100 p-2 rounded-md'>
                     <SummaryItem text = {'Sub total'} value = {props.isEmpty ? '00.00' : props.cart?.total}/>
                     <SummaryItem text = {'Sales Tax'} value = '0.00 $'/>
                     <SummaryItem text = {'Products'} value = {props.isEmpty ? '00' : props.cart?.totalProducts}/>
@@ -139,14 +142,16 @@ export default function CartDetail(){
             <div className="border-b border-solid border-gray-200 mb-2 p-2">
                 <div className='md:flex text-sm'>
                     <div className="w-full md:w-7/12">
-                        <div className="h-full w-20 relative float-left">
+                        <div className="h-full w-24 relative float-left">
                             {props.isEmpty ? <div className="w-16 h-16 bg-gray-300"></div> : <Image src={props.product.thumbnail} alt={props?.product?.title} width={100} height={100}/>}
-                        </div>                
-                        <div>
-                            <p>{props.isEmpty ? '00' : props.product.id}</p>
-                            <a className='font-bold' href={'/products/' + props.product.id}>
-                                {props.isEmpty ? 'Green and Black Glasses' : props.product.title}
-                            </a>
+                        </div>
+                        <div className="float-left pl-3">
+                            <p className="text-gray-300 text-lg">{props.isEmpty ? '00' : props.product.id}</p>
+                            <p className='font-bold mt-1'>
+                                <a href={'/products/' + props.product.id}>
+                                    {props.isEmpty ? 'Green and Black Glasses' : props.product.title}
+                                </a>
+                            </p>
                             <p>
                                 {props.isEmpty ? 'Green and Black Glasses' : props.product.title}
                             </p>

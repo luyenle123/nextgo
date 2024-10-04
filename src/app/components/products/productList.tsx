@@ -49,32 +49,22 @@ export default function List(){
     revalidateOnFocus: false,
     revalidateOnReconnect: false
   });
-
-  // const data = null;
-  // const isLoading = null;
-  // const [size, setSize] = useState(1);
-  // const isValidating = false;
+  const isLoadingMore = isLoading || (size > 0 && data && typeof data[size - 1] === "undefined");
 
   let products = undefined;
   let pageInfo = {total:0, page:1, pageSize:12, sorting:1, totalPage:1};
-  let mappingProduct = true;
 
   if(data && data.length > 0){
     products = data.map(item => item.products).flat();
 
     const pdata = data[data.length - 1]; 
     pageInfo = GetPageInfo(pdata.total, pdata.products.length, size, pageInfo.pageSize, pageInfo.sorting)
-    mappingProduct = false;
-  }
-  else{
-    mappingProduct = false;
   }
 
   useEffect(() => {
     if(cat){
       setCategorySelected(cat);
       removeUrlParameter('cat');
-      console.log('>> Remove Url Parameter: ' + cat);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -114,7 +104,7 @@ const PageChanged = (page, pageSize) => {
           <Category handleClick={categoryHandleClick} category = {category} productCount = {config.pageInfo.total}/>
         </div>
         
-        {isLoading && <Loader isActive={true}/>}
+        {isLoadingMore && <Loader isActive={true}/>}
 
         <div className="float-left sm:float-none md:float-none">         
             <TopInfo products={products} pageinfo={pageInfo} config={config}/>

@@ -32,7 +32,7 @@ const ProductCard = (props) => {
 
     return(
       <>      
-          <div className="productcard-min-h bg-gray-500 bg-opacity-10 m-1 p-2">
+          <div className="productcard-min-h bg-slate-100 bg-opacity-40 m-1 p-2">
             <div className="w-48 mx-auto my-0">
               <Link href={'/products/'+product.id} className="font-bold">
                 <Image src={product.thumbnail} alt={product.title} width={192} height={192} priority/>  
