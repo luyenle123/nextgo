@@ -1,4 +1,3 @@
-import { Detail } from "@/app/components/post/postDetail";
 import { Suspense } from "react";
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
@@ -10,7 +9,7 @@ export default function Page({ params }: { params: { postid: string } }) {
                 Detail Page
             </div>
             <Suspense>
-                <Detail id = {params.postid}/>
+                <div id = {params.postid}/>
             </Suspense>
 
             <SpeedInsights/>
