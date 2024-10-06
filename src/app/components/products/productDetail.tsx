@@ -41,7 +41,7 @@ const ProductDetail = ({id}) => {
     return(
         <>
             {isLoading && <Loader isActive={true}/>}
-            <div className="w-full lg:w-2/3 m-0 mx-auto mb-3">
+            <div className="w-full lg:w-2/3 4xl:w-3/5 m-0 mb-3 max-w-1920 mx-auto">
                 <div className="mt-2 cursor-pointer" onClick={() => backToListHandle()}>
                     <span className="text-gray-300">&lt;&lt;</span> Back to list
                 </div>

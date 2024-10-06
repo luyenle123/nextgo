@@ -23,7 +23,7 @@ export default function BlogList() {
 
     if(error){
         toast.error(error);
-    } 
+    }
 
     const PageChanged = (page, pageSize) => {
         if(page !== pageInfo.page){
@@ -58,7 +58,7 @@ export default function BlogList() {
     const posts = data?.posts;
 
     return (
-        <div className='w-full py-2 px-2 md:px-20 lg:px-40 xl:px-80 text-sm'>
+        <div className='w-full py-2 px-2 md:px-20 lg:px-40 xl:px-80 text-sm max-w-1920 mx-auto'>
             <div className='uppercase text-4xl text-center'>
                 Blog
             </div>

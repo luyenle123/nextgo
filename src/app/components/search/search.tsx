@@ -13,6 +13,7 @@ import SearchBox from './searchBox';
 import { useSearchParams } from 'next/navigation'
 import { useRouter } from 'next/navigation';
 import useSWR from 'swr'
+import Fourcolumnblock from '@/app/components/blocks/fourcolumnblock';
 
 export default function Search(){
   const [cartProduct, setCartProduct] = useState<IProductItem | undefined>(undefined);
@@ -78,7 +79,7 @@ export default function Search(){
       {isLoading && <Loader isActive={true}/>}
 
       <div className='sm:p-2 mt-10'>
-        <div className='mt-1 min-h-600 w-full'>
+        <div className='mt-1 min-h-600 w-full  max-w-1920 mx-auto'>
           {products && products.length <= 0 ? <div className='mx-auto text-center pt-12 w-full text-gray-400'>No Result</div> : <></>}
 
           {products && products.length > 0 &&
@@ -87,14 +88,18 @@ export default function Search(){
                 Found: {products.length} entries for <span className='font-bold'>{searchText}</span>
               </div>
 
-              <div className={'flex flex-wrap justify-left '  + emptycl}>
+              <div className={'flex flex-wrap justify-left'  + emptycl}>
                     {products.map((product, i) => (
                       <ProductItemContainer  key = {i} product={product} isEmpty={isEmpty}/>
                     ))}
                 </div>
             </>
-          }       
+          }
         </div>
+
+        <div className='mt-1 w-full'>
+          <Fourcolumnblock/>
+        </div>        
 
         { cartProduct && <CartPopupResult product={cartProduct} handleCallback={() => { setCartProduct(undefined)}}/> }
       </div>

@@ -25,7 +25,7 @@ export default function CartPopupResult({product, handleCallback}){
     route.push('/cart');
   }
 
-  const FadeLoader = () => {
+  const FadeIn = () => {
     try{
       const bgElement = document.getElementById('popup-result');
       if(!bgElement){
@@ -36,7 +36,7 @@ export default function CartPopupResult({product, handleCallback}){
       let opacity = 0;
       const fadeEffect = setInterval(function () {
         if (opacity < 1) {
-          opacity += 0.01;
+          opacity += 0.02;
         } else {
             clearInterval(fadeEffect);
         }
@@ -49,7 +49,7 @@ export default function CartPopupResult({product, handleCallback}){
   } 
 
     if(isdisplay){
-      setTimeout(function(){FadeLoader()}, 100);
+      setTimeout(function(){FadeIn()}, 100);
     }    
 
   return(

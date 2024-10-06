@@ -29,6 +29,13 @@ const config: Config = {
   
         '2xl': '1536px',
         // => @media (min-width: 1536px) { ... }
+
+        '3xl': '1920px',
+        // => @media (min-width: 1920px) { ... }
+
+        '4xl': '2080px',
+        // => @media (min-width: 2080px) { ... }
+      
       }
     },
     spacing:{
@@ -75,6 +82,7 @@ const config: Config = {
       112: '36rem',
       114: '38rem',
       116: '40rem',
+      1920: '120rem',
     }
   },
   plugins: [],

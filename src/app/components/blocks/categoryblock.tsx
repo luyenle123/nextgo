@@ -21,7 +21,7 @@ export default function CategoryBlock(){
 
   return (
     <>
-        <div className='w-full pt-32'>
+        <div className='w-full pt-32 max-w-1920 mx-auto'>
                 <div className='uppercase text-4xl text-center'>
                     Browse a category
                     <hr className='w-80 my-3 mx-auto border border-solid border-gray-200'/>
@@ -48,7 +48,7 @@ export function CategoryItem(props){
                     <Image className='my-0 mx-auto opacity-60'
                         alt={props.category}
                         height={100}
-                        src={'/images/categories/c/' + props.id +'.svg'}
+                        src={'/images/categories/icon/' + props.id +'.png'}
                         width={100}/>
                 </div>
                 

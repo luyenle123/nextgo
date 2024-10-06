@@ -69,7 +69,7 @@ export default function List(){
   config.PageChanged = PageChanged;
 
   return (
-    <div className="w-full md:px-40 xl:px-96 justify-center my-2">
+    <div className="w-full md:px-40 xl:px-96 justify-center my-2 max-w-1920 mx-auto">
         {users && users.length > 0 ? <div className='px-1'><Pagination config={config}/> </div> : <></>} 
 
         <div className="flex flex-wrap w-full">

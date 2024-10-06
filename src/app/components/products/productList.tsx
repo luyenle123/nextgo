@@ -12,6 +12,7 @@ import { useSearchParams } from "next/navigation";
 import { useRouter } from 'next/navigation';
 import { TopInfo } from "./topInfo";
 import useSWRInfinite from "swr/infinite";
+import Threecolumnblock from "@/app/components/blocks/threecolumnblock";
 
 const Category = dynamic(() => import('@/app/components/products/category'), { loading: () => <></>})
 
@@ -99,7 +100,7 @@ const PageChanged = (page, pageSize) => {
 
   return (
     <>      
-      <div className="lg:flex clear-both min-h-svh mt-2 mb-2">    
+      <div className="lg:flex clear-both min-h-svh mt-2 mb-2 max-w-1920 mx-auto">    
         <div className="float-left sm:float-none md:float-none w-full lg:w-80 h-auto min-w-80">
           <Category handleClick={categoryHandleClick} category = {category} productCount = {config.pageInfo.total}/>
         </div>
@@ -125,7 +126,9 @@ const PageChanged = (page, pageSize) => {
                 </div>
             }
         </div>
-      </div> 
+      </div>
+      
+      <Threecolumnblock/>
     </>
   )
 }
