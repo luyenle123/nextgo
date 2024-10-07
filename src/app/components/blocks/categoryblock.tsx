@@ -42,7 +42,7 @@ export default function CategoryBlock(){
 
 export function CategoryItem(props){
     return(
-        <div className="w-52 block mb-8 p-2"> 
+        <div className="w-1/2 sm:w-52 block mb-8 p-1 sm:p-2"> 
             <a className='hover:underline decoration-gray-400' href={'/' + constants.NAV_PRODUCT_LIST + '?cat=' + props.category }>
                 <div className='text-center'>
                     <Image className='my-0 mx-auto opacity-60'
