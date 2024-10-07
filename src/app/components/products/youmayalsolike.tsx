@@ -8,7 +8,7 @@ export default function Youmayalsolike({currentProduct}){
 
     const category = currentProduct?.category;
     const url = GetCategoryAndProductUrl(category, 1, 6, 1);
-    const { data, error, isLoading } = useSWR(url, Fetcher(), {
+    const { data, error } = useSWR(url, Fetcher(), {
         revalidateIfStale: false,
         revalidateOnFocus: false,
         revalidateOnReconnect: false
