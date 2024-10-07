@@ -15,9 +15,8 @@ export default function BannerF(){
     ]   
 
     if(isMobile){
-      console.log('MOBILE');
       banners = [
-        {title:'GO GO NEXT 1', body:"Welcome to the Next.js App Router course! In this free interactive course, you'll learn the main features of Next.js by building a full-stack web application.", image: '/images/banners/banner_001_400_m.jpg'},
+        {title:'GO GO NEXT 1', body:"Welcome to the Next.js App Router course! In this free interactive course, you'll learn the main features of Next.js by building a full-stack web application.", image: '/images/banners/mobile/hero_banner.avif'},
         {title:'GO GO NEXT 2', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components.', image: '/images/banners/banner_002_400_m.jpg'},
         {title:'GO GO NEXT 3', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components.', image: '/images/banners/banner_003_400_m.jpg'},
         {title:'GO GO NEXT 4', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components.', image: '/images/banners/banner_004_400_m.jpg'}     
@@ -91,22 +90,18 @@ export default function BannerF(){
 
         <div >
             <div className='overflow-hidden justify-center'>
-              <Image 
+              {/* <Image 
               priority 
               src={banner.image}
               alt={banner.title}
               width={0}
               height={0}
-              sizes="(max-width: 768px) 100vw,
-              (max-width: 1200px) 50vw,
-              100vw"
-              style={{
-                maxWidth: 'none',
-                height: '100%', width: '100%'
-              }}/>
+              layout='fill'
+              className='max-w-none w-full h-full'/> */}
+              <Image alt="banner.title" src={banner.image} quality={100} fill sizes="100vw" style={{ objectFit: 'cover', }}/>
             </div>
           
-          <div className='w-full md:w-500 absolute top-1/4 md:left-5p text-white bg-gray-700 bg-opacity-30 p-5'>
+          <div className='w-full md:w-500 absolute top-20 md:left-5p text-white bg-gray-700 bg-opacity-30 p-5'>
               <div className='font-bold text-3xl'>
                   {banner.title}
               </div>

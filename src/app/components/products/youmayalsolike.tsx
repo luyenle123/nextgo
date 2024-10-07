@@ -25,7 +25,7 @@ export default function Youmayalsolike({currentProduct}){
     const products = data?.products.filter((p) => p.id != currentProduct?.id);
   return (
     <>
-        <div className='w-full min-h-105 max-w-1920 mx-auto'>
+        <div className='w-full min-h-105 py-5 max-w-1920 mx-auto'>
             <div className='py-10 text-center uppercase text-3xl'>
                 You may also like
             </div>
