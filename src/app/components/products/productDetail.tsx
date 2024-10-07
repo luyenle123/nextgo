@@ -8,6 +8,7 @@ import { useRouter } from 'next/navigation';
 import useSWR from 'swr'
 // import * as constants from '@/app/constants'
 import { createContext, useContext, useState } from "react";
+import Youmayalsolike from "./youmayalsolike";
 
 const ProductContext = createContext(null);
 
@@ -25,23 +26,25 @@ const ProductDetail = ({id}) => {
         toast.error(error);
     }
 
-    if(!product){
-        return(
-            <div className='min-h-svh'>
-                {/* <p>NOT FOUND</p> */}
-            </div>
-        );
-    }
+    // if(!product){
+    //     return(
+    //         <div className='min-h-svh'>
+    //             {/* <p>NOT FOUND</p> */}
+    //         </div>
+    //     );
+    // }
 
     const backToListHandle = () => {
         //router.push('/' + constants.NAV_PRODUCT_LIST);
         router.back();
     }
 
+    const isEmptycl = !product?'empty-item':'';
+
     return(
         <>
             {isLoading && <Loader isActive={true}/>}
-            <div className="w-full lg:w-2/3 4xl:w-3/5 m-0 mb-3 max-w-1920 mx-auto">
+            <div className={'w-full lg:w-2/3 4xl:w-3/5 m-0 mb-3 max-w-1920 mx-auto ' + isEmptycl}>
                 <div className="mt-2 cursor-pointer" onClick={() => backToListHandle()}>
                     <span className="text-gray-300">&lt;&lt;</span> Back to list
                 </div>
@@ -50,7 +53,9 @@ const ProductDetail = ({id}) => {
                     <PDPHeader/>
                     <PdpSpectTab/>
                 </ProductContext.Provider>
-            </div>            
+            </div>
+
+            {product && <Youmayalsolike currentProduct={product}/>}
         </>
     );
 }
@@ -58,17 +63,19 @@ const ProductDetail = ({id}) => {
 export function PDPHeader(){
     const product = useContext(ProductContext);
 
+    const isEmpty = !product;
+
   return (
     <>
         <div className={'p-2 w-full min-h-52 mt-3 inline-block border-gray-300 border-solid border rounde pdp-header'}>
             <div className="float-left block w-80">
-                {product.images && product.images.length > 0 ? <Image src={product.images[0]} alt={product.title} width={300} height={300}/> : <></>   }
+                {product?.images && product.images?.length > 0 ? <Image src={product?.images[0]} alt={product?.title} width={300} height={300}/> : <></>   }
             </div>                
-            <p className='font-bold'>{product.title}</p>
-            <p className='uppercase text-xl py-1'>{product.sku}</p>
-            <p className='text-gray-500'>{product.category}</p>
-            <p className='text-gray-500'>{product.brand}</p>
-            <p className='text-gray-600'>{product.description}</p>
+            <p className='font-bold'>{isEmpty ? 'product title' : product.title}</p>
+            <p className='uppercase text-xl py-1'>{isEmpty ? 'ABCDE123' : product.sku}</p>
+            <p className='text-gray-500'>{isEmpty ? 'category' : product.category}</p>
+            <p className='text-gray-500'>{isEmpty ? 'brand' : product.brand}</p>
+            <p className='text-gray-600'>{isEmpty ? 'product description product description product description product description' : product.description}</p>
         </div>    
     </>
   )
@@ -105,25 +112,26 @@ export function PdpSpectTab(){
 }
 
 export function Spec(){
-    const product = useContext(ProductContext);    
+    const product = useContext(ProductContext);
+    const isEmpty = !product;
     return(
         <>
             <div className='p-3'>
-                <p>{product.warrantyInformation}</p>
-                <p>{product.shippingInformation}</p>
-                <p>{product.availabilityStatus}</p>
-                <p>{product.returnPolicy}</p>
-                <p>{product.rating}</p>
-                <p>{product.discountPercentage}</p>
-                <p>{product.minimumOrderQuantity}</p>
+                <p>{isEmpty ? '3 year warranty' : product.warrantyInformation}</p>
+                <p>{isEmpty ? 'Ships in 1 week' : product.shippingInformation}</p>
+                <p>{isEmpty ? 'Out of Stock' : product.availabilityStatus}</p>
+                <p>{isEmpty ? '90 days return policy' : product.returnPolicy}</p>
+                <p>{isEmpty ? '0.00' : product.rating}</p>
+                <p>{isEmpty ? '10.20' : product.discountPercentage}</p>
+                <p>{isEmpty ? '0' : product.minimumOrderQuantity}</p>
 
-                {product.dimensions && 
+                {product?.dimensions && 
                 <div className='mt-5'>
                     <div className='font-bold'>Dimensions</div>
                     <div className='pl-3'>
-                        <div>width: {product.dimensions.width}</div>
-                        <div>height: {product.dimensions.height}</div>
-                        <div>depth: {product.dimensions.depth}</div>
+                        <div>width: {isEmpty ? '10.10' : product.dimensions.width}</div>
+                        <div>height: {isEmpty ? '10.10' : product.dimensions.height}</div>
+                        <div>depth: {isEmpty ? '10.10' : product.dimensions.depth}</div>
                     </div>
                 </div>}
 
@@ -133,7 +141,7 @@ export function Spec(){
 }
 
 export function Gallery(){
-    const product = useContext(ProductContext);    
+    const product = useContext(ProductContext);
     return(
         <>
             <div className={'p-3'}>

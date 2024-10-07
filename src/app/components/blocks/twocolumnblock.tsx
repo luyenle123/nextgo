@@ -1,9 +1,19 @@
 import Image from 'next/image';
 import React from 'react'
 
-export default function Twocolumnblock(){
-  const image1 = "/images/blocks/image_2col_01.jpg";
-  const image2 = "/images/blocks/image_2col_02.jpg";
+export default function Twocolumnblock(props){
+  const defaultImage1 = "/images/blocks/image_2col_01.jpg";
+  const defaultImage2 = "/images/blocks/image_2col_02.jpg";
+
+  let image1 = defaultImage1;
+  let image2 = defaultImage2;
+
+  if(props.image1){
+    image1 = props.image1;
+  }
+  if(props.image2){
+    image2 = props.image2;
+  }
 
   return (
     <div className='w-full flex'>

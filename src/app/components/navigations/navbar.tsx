@@ -120,7 +120,7 @@ export function NavbarList(props){
             </li>              
                      
             {props.navs.map((n, i) => (
-                <li key={i} onClick={() => props.handleMenuClick(n, props.push)} className="py-2 sm:py-1 float-left px-3 w-full cursor-pointer md:w-auto sm:flex-nowrap sm:rounded border-sky-600 hover:bg-sky-700 active:bg-sky-900">
+                <li key={i} onClick={() => props.handleMenuClick(n, props.push)} className="py-2 sm:py-1 float-left px-3 w-full cursor-pointer md:w-auto sm:flex-nowrap hover:bg-sky-700 active:bg-sky-900">
                     <Link href={n.url}>{n.text}</Link>
                 </li>
             ))}

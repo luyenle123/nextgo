@@ -79,7 +79,7 @@ export default function Search(){
       {isLoading && <Loader isActive={true}/>}
 
       <div className='sm:p-2 mt-10'>
-        <div className='mt-1 min-h-600 w-full  max-w-1920 mx-auto'>
+        <div className='mt-1 min-h-600 w-full max-w-1920 mx-auto'>
           {products && products.length <= 0 ? <div className='mx-auto text-center pt-12 w-full text-gray-400'>No Result</div> : <></>}
 
           {products && products.length > 0 &&
