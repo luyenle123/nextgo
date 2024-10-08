@@ -12,7 +12,7 @@ export default function ContactUsForm(){
     
       const handleSubmit = (event) => {
         event.preventDefault();
-        alert(inputs);
+        alert('Send completed.');
 
         console.log(JSON.stringify(inputs));
       }    
