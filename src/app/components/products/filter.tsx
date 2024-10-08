@@ -4,12 +4,13 @@
 import React, { useState } from 'react'
 import { Fetcher, GetCategoryListUrl } from "@/app/services/productAPI";
 import useSWR from 'swr'
+import ProductRating from './productRating';
 
 export function Hello() {
     return <p>Hello!</p>
   }
 
-export default function Category(props){
+export default function Filter(props){
     const [categorySelected, setCategorySelected] = useState(props.category);
     const categoryEmptyList = ['','','','','','','','','','','','','','','','','','','','','','','',''];
 
@@ -38,10 +39,10 @@ export default function Category(props){
 
     const blurclass = categories && categories.length > 0 ? '' : ' blur-sm opacity-70';
   return (
-    <div className='h-52 lg:h-full p-1 sm:p-2'>
-        <div className={'text-base uppercase text-center ' + blurclass}>Filter</div>
+    <div className={'h-52 lg:h-full px-1 sm:px-2' + blurclass}> 
+        <div className='text-base uppercase text-center '>Filter</div>
 
-        <div className={'my-1 h-8 p-1 font-bold border-gray-100 border-solid border' + blurclass}>
+        <div className='my-1 h-8 p-1 font-bold border-gray-100 border-solid border'>
             {categorySelected ? <>
                     {categorySelected} (<span id='category-product-count'>{props.productCount?props.productCount : 0}</span>) 
                     <span className='float-right text-sm mr-2 text-red-500 cursor-pointer' onClick={() => handleClearClick()}>X</span>
@@ -52,7 +53,11 @@ export default function Category(props){
             }
         </div>
 
-        <div className='h-28 overflow-x-auto w-full lg:h-auto border sm:border-0 border-gray-100'>
+        <div className='font-bold'>
+                Category
+        </div>
+
+        <div className='h-28 pl-2 overflow-x-auto w-full lg:h-auto border sm:border-0 border-gray-100'>
             {!isLoading ?                     
                 <>
                     {categories.map((p, i) => ( <MapItem key = {i} category = {p} categoryHandleClick = {handleCategoryClick} categorySelected={categorySelected}/> ))}
@@ -62,6 +67,63 @@ export default function Category(props){
                     {categoryEmptyList.map((p, i) => ( <MapEmptyItem key = {i} category = {p}/> ))}
                 </>
             }
+        </div>
+
+        <div className='mt-5 text-gray-400'>
+            <div className='font-bold'>
+                Price
+            </div>
+            <div className='pl-2 cursor-pointer'>
+                <select className='w-full h-8 border border-gray-100 outline-none'>
+                    <option key={1} value={1}>0 - $5</option>
+                    <option key={2} value={2}>$6 - $10</option>
+                    <option key={3} value={3}>$11 - $20</option>
+                    <option key={4} value={4}>$21 - $50</option>
+                    <option key={5} value={5}>$51 - $100</option>
+                    <option key={6} value={6}>$101 - $500</option>
+                    <option key={7} value={7}>$501 - $1000</option>
+                    <option key={8} value={8}>$1001 - $5000</option>
+                    <option key={9} value={9}>$5001 - $10.000</option>
+                    <option key={10} value={10}> &gt; $10.000</option>
+                </select>
+            </div>
+        </div>        
+
+        <div className='mt-5 text-gray-400'>
+            <div className='font-bold'>
+                Sales
+            </div>
+            <div className='pl-2 cursor-pointer'>
+                <div className='py-0.5'>No Sales</div>
+                <div className='py-0.5'>Low</div>
+                <div className='py-0.5'>Medium</div>
+                <div className='py-0.5'>High</div>
+                <div className='py-0.5'>Top Sellers</div>
+            </div>
+        </div>
+
+        <div className='mt-5 text-gray-400'>
+            <div className='font-bold'>
+                Rating
+            </div>
+            <div className='pl-2 cursor-pointer'>
+                <div className='py-0.5'>1 star <span className='opacity-40'><ProductRating rating={1}/></span></div>
+                <div className='py-0.5'>2 star <span className='opacity-40'><ProductRating rating={2}/></span></div>
+                <div className='py-0.5'>3 star <span className='opacity-40'><ProductRating rating={3}/></span></div>
+                <div className='py-0.5'>4 star <span className='opacity-40'><ProductRating rating={4}/></span></div>
+                <div className='py-0.5'>5 star <span className='opacity-40'><ProductRating rating={5}/></span></div>
+            </div>
+        </div>
+
+        <div className='mt-5 text-gray-400'>
+            <div className='font-bold'>
+                Compatible With
+            </div>
+            <div className='pl-2 cursor-pointer'>
+                <div className='py-0.5'>GO GO</div>
+                <div className='py-0.5'>NO GO</div>
+
+            </div>
         </div>
     </div>
   )
@@ -110,4 +172,4 @@ const UpdateCategoryProductCount = (productCount) => {
     }
 }
 
-export {Category, UpdateCategoryProductCount}
+export {Filter, UpdateCategoryProductCount}

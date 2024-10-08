@@ -14,7 +14,7 @@ import { TopInfo } from "./topInfo";
 import useSWRInfinite from "swr/infinite";
 import Threecolumnblock from "@/app/components/blocks/threecolumnblock";
 
-const Category = dynamic(() => import('@/app/components/products/category'), { loading: () => <></>})
+const Filter = dynamic(() => import('@/app/components/products/filter'), { loading: () => <></>})
 
 export default function List(){
   const [categorySelected, setCategorySelected] = useState(null);
@@ -102,7 +102,7 @@ const PageChanged = (page, pageSize) => {
     <>      
       <div className="lg:flex clear-both min-h-svh mt-2 mb-2 max-w-1920 mx-auto">    
         <div className="float-left sm:float-none md:float-none w-full lg:w-80 h-auto min-w-80">
-          <Category handleClick={categoryHandleClick} category = {category} productCount = {config.pageInfo.total}/>
+          <Filter handleClick={categoryHandleClick} category = {category} productCount = {config.pageInfo.total}/>
         </div>
         
         {isLoadingMore && <Loader isActive={true}/>}
