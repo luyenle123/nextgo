@@ -13,6 +13,7 @@ import { DoAddToCart, UpdateCartInfo } from "../cart/cart";
 import { IProductItem } from "@/app/models/productmodel";
 import CartPopupResult from "../cart/cartPopupResult";
 import { AddToCartButton } from "../buttons/commonButton";
+import { IMAGE_PLACEHOLDER } from "@/app/constants";
 
 const ProductContext = createContext(null);
 
@@ -88,8 +89,8 @@ export function PDPHeader(){
     <>
         { cartProduct && <CartPopupResult product={cartProduct} handleCallback={() => { setCartProduct(undefined)}}/> }    
         <div className={'p-2 w-full min-h-52 mt-3 inline-block border-gray-300 border-solid border rounde pdp-header'}>
-            <div className="float-left block w-80">
-                {product?.images && product.images?.length > 0 ? <Image src={product?.images[0]} alt={product?.title} width={320} height={320}/> : 
+            <div className="float-left block w-80 p-2">
+                {product?.images && product.images?.length > 0 ? <Image src={product?.images[0]} alt={product?.title} width={320} height={320} placeholder="blur" blurDataURL={IMAGE_PLACEHOLDER}/> : 
                 <>
                     <div className="w-80 h-80 p-10">
                         <div className="w-full h-full bg-gray-300 blur-sm"></div>

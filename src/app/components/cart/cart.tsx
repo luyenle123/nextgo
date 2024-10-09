@@ -50,8 +50,24 @@ const Cart = () => {
       revalidateOnFocus: false,
       revalidateOnReconnect: false
     });
+
+  // const data = null;
+  // const isLoading = true;
+  // const error = null;
   
-  const cart = data;
+  let cart = data;
+  const emptyCart = {
+    products: [{},{},{},{}],
+    total:0.0,
+    discountedTotal:0.0,
+    totalProducts:0,
+    totalQuantity:0,
+    isEmpty:true
+  };
+
+  if(isLoading){
+    cart = emptyCart;
+  }
 
   if(error){
     console.log(error);
