@@ -7,6 +7,7 @@ import CartPopupResult from '../cart/cartPopupResult';
 import { IProductItem } from '@/app/models/productmodel';
 import { LoaderToggle } from '../loader/loader';
 import { DoAddToCart, UpdateCartInfo } from '../cart/cart';
+import { AddToCartButton } from '../buttons/commonButton';
 
 const ProductCard = (props) => {
   const [cartProduct, setCartProduct] = useState<IProductItem | undefined>(undefined);
@@ -28,7 +29,7 @@ const ProductCard = (props) => {
         LoaderToggle(false);
       }
     });
-  };  
+  };
 
     return(
       <>      
@@ -53,7 +54,7 @@ const ProductCard = (props) => {
             <ProductRating rating={product.rating}/>
   
             <div className="absolute bottom-0 mb-3">
-              <button onClick={() => handleAddToCart(product)} className="py-2 px-4 text-emerald-800 font-bold bg-slate-300 hover:bg-slate-400 active:bg-slate-300">Add To Cart</button>
+              <AddToCartButton handleAddToCartClick={handleAddToCart} product={product}/>
             </div>
           </div>
 

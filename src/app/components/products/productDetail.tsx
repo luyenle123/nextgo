@@ -2,13 +2,17 @@
 
 import { Fetcher, GetProductDetailUrl } from "@/app/services/productAPI";
 import Image from 'next/image';
-import { Loader } from "@/app/components/loader/loader";
+import { Loader, LoaderToggle } from "@/app/components/loader/loader";
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import useSWR from 'swr'
 // import * as constants from '@/app/constants'
 import { createContext, useContext, useState } from "react";
 import Youmayalsolike from "./youmayalsolike";
+import { DoAddToCart, UpdateCartInfo } from "../cart/cart";
+import { IProductItem } from "@/app/models/productmodel";
+import CartPopupResult from "../cart/cartPopupResult";
+import { AddToCartButton } from "../buttons/commonButton";
 
 const ProductContext = createContext(null);
 
@@ -61,21 +65,48 @@ const ProductDetail = ({id}) => {
 }
 
 export function PDPHeader(){
+    const [cartProduct, setCartProduct] = useState<IProductItem | undefined>(undefined);
     const product = useContext(ProductContext);
 
     const isEmpty = !product;
 
+    const handleAddToCart = (product) => {
+        LoaderToggle(true);
+        DoAddToCart(product, (sucess:boolean) => {
+          if(sucess){
+            LoaderToggle(false, () => {
+              setTimeout(function(){setCartProduct(product)}, 100);
+            });
+            UpdateCartInfo(null, 1);
+          }else{
+            LoaderToggle(false);
+          }
+        });
+      };    
+
   return (
     <>
+        { cartProduct && <CartPopupResult product={cartProduct} handleCallback={() => { setCartProduct(undefined)}}/> }    
         <div className={'p-2 w-full min-h-52 mt-3 inline-block border-gray-300 border-solid border rounde pdp-header'}>
             <div className="float-left block w-80">
-                {product?.images && product.images?.length > 0 ? <Image src={product?.images[0]} alt={product?.title} width={300} height={300}/> : <></>   }
+                {product?.images && product.images?.length > 0 ? <Image src={product?.images[0]} alt={product?.title} width={320} height={320}/> : 
+                <>
+                    <div className="w-80 h-80 p-10">
+                        <div className="w-full h-full bg-gray-300 blur-sm"></div>
+                    </div>
+                </>   
+                }
             </div>                
             <p className='font-bold'>{isEmpty ? 'product title' : product.title}</p>
             <p className='uppercase text-xl py-1'>{isEmpty ? 'ABCDE123' : product.sku}</p>
             <p className='text-gray-500'>{isEmpty ? 'category' : product.category}</p>
             <p className='text-gray-500'>{isEmpty ? 'brand' : product.brand}</p>
             <p className='text-gray-600'>{isEmpty ? 'product description product description product description product description' : product.description}</p>
+
+            <div className='mt-20'>
+                <AddToCartButton handleAddToCartClick={handleAddToCart} product={product}/>
+              {/* <button onClick={() => handleAddToCart(product)} className="py-2 px-4 text-emerald-800 font-bold bg-slate-300 hover:bg-slate-400 active:bg-slate-300">Add To Cart</button> */}
+            </div>            
         </div>    
     </>
   )
@@ -146,9 +177,10 @@ export function Gallery(){
         <>
             <div className={'p-3'}>
                 {product.images.map((img, i) => 
-                <>
-                    <Image alt='gallery image' src={img} key={i} width={300} height={300}/>
-                </> )}
+                    <div key={i}>
+                        <Image alt='gallery image' src={img} width={300} height={300}/>
+                    </div>
+                )}
             </div>        
         </>
     );
@@ -173,7 +205,7 @@ export function BuildReview(props){
     }
     return(
         <>
-            {props.reviews.map((r) => { return <ReviewItem key={r.reviewerEmail} data={r}/> })}
+            {props.reviews.map((r, i) => { return <ReviewItem key={i} data={r}/> })}
         </>
     );
 }

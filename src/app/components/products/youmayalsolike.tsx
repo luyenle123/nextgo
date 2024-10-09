@@ -17,12 +17,8 @@ export default function Youmayalsolike({currentProduct}){
     if(error){
         console.log(error);
     }
-    
-    // if(!currentProduct || !data || !data.products){
-    //     return(<></>);
-    // }
 
-    const products = data?.products.filter((p) => p.id != currentProduct?.id);
+    const products = data?.products.filter((p) => p.id != currentProduct?.id).slice(0, 5);
   return (
     <>
         <div className='w-full min-h-105 py-5 max-w-1920 mx-auto'>
