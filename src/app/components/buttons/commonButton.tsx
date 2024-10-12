@@ -12,7 +12,7 @@ export const AddToCartButton = ({product, handleAddToCartClick}) => {
 export const ContinueShoppingButton = ({handleClick}) => {
   return (
     <>
-        <button className='continue-button' onClick={handleClick}>Continue Shopping</button>
+        <button className='w-40 py-2 px-2 bg-blue-400 text-white' onClick={handleClick}>Continue Shopping</button>
     </>
   )
 }
@@ -20,7 +20,7 @@ export const ContinueShoppingButton = ({handleClick}) => {
 export const ViewCartButton = ({handleClick}) => {
   return (
     <>
-        <button className='viewcart-button' onClick={handleClick}>View Cart</button>
+        <button className='w-40 py-2 px-2 bg-gray-400 text-white' onClick={handleClick}>View Cart</button>
     </>
   )
 }
@@ -40,7 +40,7 @@ export const ContinueAndViewCartButtonCenter = ({continueHandleClick, viewCartha
 export const ContinueAndViewCartButtonLeftRight = ({continueHandleClick, viewCarthandleClick}) => {
   return (
     <>
-      <div className='w-full'>        
+      <div className='w-full h-10'>        
         <div className='float-left ml-2'>
           <ContinueShoppingButton handleClick={continueHandleClick}/>
         </div>
