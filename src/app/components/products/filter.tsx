@@ -39,7 +39,7 @@ export default function Filter(props){
 
     const blurclass = categories && categories.length > 0 ? '' : ' blur-sm opacity-70';
   return (
-    <div className={'h-52 lg:h-full px-1 sm:px-2' + blurclass}> 
+    <div className={'lg:h-full px-1 sm:px-2 mb-2 lg:mb-0' + blurclass}> 
         <div className='text-base uppercase text-center '>Filter</div>
 
         <div className='my-1 h-8 p-1 font-bold border-gray-100 border-solid border'>
