@@ -107,7 +107,7 @@ const PageChanged = (page, pageSize) => {
         
         {isLoadingMore && <Loader isActive={true}/>}
 
-        <div className="float-left sm:float-none md:float-none">         
+        <div className="float-left">         
             <TopInfo products={products} pageinfo={pageInfo} config={config}/>
 
             <div className="flex flex-wrap justify-left float-left">
