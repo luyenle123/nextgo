@@ -14,6 +14,7 @@ import { IProductItem } from "@/app/models/productmodel";
 import CartPopupResult from "../cart/cartPopupResult";
 import { AddToCartButton } from "../buttons/commonButton";
 import { IMAGE_PLACEHOLDER } from "@/app/constants";
+import Threecolumnblock from "@/app/components/blocks/threecolumnblock";
 
 const ProductContext = createContext(null);
 
@@ -61,6 +62,8 @@ const ProductDetail = ({id}) => {
             </div>
 
             {product && <Youmayalsolike currentProduct={product}/>}
+
+            <Threecolumnblock/>
         </>
     );
 }
@@ -108,7 +111,7 @@ export function PDPHeader(){
                 <AddToCartButton handleAddToCartClick={handleAddToCart} product={product}/>
               {/* <button onClick={() => handleAddToCart(product)} className="py-2 px-4 text-emerald-800 font-bold bg-slate-300 hover:bg-slate-400 active:bg-slate-300">Add To Cart</button> */}
             </div>            
-        </div>    
+        </div>
     </>
   )
 }
