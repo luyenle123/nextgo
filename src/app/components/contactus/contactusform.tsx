@@ -1,5 +1,6 @@
 'use client'
 import React, { useState } from 'react'
+import { toast } from 'react-toastify';
 
 export default function ContactUsForm(){
     const [inputs, setInputs] = useState({});
@@ -12,7 +13,7 @@ export default function ContactUsForm(){
     
       const handleSubmit = (event) => {
         event.preventDefault();
-        alert('Send completed.');
+        toast('Send completed.');
 
         console.log(JSON.stringify(inputs));
       }    
