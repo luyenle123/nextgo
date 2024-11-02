@@ -1,27 +1,27 @@
 'use client'
 
 import React from 'react'
-import { isMobile } from 'react-device-detect';
+// import { isMobile } from 'react-device-detect';
 import Image from 'next/image';
 
 export default function BannerF(){
     // const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-    let banners = [
+    const banners = [
       {title:'GO GO NEXT', body:"Welcome to the Next.js App Router course! In this free interactive course, you'll learn the main features of Next.js by building a full-stack web application.", image: '/images/banners/hero_banner.avif'},
       {title:'GO GO NEXT 2', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components.', image: '/images/banners/banner_002_400.jpg'},
       {title:'GO GO NEXT 3', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components.', image: '/images/banners/banner_003_400.jpg'},
       {title:'GO GO NEXT 4', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components.', image: '/images/banners/banner_004_400.jpg'}     
     ]   
 
-    if(isMobile){
-      banners = [
-        {title:'GO GO NEXT 1', body:"Welcome to the Next.js App Router course! In this free interactive course, you'll learn the main features of Next.js by building a full-stack web application.", image: '/images/banners/mobile/hero_banner.avif'},
-        {title:'GO GO NEXT 2', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components.', image: '/images/banners/banner_002_400_m.jpg'},
-        {title:'GO GO NEXT 3', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components.', image: '/images/banners/banner_003_400_m.jpg'},
-        {title:'GO GO NEXT 4', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components.', image: '/images/banners/banner_004_400_m.jpg'}     
-      ]
-    }
+    // if(isMobile){
+    //   banners = [
+    //     {title:'GO GO NEXT 1', body:"Welcome to the Next.js App Router course! In this free interactive course, you'll learn the main features of Next.js by building a full-stack web application.", image: '/images/banners/mobile/hero_banner.avif'},
+    //     {title:'GO GO NEXT 2', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components.', image: '/images/banners/banner_002_400_m.jpg'},
+    //     {title:'GO GO NEXT 3', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components.', image: '/images/banners/banner_003_400_m.jpg'},
+    //     {title:'GO GO NEXT 4', body:'The React Framework for the Web. Used by some of the worlds largest companies, Next.js enables you to create high-quality web applications with the power of React components.', image: '/images/banners/banner_004_400_m.jpg'}     
+    //   ]
+    // }
 
     // useEffect(() => {
     //   // Set up an interval to change the image every 10 seconds
@@ -90,14 +90,6 @@ export default function BannerF(){
 
         <div >
             <div className='overflow-hidden justify-center'>
-              {/* <Image 
-              priority 
-              src={banner.image}
-              alt={banner.title}
-              width={0}
-              height={0}
-              layout='fill'
-              className='max-w-none w-full h-full'/> */}
               <Image alt="banner.title" src={banner.image} quality={100} fill sizes="100vw" style={{ objectFit: 'cover', }}/>
             </div>
           
