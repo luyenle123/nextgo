@@ -58,7 +58,7 @@ export default function Filter(props){
     <div className={'lg:h-full px-1 sm:px-2 mb-2 lg:mb-0' + blurclass}> 
         <div className='text-base uppercase text-center '>Filter</div>
 
-        <div className='my-1 h-8 p-1 font-bold border-gray-100 border-solid border cursor-pointer' onClick={() => showHideFilter()}>
+        <div className='my-1 h-8 p-1 font-bold border-gray-100 border-solid border'>
             {categorySelected ? <>
                     {categorySelected} (<span id='category-product-count'>{props.productCount?props.productCount : 0}</span>) 
                     <span className='ml-3 lg:ml-0 lg:float-right text-sm mr-2 text-red-500 cursor-pointer' onClick={() => handleClearClick()}>X</span>
@@ -68,10 +68,10 @@ export default function Filter(props){
                 </>
             }
 
-            <span id='filter-showhide-icon' className = 'float-right cursor-pointer lg:hidden font-bold text-xl text-gray-500 mr-1 -my-0.5'> {isActive ? <>&#8722;</> : <>&#43;</>}</span>
+            <span id='filter-showhide-icon' className = 'float-right cursor-pointer lg:hidden font-bold text-xl text-gray-500 mr-1 -my-0.5' onClick={() => showHideFilter()}> {isActive ? <>&#8722;</> : <>&#43;</>}</span>
         </div>
 
-        <div className='hidden lg:inline-block'>
+        <div className='hidden w-full lg:inline-block'>
             <FilterListItems isLoading={isLoading} categories={categories} categoryEmptyList={categoryEmptyList} handleCategoryClick={handleCategoryClick} categorySelected={categorySelected}/>
         </div>
 
